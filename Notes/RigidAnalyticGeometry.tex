@@ -1,0 +1,343 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry}
+\author{Lectures given by\\Prof. Dr. Jens Franke\\Typed by\\So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+%4/13
+
+\section{Introduction - Spectral Spaces and Spaces of Valuation Spectra}
+\subsection{Introduction}
+
+\begin{definition}
+    Let $\Omega\subseteq\C$ be a domain. We define a sheaf of holomorphic functions as,
+\begin{equation*}
+    \Omega\supseteq V\mapsto \Ouv(V)=\{f:V\to\C\sep \text{$f$ is holomorphic}\}.
+\end{equation*}
+\end{definition}
+
+One can equip $\Ouv(V)$ this with the semi-norm such that,
+\begin{equation*}
+    \norm{f}_{V,A} = \max\{\vert f(z)\vert\sep z\in A\},
+\end{equation*}
+where $A\subseteq\Omega$ is a closed and bounded in $\C$, namely a compact set $A$. With respect to this semi-norm, we define basis elements of the topology in the following way.
+% \par A subset of $\Ouv(V)$ is a neighbourhood of $0$ if and only if there is a compact $A$ as above and a positive number $\varepsilon$ such that it contains 
+% \begin{equation*}
+%     \{f\in\Ouv(V)\sep \norm{f}_A<\varepsilon\}.
+% \end{equation*}
+
+\begin{proposition}
+    The semi-norm induces the topology on $\Ouv(V)$ whose basis elements of the neighbourhood of $0$ are of the following form. For $f\in\Ouv(V)$ and $\varepsilon>0$,
+    \begin{equation*}
+    \{f\in\Ouv(V)\sep\norm{f}_{V,A}<\varepsilon\}.
+    \end{equation*}
+\end{proposition}
+\begin{definition}
+    A ring is said to be Bézout if every finitely generated ideal is principal.
+\end{definition}
+\begin{remark}
+    By Weierstrass product theorem, $\Ouv(V)$ is not Noetherian but it is Bézout.
+\end{remark}
+\begin{proposition}
+    The stalks of $\Ouv(V)$ which is a ring of germs of holomorphic functions are Noetherian. This holds for holomorphic functions in several complex variables as well.
+\end{proposition}
+\par The goal of the course is to generalize these results to $p$-adic cases.
+\par We will allow ground field $K$ with an absolute value $\vert\cdot\vert:K\to[0,\infty)$ satisfying,
+\begin{equation*}
+    \vert0\vert=0,\vert 1\vert = 1, \vert ab\vert = \vert a\vert\vert b\vert, \vert a+b\vert\leq\max\{\vert a\vert,\vert b\vert\}.
+\end{equation*}
+% If the forth equation holds, we call $\vert\cdot\vert$ an ultra-metric. $K$ must be a complete metric space with the distance $d(x,y) = \vert x-y\vert$ and the topology will non-discrete. It turns out that the $\vert\cdot\vert_K$ has a unique extension to $\vert\cdot\vert_L$ for every algebraic extension $L/K$ that $L$ is complete with respect to $\vert\cdot\vert_L$ where $[L:K]<\infty$ and the completion of the algebraic closure of $K$ (e.g. $\C_p$ where $\Q_p$) is algebraically closed.
+\begin{definition}
+\label{definition_1_1}
+Let $K$ be a field which is complete with respect to the map $\vert\cdot\vert_K:K\to [0,\infty)$ is an absolute value of $K$ if we have the following conditions.
+\begin{enumerate}[i).]
+    \item $\ab{1}_K=1$,
+    \item $\ab{0}_K=0$,
+    \item $\forall a,b\in K, \ab{ab}_K = \ab{a}_K\ab{b}_K$.
+\end{enumerate}
+Furthermore, it is called ultra-metric if we have,
+\begin{equation*}
+    \forall a,b, \ab{a+b}_K\leq\max\{\ab{a}_K,\ab{b}_K\}.
+\end{equation*}
+\end{definition}
+
+\begin{proposition}
+    Suppose we have an ultra-metric $\abs{\cdot}_K$ on a field $K$. If $K$ is complete with respect to the topology induced by the metric $d(x,y) = \ab{x-y}_K$, then for a finite extension $L/K$, there is an extension $\ab{\cdot}_L:L\to[0,\infty)$ of $\ab{\cdot}_K$ such that $L$ is complete with respect to the canonical metric obtained from $\ab{\cdot}_L$.
+\end{proposition}
+\begin{proposition}
+    \label{proposition_completion_algebraic_closure}
+    Let $K$ be a field with an ultrametric $\ab{\cdot}_K$. The completion $\widehat{\overline{K}}$ of the algebraic closure $\overline{K}$ of $K$ with respect to $\ab{\cdot}_K$ is again algebraically closed.
+\end{proposition}
+\begin{example}
+    In Proposition \ref{proposition_completion_algebraic_closure}, we can take for example $\widehat{\overline{K}}$ to be $\C_p$ where $K=\Q_p$. 
+\end{example}
+We will now give the definition of our basic objects.
+\begin{definition}
+\label{definition_1_2}
+Let $(K,\ab{\cdot}_K)$ be a field which is complete with respect to the absolute value $\ab{\cdot}_K$. We define the Tate algebra over $K$ as
+\begin{equation*}
+\mathbb{T}_m(K)\defeq\left\{f = \sum_{\alpha\in\N^m}f_\alpha X^\alpha\:\Bigg{|}\:\substack{\text{for all $\varepsilon>0$, there are only}\\ \text{finitely many $\alpha$ such that $\vert f_\alpha\vert>\varepsilon$}}\right\}
+\end{equation*}
+We define,
+\begin{equation*}
+    \norm{f|_{\mathbb{T}_m}} \defeq \max\{\vert f_\alpha\vert_K\sep \alpha\in\N^m\}.
+\end{equation*}
+% where $K$ is algebraically closed, enough to consider
+% \begin{equation*}
+%     \norm{f|_{\mathbb{T}_m}}=\max\{\vert f(z)\vert\sep z=(z_i)_{i=1,\cdots,m}\in K^m ,\vert z\vert\leq 1\}.
+% \end{equation*}
+% Note that such maximum is attained.
+\end{definition}
+\begin{proposition}
+Suppose $K$ is algebraically closed in Definition \ref{definition_1_2}. Then we have,
+\begin{equation*}
+    \norm{f|_{\mathbb{T}_m}}=\max\{\vert f(z)\vert\sep z=(z_i)_{i=1,\cdots,m}\in K^m ,\vert z\vert\leq 1\},
+\end{equation*}
+and such maximal is actually attained.
+\end{proposition}
+\begin{remark}
+    In $p$-adic settings, $K^m$ is totally disconneted so assertion like the "identity theorem" for holomorphic functions becomes problematic.
+\end{remark}
+In order to resolve the above obstacle Grothendieck introduced Étale topology.% on the proof of all germs?.
+\subsection{Main Theorems of the Course}
+\begin{definition}
+    An element $a$ is power-bounded with respect to a norm $\norm{\cdot}$ if there is $M>0$ such that for all $n\in\N$, $\norm{a}^n\leq M$.
+\end{definition}
+\begin{definition}
+    Let $A$ be a topological ring. An element $a\in A$ is topologically nilpotent if 
+    \begin{equation*}
+        \lim_{n\to \infty}a^n = 0.
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    We define the following subset of a Tate algebra $\mathbb{T}_m$.
+    \begin{align*}
+        \mathbb{T}_m^\circ&\defeq\{f\in\mathbb{T}_m\sep \text{$f$ is power bounded}\},\\
+        \mathbb{T}_m^{\circ\circ} &\defeq \{f\in\mathbb{T}_m\sep \text{$f$ is topologicaly nilpotent $\lim_{k\to \infty}f^k=0$}\}.
+    \end{align*}
+\end{definition}
+\begin{proposition}
+    $\norm{\cdot|_{\mathbb{T}_m}}$ is multiplicative. (i.e. $\norm{fg}=\norm{f}\norm{g}$ and $\norm{1}=1$). In particular,
+    \begin{equation*}
+        \mathbb{T}_m^\circ = \{f\in\mathbb{T}_m(K)\sep \norm{f|_{\mathbb{T}_m}} \leq 1\}.
+    \end{equation*}
+   and
+    \begin{equation*}
+        \mathbb{T}_m^{\circ\circ} = \{f\in\mathbb{T}_m(K)\sep \norm{f|_{\mathbb{T}_m}}< 1\}.
+    \end{equation*}
+    From the definition of ultrametric, it is clear that $\mathbb{T}^\circ_m$ is a subring and $\mathbb{T}_m^{\circ\circ}$ is an ideal. 
+\end{proposition}
+\begin{proposition}
+    $\mathbb{T}_m(K)$ is Noetherian and all ideals are closed in it. If $\m$ is a maximal ideal, its residue field $k(\m)=\mathbb{T}_m/\m$ is a finite field extension of $K$ (thus $\vert\cdot\vert_K$ extends uniquely to $k(\m)$).
+\end{proposition}
+\begin{proposition}
+    There is a topologically nilpotent unit, thus there are no proper open ideals.
+\end{proposition}
+\begin{proposition}
+$\mathbb{T}_m(K)$ is regular of Krull dimension $m$.
+\end{proposition}
+\begin{proposition}
+    $\mathbb{T}_m(K)$ is a Jacobson ring. (The closed points of $\Spec\mathbb{T}_m$ are dense in every closed subsets)
+\end{proposition}
+\begin{notation}
+For a ring $A$, we denote
+\begin{equation*}
+    \Sp A \defeq \{\m\in\Spec A\sep\text{$\m$ is a maximal ideal}\}.
+\end{equation*}
+\end{notation}
+\begin{notation}
+Let $f\in\T_m(K)$ and $x\in\Sp\T_m(K)$. We denote,
+\begin{equation*}
+    f(x) \defeq f\tmod{x}\in k(x).
+\end{equation*}
+\end{notation}
+\begin{proposition}
+\begin{equation*}
+    \norm{f|_{\mathbb{T}_m}}=\max\{\vert f(x)\vert \sep x\in\Sp \mathbb{T}_m\}.
+\end{equation*}
+\end{proposition}
+% We use the set of rational open subsets, i.e. of ideals of the form 
+% \begin{equation*}
+%     \mathcal{R}_{\Sp \mathbb{T}_m}(f_0|f_1,\cdots,f_m) = \{x\in\Sp\mathbb{T}_m\sep \vert f_0(x)\vert\geq\vert f_i(x)\vert, 1\leq i\leq m\},
+% \end{equation*}
+% where $\langle f_0,\cdots,f_m\rangle_{\mathbb{T}_m}$ will be $\mathbb{T}_m$. 
+We define a basis element of the topology in $\T_m(K)$ as follows.
+\begin{definition}[Rational Open Sets]
+Suppose $\T_m(K)=\langle f_0,\cdots,f_m\rangle_{\mathbb{T}_m}$. The rational open set associated to the generators $\langle f_0,\cdots,f_m\rangle_{\mathbb{T}_m}$ is 
+\begin{equation*}
+    \mathcal{R}_{\Sp \mathbb{T}_m}(f_0|f_1,\cdots,f_m) = \{x\in\Sp\mathbb{T}_m\sep \vert f_0(x)\vert\geq\vert f_i(x)\vert, 1\leq i\leq m\}.
+\end{equation*}
+\end{definition}
+\begin{remark}
+The Grothendieck topology enforces the quasi-compactness of these subsets.
+\end{remark} 
+Additional points were :? introduced by van der Put in the late 1970s using a filter machinary equivalent to topos? points. He also ? equivalence with ? valuation ? ? not 
+\par Berkovich in the 1980s constructed a multiplicative seminorm $\mathbb{T}_m\to[0,\infty)$ which are similar to $f\mapsto\vert f(x)\vert $ for $x\in\mathbb{T}_m$ or $f\mapsto\norm{f|_{\mathbb{T}_m}}$. One then gets a compact Hausdorff space.
+\par Huber constructed more general valuations and one gets a spectral space with a sheaf category equivalent to sheaves on $\Sp\mathbb{T}_m$ (unlike Berkovich).
+\par In the Berkovich machinery, one also has a point corresponding to 
+\begin{equation*}
+    \norm{f}_r=\max\{r^{\vert \alpha\vert}\vert f_\alpha\vert_K\sep \alpha\in\N^m\},
+\end{equation*}
+where $\vert\alpha\vert = \sum\alpha_i$ and $0\leq r\leq 1$.
+\begin{remark}
+    \begin{equation*}
+        \norm{f}_1=\norm{f|_{\mathbb{T}_m}},\norm{f}_0=0.
+    \end{equation*}
+\end{remark}
+\begin{definition}
+    Let $0\leq r\leq 1$. We define, for $f\in\T_m(K)\backslash\{0\}$,
+\begin{equation*}
+    N_r(f) \defeq (\norm{f}_r,n)
+    % N_r(f) \begin{cases}
+    %     (\norm{f}_r,n),\quad\text{where }f\not=0, \text{$n$ maximal with $r^n\vert f_n\vert_K=\norm{f}_r$},\\
+    %     0\quad f=0.
+    % \end{cases}
+\end{equation*}
+where $n=\max\{i\in\N\sep \norm{f}_r=r^i\ab{f_i}_K\}$.
+\end{definition}
+\begin{example}
+    Consider the case $\T_1(K)$ and $f\in\T_1(K)\backslash\{0\}$ where
+    \begin{equation*}
+        f = \sum_{n=0}^\infty f_nT^n.
+    \end{equation*}
+%     \begin{equation*}
+%     m=1,f=\sum_{n=0}^\infty f_nT^n \in\mathbb{T}_1.
+% \end{equation*}
+Then $N_r$ defines a valuation, $\mathbb{T}_1\to\Gamma\cup\{0\}$ where $\Gamma = (0,\infty)_\R\times\Z$ ordered lexicographically with the first factor being the most significant and $0<\gamma$ for all $\gamma\in \Gamma$.
+\end{example}
+One has 
+\begin{equation}
+    \label{formula_1_1}
+    N(a,b) = N(a)N(b),N(1) = 1,N(0) = 0, N(a+b)\leq\max\{N(a),N(b)\}.
+\end{equation}
+When $0<r<1$ and $f\in \mathbb{T}_1\backslash\{0\}$, there is $R\in(r,1]_\R$ such that 
+\begin{equation}
+    \label{formula_1_2}
+    f(z) =\norm{f_r}\left({\frac {\vert z\vert} r}\right)^{n'}, r<\vert z\vert\leq R.
+\end{equation}
+where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f(z)\vert\sep \vert z\vert\leq r\}$ where $r=1$, Equation \eqref{formula_1_2} has no analog as no ? $R$ extends as $f(z)$ is undefined where $\vert z\vert>1$. This means that $N_1$ is extended 
+\begin{equation*}
+    \Spa(\mathbb{T}_m,\mathbb{T}_m^0) = \{\text{continuous valuations $r$ of $\mathbb{T}_m$, $\vert f\vert_r\leq 1$ where $f\in\mathbb{T}^0_m$}\}.
+\end{equation*} 
+\begin{remark}
+    $N_1(T) = (1,1), N_1(T^{2026}) = (1,2026)$.
+\end{remark}
+\end{document}

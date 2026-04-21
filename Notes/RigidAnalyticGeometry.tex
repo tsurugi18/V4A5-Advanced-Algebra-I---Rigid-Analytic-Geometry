@@ -11,6 +11,7 @@
 \usepackage{fancyhdr}
 \usepackage{tikz-cd} 
 \usepackage{adjustbox} 
+\numberwithin{equation}{section}
 \usetikzlibrary{arrows}
 \newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
 \tikzset{commutative diagrams/.cd,
@@ -80,6 +81,8 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \DeclareMathOperator{\OpEmb}{OpEmb}
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Lim}{Lim}
+\DeclareMathOperator{\glim}{glim}
 %\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\Ouv}{\mathcal{O}}
@@ -92,7 +95,8 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\Z}[0]{\mathbb{Z}}
 \newcommand{\C}[0]{\mathbb{C}}
 \newcommand{\Q}[0]{\mathbb{Q}}
-\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\F}[0]{\mathcal{F}}
+\newcommand{\U}[0]{\mathcal{U}}
 \newcommand{\G}[0]{\mathbb{G}}
 \newcommand{\A}[0]{\mathbb{A}}
 \newcommand{\T}[0]{\mathbb{T}}
@@ -105,6 +109,8 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
 \newcommand{\compinc}[0]{\subset \subset}
 \newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\Nfil}[0]{\mathcal{N}}
+\newcommand{\g}[0]{\mathfrak{g}}
 \newcommand{\ab}[1]{\vert #1 \vert}
 \newcommand{\st}[0]{\:\straw\:}
 \newcommand{\fib}[1]{%
@@ -254,6 +260,9 @@ In order to resolve the above obstacle Grothendieck introduced Étale topology.%
 \begin{proposition}
 $\mathbb{T}_m(K)$ is regular of Krull dimension $m$.
 \end{proposition}
+\begin{definition}
+    A ring $A$ is Jacobson if every prime ideal is an intersection of some maximal ideals.
+\end{definition}
 \begin{proposition}
     $\mathbb{T}_m(K)$ is a Jacobson ring. (The closed points of $\Spec\mathbb{T}_m$ are dense in every closed subsets)
 \end{proposition}
@@ -334,10 +343,400 @@ When $0<r<1$ and $f\in \mathbb{T}_1\backslash\{0\}$, there is $R\in(r,1]_\R$ suc
     f(z) =\norm{f_r}\left({\frac {\vert z\vert} r}\right)^{n'}, r<\vert z\vert\leq R.
 \end{equation}
 where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f(z)\vert\sep \vert z\vert\leq r\}$ where $r=1$, Equation \eqref{formula_1_2} has no analog as no ? $R$ extends as $f(z)$ is undefined where $\vert z\vert>1$. This means that $N_1$ is extended 
-\begin{equation*}
-    \Spa(\mathbb{T}_m,\mathbb{T}_m^0) = \{\text{continuous valuations $r$ of $\mathbb{T}_m$, $\vert f\vert_r\leq 1$ where $f\in\mathbb{T}^0_m$}\}.
+\begin{definition}
+    \begin{equation*}
+    \Spa(\mathbb{T}_m,\mathbb{T}_m^0) = \{\text{continuous valuations $\gamma$ of $\mathbb{T}_m\:\st\:\forall f\in\T_m^\circ,\gamma(f)\leq 1$}\}.
 \end{equation*} 
+\end{definition}
 \begin{remark}
     $N_1(T) = (1,1), N_1(T^{2026}) = (1,2026)$.
 \end{remark}
+%4/17
+\subsection{Spectral Spaces}
+\begin{remark}
+    $\emptyset$ is not irreducible.
+\end{remark}
+\begin{proposition}
+    Let $X$ be a topological space. For a point $x\in X$, 
+    \begin{equation}
+        \overline{\{x\}} = \{ y \in X\sep \text{every neighbourhood of $y$ in $X$ cotains $x$}\}.
+    \end{equation}
+\end{proposition}
+\begin{definition}
+    A point $x\in X$ is a generic point if $\overline{\{x\}} = X$, (i.e. $\{x\}$ is dense in $X$).
+\end{definition}
+\begin{notation}
+    For a topological space $X$, we denote the collection of all open sets to be $\Ouv_X$.
+\end{notation}
+\begin{definition}
+    \label{definition_1}
+    Let $X$ be a topological space and $x,y\in X$. We say $x,y$ are topologically distinguishable if there is $U\in\Ouv_X$ such that either $x\in U$ and $y\not\in U$ or $x\not\in U$ and $y\in U$. They are otherwise indistinguishable. 
+\end{definition}
+\begin{definition}
+    A topological space $X$ is $T_0$ or Komogolov if for any pair of points are distinguishable.
+\end{definition}
+\begin{definition}
+    \label{definition_2}
+    A topological space $X$ is sober if every irreducible neighbourhood has precisely one generic point or equivalently if $X$ is $T_0$ and every irreducible subsets has at least one generic point.
+\end{definition}
+\begin{remark}
+    It is easy to see that these are local conditions.
+\end{remark}
+\begin{definition}
+    A topological space is $T_1$ is for $x,y\in X$, $x\not=y$ implies there is $U\in\Ouv_X$ such that $x\in U$ and $y\not\in U$. Equivalently, every point is closed.
+    It is $T_2$ or Hausdorff if we can take $U,V\in\Ouv_X$ such that $U\cap V=\emptyset$ and $x\in U$ and $y\in V$. Or equivalently, the diagonal is closed in $X\times X$.
+\end{definition}
+\begin{definition}
+    $X$ is quasi-compact if every open covering admits a fintie subcovering. A subset $M$ of $X$ is quasi-compact if it is a quasi-compact as a topological space with the subset topology from $X$.
+\end{definition}
+\begin{proposition}
+    If $X$ can be covered by finitely many quasi-compact open neighbourhoods then it is quasi-compact.
+\end{proposition}
+\begin{proposition}
+    Every closed subset of a quasi-compact space is again quasi-compact.
+\end{proposition}
+\begin{proposition}
+    Let $X\stackrel{f}{\to}Y$ be a continuous with $X$ is quasi-compact and $Y$ is Hausdorff, then $f$ is closed (i.e. every closed set $A$ of $X$ has a closed image $f(A)$ in $Y$).
+\end{proposition}
+\begin{definition}
+    A subset $\mathcal{B}\subseteq\Ouv_X$ is a topology basis for $X$ if for any $U\in\Ouv_X$, we have $U=\bigcup_{V\in\mathcal{B}_U}V$ where $\mathcal{B}_U=\{V\in\mathcal{B}\sep V\subseteq U\}$.
+\end{definition}
+\begin{remark}
+    The subsets of the form 
+    \begin{equation*}
+        D(f) = \{\mathfrak{p}\in\Spec A\sep f\not\in \mathfrak{p}\}
+    \end{equation*}
+    form a topology basis for $\Spec A$.
+\end{remark}
+\begin{proposition}
+    \label{proposition_2_5}
+    \label{fact_5}
+    For a topological space $X$, the following conditions are equivalent.
+    \begin{enumerate}[i).]
+        \item $\underline{\Ouv_C}(X) \defeq \{\Omega\in\Ouv_X\sep \Omega\text{ is quasi-compact}\}$ is a topology basis closed under finite intersection (including the empty intersection $\bigcap_\emptyset = X$).
+        \item There is a topology base $\mathcal{B}\subseteq\underline{\Ouv_C}(X)$ such that $\mathcal{B}$ consists of quasi-compact and it is closed under the finite intersection in $X$.
+    \end{enumerate}
+\end{proposition}
+\begin{definition}
+    A topological space $X$ is spectral if it is sober and satisfies one of the conditions in Proposition \ref{proposition_2_5}. A spectral map is a map $X\stackrel{f}{\to}Y$ between spectral spaces such that for any quasi-compact subset $\Omega$ in $Y$, $f^{-1}(\Omega)$ is quasi-compact subset of $X$.
+\end{definition}
+\begin{remark}
+    Note that a spectral map is continuous.
+\end{remark}
+\begin{proposition}
+    If $\mathcal{B}\subseteq \Ouv_Y$ is a topology base as the second condition in Proposition \ref{proposition_2_5} for $Y$, then $f$ is spectral if and only if $\forall \Omega\in\mathcal{B},f^{-1}(\Omega)\in\underline{\Ouv_C}(X)$.
+\end{proposition}
+\begin{example}
+    $\Spec A$ is spectral and every ring homomorphism defines a spectral map and $\{D(f)\sep f\in A\}$ are such base at in Proposition \ref{proposition_2_5} for $\Spec A$.
+\end{example}
+\begin{example}
+    The underlying space of qcqs (i.e. quasi-compact and quasi-separated) scheme is spectral.
+\end{example}
+\begin{definition}
+    \begin{equation*}
+        \underline{\Ouv_l}(A) = \{\text{$I$ ideals of $A$} \st \sqrt{I}=I\}.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    \label{remark_example_1_b}
+    Every closed and every quasi-compact open sets of a spectral space is spectral.
+\end{remark}
+\begin{remark}
+    A Noetherian space $X$ (i.e. $\underline{\Ouv_C}(X)=\Ouv_X$) is spectral if and only if it is sober.
+\end{remark}
+\begin{proposition}
+    Every non-empty closed subset of a spectral space $X$ contains a closed point.
+\end{proposition}
+\begin{proof}
+    By Remark \ref{remark_example_1_b}, it suffices to show the case for every spectral space $X\not=\emptyset$. Set,
+    \begin{equation*}
+        \mathcal{M}=\{Z\subseteq X\sep \text{$Z$ is closed}\}.
+    \end{equation*}
+    Equiq $\mathcal{M}$ with a partial order by $\subseteq$. Since $X$ is quasi-compact, $\mathcal{M}$ has a minimal element with such order. Let $Z$ be a such minimal element in $\mathcal{M}$. If $Z$ has two different element $x,y$, by $T_0$ condition, we have $U\in\Ouv_X$ such that $x\not\in U$ and $y\in U$. Then $Z'=Z\backslash U$ is in $\mathcal{M}$. As $x\in Z'$, this contradicts to the minimality of $Z$ as $y\in Z\backslash Z'$.
+\end{proof}
+\begin{definition}
+    A filter base of a set $M$ is a non-empty subset $\mathcal{B}$ of $\mathfrak{P}(M)$ such that 
+    \begin{enumerate}[i).]
+        \item $\emptyset\not\in\mathcal{B}$, 
+        \item for $N,O\in\mathcal{B}$ there is $P\in\mathcal{B}$ with $P\subseteq N\cap O$.
+    \end{enumerate}
+    A filter is a filter base $\mathcal{F}$ such that for $N\in\mathcal{F}$, and $N\subseteq O\subseteq M$ implies $O\in\mathcal{F}$.
+    \par A filter generated by a filter base $\mathcal{B}$ is such that 
+    \begin{equation*}
+        \mathcal{F} \defeq \{N\sep N\subseteq M\text{ and there is $O\in\mathcal{B}$ such that $O\subseteq N$}\}.
+    \end{equation*}
+    A direct image under a map $M\stackrel{f}{\to}X$ of a filter $\mathcal{F}$ is such that 
+    \begin{equation*}
+        f_*\mathcal{F}\defeq\{Y\sep Y\subseteq X \text{ and } f^{-1}(Y)\in\mathcal{F}\}.
+    \end{equation*}
+\end{definition}
+\begin{example}
+    \label{example_2}
+Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that 
+\begin{equation*}
+    \mathcal{N}_x\defeq\{N\subseteq X\sep \exists U\in\Ouv_X\:\st\: x\in U\subseteq N\}.
+\end{equation*}
+\end{example}
+\begin{example}
+    \label{example_3}
+    A principal filter $\mathcal{P}_x$ of $x\in X$ is such that 
+    \begin{equation*}
+        \mathcal{P}_x=\{N\subseteq X\sep x\in N\}.
+    \end{equation*}
+\end{example}
+\begin{definition}
+    A neighbourhood base for $x\in X$ is a filter base $\mathcal{B}$ such that it generates the neighbourhood filter of $x$.
+\end{definition}
+\begin{remark}
+    The notion of filters is introduced by Cartan.
+\end{remark}
+\begin{proposition}
+    \label{proposition_2_8}
+    \label{fact_8}
+    For a filter $\mathcal{F}$ of $X$, the following statements are equivalent.
+    \begin{enumerate}[1).]
+        \item $\mathcal{F}$ is a $\subseteq$-maximal element of the set of filters on $X$.
+        \item If $M,N\subseteq X$ and $M\cup N\in\mathcal{F}$ then $M\in\mathcal{F}$ or $N\in\mathcal{F}$.
+        \item For $M\subseteq X$, precisely one of $M$ and $X\backslash M$ is in $\mathcal{F}$.
+    \end{enumerate}
+\end{proposition}
+\begin{definition}
+    \label{definition_8}
+    Such filter $\mathcal{F}$ satisfying the conditions in Proposition \ref{proposition_2_8} is called an ultrafilter.
+\end{definition}
+\begin{theorem}[Tarski]
+    \label{theorem_tarski}
+    Every filter on $X$ is contained in some ultrafilter.
+\end{theorem}
+\begin{proof}
+    Follows from Zorn's lemma.
+\end{proof}
+\begin{proposition}
+    Let $\mathcal{U}$ be an ultrafilter of $X$ then all direct images of $\mathcal{U}$ are ultrafilters. If $\iota:A\to X$ is the inclusion of a subset then this induces,
+    \begin{equation*}
+        \{\text{ultrafilters on $A$}\}\stackrel{\iota}{\to}\{\text{ultrafilters on $X$ containing $A$}\},
+    \end{equation*}
+    which is a bijectin.
+\end{proposition}
+\begin{definition}
+    \begin{equation*}
+        \Lim\mathcal{F} = \{x\in X\sep \mathcal{N}_x\subseteq\mathcal{F}\}.
+    \end{equation*}
+    is the set of limits of $\mathcal{F}$. If it contains precisely one $x\in X$, we have,
+    \begin{equation*}
+        \Lim\mathcal{F} = \{x\}.
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    \label{definition_9}
+    We say that $x\in X$ is a point of accumulation (denoteds by poa, sometimes called point of condensation) if for a neighbourhood $V\in\mathcal{N}_x$ and $M\in\mathcal{F}$, we have $V\cap M\not=\emptyset$. 
+\end{definition}
+\begin{proposition}
+    Let $x\in X$ then
+    \begin{equation*}
+        \overline{\{x\}} = \lim\mathcal{P}_x = \text{poa of the principal filter of $x$} = \Lim\mathcal{N}_x.
+    \end{equation*}
+\end{proposition}
+\begin{proposition}
+    \label{fact_11}
+    \label{proposition_2_11}
+    Every limit of a filter $\mathcal{F}$ is a poa of $\mathcal{F}$. If $\mathcal{F}$ is a subset of some filter $\mathcal{G}$, then every limit of $\mathcal{F}$ is a limit of $\mathcal{G}$ and every poa of $\mathcal{G}$ is a poa of $\mathcal{F}$.
+    Furthermore if $\mathcal{U}$ is an ultrafilter, every poa of $\mathcal{U}$ is a limit of $\mathcal{U}$. For every filter, the set of its limit and of its points of accumulation points are closed. If $A\stackrel{\iota}{\to}X$ is an with induces topology then $\Lim\mathcal{F}=A\cap\Lim\iota_*\mathcal{F}$.
+\end{proposition}
+\begin{proof}
+    For the third assertion, if $a$ is a poa of $\mathcal{U}$ and $V\in\mathcal{N}_x$, then $X\backslash V\not\in\mathcal{U}$ as $x$ is a poa. Hence $V\in\mathcal{U}$ by Proposition \ref{proposition_2_8}. For the forth assertion, let $x\not\in\Lim\mathcal{F}$, (respectively $x$ not a poa of $\mathcal{F}$) then there is $U\in\mathcal{N}_x$ such that $U\not\in\mathcal{F}$ (respectively, such that there is $M\in\mathcal{F}$ such that $U\cap M=\emptyset$). Then no elememt of $U$ is a limit (respectively, poa) of $\mathcal{F}$. 
+\end{proof}
+\begin{proposition}
+    \label{proposition_1}
+    For a subset $M$ of a topological space $X$, the following subsets all coincide.
+    \begin{enumerate}[a).]
+        \item $\{\text{limits of ultrafilters $\mathcal{U}$ of $X$ such that $M\in\mathcal{U}$}\}$,
+        \item $\bigcup_{\text{$\mathcal{F}$ filter, $M\in\mathcal{F}$}}\Lim\mathcal{F}$. 
+        \item $\{x\in X\sep \text{there is a filter $\mathcal{F}$ such that $M\in\mathcal{F}$ and $x$ is a poa of $\mathcal{F}$}\}$.
+        \item $\bigcap_{M\subseteq Z\subseteq X,\text{closed}}Z$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Denote those sets by $M_a,M_b,M_c,M_d$. Then,
+    \begin{equation*}
+        M_a\underbrace{\subset}_{\text{trivial}}M_b\underbrace{\subseteq}_{\text{Proposition \ref{proposition_2_11}}} M_c \underbrace{\subseteq}_{\text{definition}} M_d.
+    \end{equation*}
+    For the reverse direction,  $M_d = \bigcup_{U\in\Ouv_X,U\cap M=\emptyset}(X\backslash U)$. Finally if $x\in M_d$, then 
+    \begin{equation*}
+        \{U\cap M\sep U\in\mathcal{N}_x\}
+    \end{equation*}
+    is a filter base containing $M$, by Theorem \ref{theorem_tarski}, it is contained in some ultrafilter $\mathcal{U}$ and $x\in\Lim\mathcal{U}$.
+\end{proof}
+\begin{definition}
+    \label{definition_10}
+    The set of above is called the closure of $M$ in $X$.
+\end{definition}
+%4/20
+\begin{remark}
+    \label{remark_2}
+    The closure of a point s a special case of this.
+\end{remark}
+\begin{corollary}
+    \label{corollary_1}
+    For a subset $A$ of a topological space $X$, the following conditions are equivalent.
+    \begin{enumerate}[i).]
+        \item If $\F$ is a filter on $X$ such that $A\in\F$ and $x$ is a limit of $\F$ then $x\in A$.
+        \item If $\F$ is a filter on $X$ such that $A\in\F$ and $x$ is a poa of $\F$ then $x\in A$.
+        \item If $\mathcal{U}$ is a ultrafilter on $X$ such that $A\in\mathcal{U}$, every limit of $\mathcal{U}$ in $X$ is in $A$.
+        \item $A$ is closed.
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    Clear from Proposition \ref{proposition_1}
+\end{proof}
+\begin{proposition}
+    \label{fact_12}
+    For a map $f:X\to Y$ of topological spaces. The following conditions are equivalent.
+    \begin{enumerate}[i).]
+        \item $f$ is continuous.
+        \item If $\F$ is a filter on $X$ and $x\in\Lim\mathcal{F}$ then $f(x)\in\Lim f_*\F$.
+        \item If $\F$ is a filter on $X$ and $x\in X$ is a poa of $\F$, then $f(x)$ is a poa of $f_*\F$.
+        \item If $\mathcal{U}$ is a ultrafilter on $X$ and $x\in\Lim\mathcal{U}$, then $f(x)\in\Lim f_*\mathcal{U}$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    i)$\Rightarrow$ii) and iii) are equivalent, essentially from Definition \ref{definition_9}. iii)$\Rightarrow$iv) trivial and due to Proposition \ref{proposition_2_11}. i)$\Rightarrow$iv) is by Corollary \ref{corollary_1} as $f^{-1}(A)$ is closed for any closed $A$ in $Y$.
+\end{proof}
+\begin{remark}
+    \label{fact_13}
+    By Definition \ref{definition_9}, we have the following.
+    The set of poa of a filter $\F$ is the intersection of the closure of the elements of $\F$ or the intersection of all $A\in\F$ which are closed in $X$.
+\end{remark}
+\begin{proposition}
+    \label{proposition_2}
+    Let $X$ be a topological space. The following conditions are equivalent.
+    \begin{enumerate}[i).]
+        \item $X$ is Hausdorff.
+        \item Every filter has at most one limit.
+        \item Every ultrafilter on $X$ has at most most limit.
+    \end{enumerate}
+    The following conditions are also equivalent.
+    \begin{enumerate}[i').]
+        \item $X$ is quasi-compact.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}$\:$
+    \par i)$\Rightarrow$ii). If $xnot=y$, has disjoint neighborhoods $x\in U$ and $y\in V$. If $U\in\F$ and $V\in\F$, then $\cap=U\cap V\in\F$, which is not possible. Thus precisely one of $x$ and $y$ is in $\Lim\F$. 
+    \par ii)$\Rightarrow$iii) is trivial.
+    \par iii)$\Rightarrow$i). Assume $x\not=y$ and consider the set 
+    \begin{equation*}
+    \{U\cap V\sep U\in\Nfil_x,V\in\Nfil_Y\}.
+    \end{equation*}
+    This is afilter 
+\end{proof}
+\begin{proposition}
+    \label{proposition_2_another}
+    Let $X$ be a topological space. The following conditions are equivalent.
+    \begin{enumerate}[i').]
+        \item $X$ is quasi-compact.
+        \item Every filter has at least one poa.
+        \item Every ultrafilter has at least one limit.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}$\:$
+    \par i')$\Rightarrow$ii') By \ref{fact_13},
+    \begin{equation}
+        \{x\sep x\text{ is a poa of $\F$}\} = \bigcap_{M\in\F}\overline{M}=\emptyset.
+    \end{equation}
+    by quasi-compactness $X$ ,as every finite intersection is in $\mathcal{F}$ hence this is not $\emptyset$.
+    \par ii')$\Rightarrow$iii'). By Proposition \ref{proposition_2_11}.
+    \par iii')$\Rightarrow$i'). Let $(A_\lambda)_\Lambda$ be a faimly of closed subsets such that for any finite subset $F\subseteq\Lambda$, we have,
+    \begin{equation*}
+        \bigcap_{\lambda\in F}A_\lambda\not=\emptyset.
+    \end{equation*}
+    Then the collection,
+    \begin{equation*}
+        \left\{\bigcap_{\lambda\in F}A_\lambda\sep F\subseteq\Lambda,\vert F\vert<\infty\right\}
+    \end{equation*}
+    is a filter base, thus it is contained in some ultrafilter $\U$. Let $x\in\Lim\U$. For $\lambda\in \Lambda$, $A_\lambda\in\U$ hence $x\in A_\lambda$ by Corollary \ref{corollary_1}. Hence $x\in\bigcap_{\lambda\in\Lambda}A_\lambda$ and this intersection is not empty.
+\end{proof}
+\begin{proposition}
+    \label{proposition_3}
+    If $X$ satisfies these equivalent conditions of Proposition \ref{proposition_2_5}, then for every ultrafilter $\U$ on $X$, the closed subset $\Lim\U\subseteq X$ is irreducible. 
+\end{proposition}
+\begin{proof}
+    Let $\Omega,\Theta\in\underline{\Ouv_C}(X)$ such that $\Omega\Lim\U\not=\emptyset$ and $\Theta\cap\Lim\U\not=\emptyset$. By the definition of $\Lim\U$, $\Omega,\Theta\in\U$. Hence $\Omega\cap\Theta\in\U$.
+    As $\Omega\cap\Theta$ is quasicompact $\U\cap\Ouv_{\Omega\cap\Theta}$ has a limit $x\in\Omega\cap\Theta$ by Proposition \ref{proposition_2}. By Proposition \ref{proposition_2_11}, $x\in\Lim\U$. 
+    \par If $U$ and $V$ are open subsets such that $U\cap\Lim\U$ and $V\cap\Lim\U$ are not emptyset, there are $\Omega\subseteq U$ and $\Theta\subseteq V$ as above (as $\underline{\Ouv_C}(X)$ is a topology base), hence $U\cap V\cap\Lim\U$ is not empty. Finally by Proposition \ref{proposition_2}, $\Lim\U\not=\emptyset$ as $X$ is quasi-compact.
+\end{proof}
+
+\begin{definition}
+    \label{definition_11}
+    We say that $x\in X$ is a generic limit of a ultrafilter $\U$ if $\Lim\U=\overline{\{x\}}$.
+\end{definition}
+
+\begin{definition}
+    \label{definition_12}
+    Let $X$ be a topological space in which every ultrafilter $\U$ has a unique generic limit. Then we write,
+    \begin{equation*}
+        \glim\U = \glim_X\U
+    \end{equation*}
+    We say that a subset $M\subseteq X$ is closed under generic limit in $X$ if $M\in\U$ for every ultrafilter $\U$ implies $\glim\U\in M$.
+\end{definition}
+
+\begin{proposition}$\:$
+    \label{fact_14_a}
+    \begin{enumerate}[1).]
+        \item $X$ is $T_0$ if and only if every ultrafilter on $X$ has at most one generic limit.
+        \item If every ultrafilter on $X$ has some generic points then every closed subset $Z\subseteq X$ has some generic points.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For 1). the sufficiency of being $T_0$ is by Definition \ref{definition_2}. If $x$ and $y$ are topologically indistinguishable, then $\overline{\{x\}} = \overline{\{y\}} =Z$ for some $Z$. Furthermore, the principal filter $\U$ of $x$ which has $\Lim\U = Z$ from Example \ref{example_3} has both $x$ and $y$ as generic limits.
+    \par 2). Irreducibility of $Z$ implies that $\Ouv_Z\backslash\{\emptyset\}$ is a filter base in $X$. Hence it is contained in some ultrafilter $\U$. By Definition \ref{definition_10} and the closedness of $Z$ implies $Z=\lim\U$. Hence every $\glim\U$ is a generic point of $Z$. 
+\end{proof}
+\begin{proposition}
+    \label{fact_14_b}
+    Assume every ultrafilter $\U$ on $X$ has a unique generic limit $\glim\U$. Then the following statements hold.
+    \begin{enumerate}[1).]
+        \item  The set of subsets of $X$ which are closed under $\glim$ is closed under arbitrary intersection and finite unions.
+        \item An open subset $V\subseteq X$ is closed under $\glim$ if and only if $V$ is quasi-comapct.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For 1), the closedness under the intersections is obvious. If $M\cup N\in\U$ then $M\in\U$ or $N\in\U$ by Proposition \ref{fact_8}. Hence $\glim\U\in M\subseteq M\cup N$ or $\glim\U\in N\subseteq M\cup N$.
+    \par Let $\U$ be an ultrafilter on $V$ and $\mathcal{V}$ be the image of $\U$ under the embedding $V\hookrightarrow X$. If $V$ is closed under $\glim$ then $\glim\mathcal{V}\in V$ is a limit of $\U$ by Proposition \ref{proposition_2_11}.
+    By Proposition \ref{proposition_2}, $V$ is quasi-compact. If $V$ is quasi-compact, $\mathcal{U}$ has a lmit $x\in V$ and $x\in\Lim\mathcal{V}$ by Proposition \ref{fact_11}. Hence $x\in\overline{\{y\}}$ hence $y\in V$ and $V$ is closed.
+\end{proof}
+
+\begin{definition}
+    A spectral space $X$ is quasii-separated if for any ultrafilter $\U$ on $X$, if its limit $\Lim\U$ is non-empty then it is an irreducible closed subset.
+\end{definition}
+
+\begin{proposition}$\:$
+    \label{proposition_4}
+    \begin{enumerate}[1).]
+        \item A topological space $X$ is separated if and only if every ultrafilter on $X$ has a unique generic limit and the set of those $\Omega\in\Ouv_X$ which are closed under $\glim$ is a topology base.
+        \item An open subset of a separated space $X$ is quasi-compact if and only if it is closed under $\glim$. (This is proved in Proposition \ref{fact_14_b}).
+        \item A map $f:X\to Y$ is separated if and only iuf it is continuous and $\glim_Y f_*\U = f(\glim_X\U)$ for every ultrafilter $\U$ on $X$. (This is proved by the above assertion).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    If $X$ is separated, then by Proposition \ref{proposition_3}, $\Lim\U$ is always closed and irreducible subset, hence $\glim\U$ exists uniquely. By Proposition \ref{fact_14_b}, one has $\{U\in\Ouv_X\sep \text{$U$ is closed under $\glim$}\}=\underline{\Ouv_C}(X)$ is a topology base. If any ultrafilter has a unique generic limit, then $X$ is sober by Proposition \ref{fact_14_b} and $\mathcal{\Ouv_C}(X)=\{U\in\Ouv_X\sep \text{$U$ is closed under $\glim$}\}$ which is closed under finite intersection,
+    in $X$ and by the assumption this is a topology base for $X$.
+\end{proof}
+
+\begin{theorem}
+    \label{theorem_1}
+    A topological space $X$ is spectral if and only if there is a ring $A$ such that $X$ is homeomorphic to $\Spec A$.
+\end{theorem}
+
+\begin{proof}
+We omit the hard part which is $\Rightarrow$ direction (the existence of such ring $A$ for every spectral space $X$). That $\Spec A$ is spectral can be seen as follows. Let $\U$ be an ultrafilter on $\Spec A$ and 
+\begin{equation*}
+    \mathfrak{g}_\U = \{a\in A\sep V(a)\in\U\} = \{a\in A\sep \{\mathfrak{p}\in\Spec A\sep a\in\mathfrak{p}\}\in\U\}.
+\end{equation*}
+One $\mathfrak{g}_\U\in\Spec A$ that is let $a_1,a_2\in\mathfrak{g}_\U$, and $M_i = \{\mathfrak{p}\in\Spec A\sep a_i\in\mathfrak{p}\}\in\U$ hence $M_1\cap M_2\in\U$, hence $\{\mathfrak{p}\sep a_1+a_2\in\mathfrak{p}\}\in\U$. as this contains $M_1\cap M_2$. Hence $a_1+a_2\in\mathfrak{g}_\U$ thus it is an ideal. Let $a_1a_2\in\mathfrak{g}_\U$, but $a_2\not\in\mathfrak{g}_\U$. Then $M_2\not\in\U$ but $M_1\cup M_2\in\U$ since $a_1a_2\in\mathfrak{p}$, one of them must belong to it. Hence 
+\begin{equation*}
+    M_1\cup M_2\supseteq\{\mathfrak{p}\sep a_1a_2\in\mathfrak{p}\}\in\U.
+\end{equation*}
+But $M_1\cup M_2\in\U$ and $M_2\not\in\U$ implies $M_1\in\U$ hence $a_1\in\mathfrak{g}_\U$. It is also clear that $\g_\U\in D(f)$ if and only if $D(f)\in\U$. By Lemma \ref{lemma_1}, $\mathfrak{g}_\U$ is $\glim\U$ and all $D(f)$ are $\glim$-closed.
+\end{proof}
+
 \end{document}

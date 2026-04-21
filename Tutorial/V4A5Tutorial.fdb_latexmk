@@ -1,11 +1,11 @@
 # Fdb version 4
-["dvipdf"] 1776778634.85625 "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry.pdf" "RigidAnalyticGeometry" 1776778635.04449 0
-  "RigidAnalyticGeometry.dvi" 1776778634.83193 57728 8d6da1cbac4b8878823aa60f6fb3be7e "latex"
+["dvipdf"] 1776668835.82273 "V4A5Tutorial.dvi" "V4A5Tutorial.pdf" "V4A5Tutorial" 1776668835.98552 0
+  "V4A5Tutorial.dvi" 1776668835.79824 18644 b901a55578b142e479fcf0ff53bf73fe "latex"
   (generated)
-  "RigidAnalyticGeometry.pdf"
+  "V4A5Tutorial.pdf"
   (rewritten before read)
-["latex"] 1776778634.50183 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry" 1776778635.04343 0
-  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" 1776778633.83903 38539 5779555b5a2cef85eb4b9aa255c41d39 ""
+["latex"] 1776668835.4402 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Tutorial/V4A5Tutorial.tex" "V4A5Tutorial.dvi" "V4A5Tutorial" 1776668835.98446 0
+  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Tutorial/V4A5Tutorial.tex" 1776668835.17443 8897 7d3d5417228e295fda48b59c41569e31 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -153,10 +153,10 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/latex.fmt" 1760893821 3345650 f2179b917b551c7214098855962de784 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "RigidAnalyticGeometry.aux" 1776778634.83136 2448 59b41a525029e25661a7aa1367bf3cc8 "latex"
-  "RigidAnalyticGeometry.tex" 1776778633.83903 38539 5779555b5a2cef85eb4b9aa255c41d39 ""
+  "V4A5Tutorial.aux" 1776668835.79788 585 0890e1a236ec9775c1af45ae8a4fed15 "latex"
+  "V4A5Tutorial.tex" 1776668835.17443 8897 7d3d5417228e295fda48b59c41569e31 ""
   (generated)
-  "RigidAnalyticGeometry.aux"
-  "RigidAnalyticGeometry.dvi"
-  "RigidAnalyticGeometry.log"
+  "V4A5Tutorial.aux"
+  "V4A5Tutorial.dvi"
+  "V4A5Tutorial.log"
   (rewritten before read)

@@ -1,0 +1,154 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry}
+\author{Lectures given by\\Prof. Dr. Jens Franke\\Typed by\\So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\par\textbf{Problem 1}\\
+By multiplicative property of the absolute value, we have $K^\circ$ is a valuation ring of $K$. Thus $\Spec K^\circ = \{K^{\circ\circ},\{0\}\}$.\\
+\par\textbf{Problem 2}\\
+The second assertion is clear as for any $\alpha\in\Z_{\geq0}^m$, $1_\alpha=0$ unless $\alpha = 0$. For the first assertion, from the definition of $\norm{\cdot|\T_m}$, for each $f,g\in\T_m$ there are $\alpha,\beta\in\Z_{\geq0}^m$ such that 
+\begin{equation}
+    \vert f_\alpha\vert=\norm{f|\T_m},\vert g_\beta\vert = \norm{g|\T_m}.
+\end{equation}
+Also,
+\begin{equation*}
+\norm{fg|\T_m} = \left\{\left\vert\sum_{\alpha+\beta = \gamma}f_\alpha g_\beta\right\vert\sep \gamma\in\Z_{\geq0}\right\}.
+\end{equation*}
+\par\textbf{Probmel 3}\\
+Clearly $0,1$ are idempotents thus $0,1\in A^\circ$. From the first property of the norm, 
+\begin{equation*}
+\norm{ab|A}\leq\norm{a|A}\norm{b|A},
+\end{equation*}
+$\{(ab)^n\sep n\in\N\}$ is bounded by the products of upperbounds of $\{a^n\sep n\in\N\},\{b^n\sep n\in\N\}$, thus $ab\in A^\circ$. Similarly for $a+b$, as
+\begin{equation*}
+    \norm{(a+b)^n|A}\leq \norm{a+b|A}^n\leq \max\{\norm{a|A},\norm{b|A}\}^n.
+\end{equation*}
+Thus we can take the maximum of the upperbounds of $\{a^n\sep n\in\N\},\{b^n\sep n\in\N\}$.
+\par If $a\in A^\circ$ and $x\in A^{\circ\circ}$ then as $x^n\stackrel{n\to\infty}{\to}0$ and there is $M>0$ such that $\norm{a|A}^n\leq M$, we have,
+\begin{equation*}
+    \norm{(ax)^n|A}\stackrel{n\to\infty}{\to}0.
+\end{equation*}
+Since $A$ is a complete metric space with respect to the induced metric from $\norm{\cdot|A}$, $0$ is the unique element of norm $0$, thus $ax\in A^{\circ\circ}$. If $a^k\in A^{\circ\circ}$, then again by that $A$ is a complete metric space we have $a\in A^{\circ\circ}$ since $\norm{a^{kn}|A}\stackrel{n\to\infty}{\to}0$.\\
+\par\textbf{Problem 4}
+If $\norm{\cdot|A}$ is multiplicative, the boundedness of the set $\{a^n\sep n\in\N\}$ is equivalent to the boundedness of $\{\norm{a|A}^n\sep n\in\N\}$. And the latter is equivalent to $\norm{a|A}\leq 1$. Similarly $\lim_{n\to\infty}a^n=0$ is equivalent to $\norm{a^n|A}\to 0$ and by the multiplicativeness this is equivalent to $\lim_{n\to\infty}\norm{a|A}^n=0$. This is equivalent to $\norm{a|A}<1$.
+
+\end{document}

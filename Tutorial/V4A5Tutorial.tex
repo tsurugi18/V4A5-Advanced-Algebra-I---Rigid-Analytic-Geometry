@@ -1,0 +1,227 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\numberwithin{equation}{section}
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Lim}{Lim}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\rid}{rid}
+\DeclareMathOperator{\Spf}{Spf}
+\DeclareMathOperator{\Rig}{Rig}
+\DeclareMathOperator{\Adic}{Adic}
+\DeclareMathOperator{\FSch}{FSch}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry Tutorial}
+\author{So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+%4/20
+
+\section{Week 2}
+\subsection{Motivation and Obstacles}
+The motivation for the course is that, given a non-archimedian field $k$, how should we define analytic varieties and presheaves of algebraic functions over $k$.
+
+\begin{definition}[Classical Rigid Analytic Geometry]
+  Intuition, over $\overline{B(0,1)}^n\subseteq K^n$, the analytic functions should be of the form of convergent power series.
+  \begin{equation*}
+    f = \sum_{\alpha\in\N^n}a_\alpha x^\alpha.
+  \end{equation*}
+  This is a local description of the functions. We denote the set of such functions 
+  \begin{equation*}
+    \T_n(K)\defeq K\langle x_1,x_n\rangle,
+  \end{equation*}
+  which we call the Tate algebra. 
+\end{definition}
+
+\begin{remark}
+  There is a one-to-one correspondence between 
+  \begin{equation*}
+    \Sp\T_n(K)\longleftrightarrow \overline{B_{\overline{K}}(0,1)}^n/\Gal(\overline{K}/K).
+  \end{equation*}
+\end{remark}
+
+We will denote $X=\Sp\T_n(K)$. Furthermore, we can define admissible opens $U\subseteq X$, analytic functions on $U$, and the presheaf of analytic functions $\Ouv_{X}$.
+Over a wide range of admissible open coverings, $\Ouv_{X}$ satisfies the sheaf requirement.
+
+\begin{equation*}
+  0\to\Ouv(X)\hookrightarrow\prod_{i}\Ouv(U_i)\rightrightarrows\prod_{i,j}\Ouv(U_i\cap U_j).
+\end{equation*}
+
+We only allow certain open coverings called admissible covers. We introduce and work on a Grothendieck topology.
+\begin{remark}
+  There's a non-trivial sheaf of abelian groups $\mathcal{F}$ on $X$ with $G$-topology such that $\forall x\in X,\F_x=0$.
+\end{remark}
+
+To overcome the obstacle above, we will introduce extra points, namely van der Put points.
+We glue $\Sp\T_n(K)/I$ along opens to get rigid $K$-spaces.
+
+
+\subsection{Raynaud's Formal Schemes}
+
+Suppose $X$ is a $\Q_p$-scheme, we want to consider the reduction $\tmod{p}$. We find a $\Z_p$-scheme $X'$ such that 
+\begin{equation*}
+  X'\fib{\Z_p}\Q_p\cong X.
+\end{equation*}
+Note that we can't guarantee that $X'$ is unique or even it exists. Take $R$ to be the valuation ring of $K$ for example $K=\Q_p,R=\Z_p$, we want to find an object the structure over $R$, such that its generic fiber is $X$.
+Say $X=\Sp\T_n(K)=\Sp K\langle x_1,\cdots,x_n\rangle$, we can take 
+\begin{equation*}
+  Y = \Spf R\langle x_1,\cdots,x_n\rangle,
+\end{equation*}
+We also set,
+\begin{equation*}
+  Y^{\rid}=\Sp(R\langle x_1,\cdots,x_n\rangle\hat{\tens{R}}K).
+\end{equation*}
+If $R$ is separated $\mathfrak{a}$-adically topologized, that is for any subset $I\subseteq R$, $U$ is open if and only if there is $n\in\N$ such that $\mathfrak{a}^n\subseteq I$, and $\bigcup_{n\geq1}\mathfrak{a}^n=0$. 
+Then we have,
+\begin{equation*}
+  R\langle x_1,\cdots,x_n\rangle = \varprojlim_{m\geq1}R/\mathfrak{a}^n[x_1,\cdots,x_n].
+\end{equation*}
+We have another construction of rigid spaces, namely Berkovich's theory.
+\subsection{Huber's adic spaces}
+
+Let $k$ be algebraically closed and $K/k$ is a finitely generated field extension of transcendence degree $1$. Then there is a non-singular projective curve over $k$ with 
+function field $K$. 
+\par\textbf{Construction}
+Take $C_K$ to be the set of discrete valuation rings in $K/k$. Take closed subsets to be the whole space and finite sets.
+On each open $U$, define 
+\begin{equation*}
+  \Ouv(U) = \bigcap_{p\in U}R_p,
+\end{equation*}
+then $(C_K,\Ouv)$ is isomorphic to a non-singular curve with function field $K$.
+\par Given a topological ring $A$ and and its subring $A^\triangleleft$ or sometimes denoted $A^+$(integrally closed, open, power bounded). Huber defines,
+\begin{equation*}
+  \Spa(A,A^\triangleleft) = \{\text{continuous valuations $v:A\to \Gamma\cup\{0\}$ such that $\forall a\in A^\triangleleft, v(a)\leq1$}\}/\sim.
+\end{equation*}
+\begin{remark}  There is a fully-faithful functor 
+  \begin{equation*}
+    r_K:\Rig(K)\to \Adic/\Spa(K,K^\circ),
+  \end{equation*}
+  from the category of rigid $K$-spaces, to the category of adic spaces over $\Spa(K,K^\circ)$.
+\end{remark}
+\begin{remark}  There is a fully-faithful functor 
+  \begin{equation*}
+    t:\FSch^{\text{ln}}\to \Adic/\Spa(K,K^\circ),
+  \end{equation*}
+  from the category of locally Noetherian formal schemes, to the category of adic spaces over $\Spa(K,K^\circ)$.
+\end{remark}
+\begin{remark}
+  \label{remark_2_classical_modern_intersection}
+  If $X$ is a qcqs rigid $K$-space, the set of van der Put points of $X$ is one-to-one correspondent to points of $r_K(X)$.
+\end{remark}
+The problem session goes parallel to the lecture, meaning the lecture will focus on the modern treatment while the tutorial will focus on the classical one. Remark \ref{remark_2_classical_modern_intersection} will be the meeting point of these two.
+\end{document}

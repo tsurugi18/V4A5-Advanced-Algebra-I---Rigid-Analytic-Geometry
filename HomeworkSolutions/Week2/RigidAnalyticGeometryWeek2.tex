@@ -1,0 +1,219 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Sper}{Sper}
+\DeclareMathOperator{\op}{op}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\U}[0]{\mathfrak{U}}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry Week 2 Solution}
+\author{So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\par\textbf{Problem 1}\\
+Let $e_1,\cdots,e_m$ be the elements of the standard basis. Then 
+\begin{equation*}
+    \norm{e_i|K^m}=1, x= \sum_{i=1}^m x_i e_i, x_i\in K.
+\end{equation*}
+Let $C\in K$ be such that 
+\begin{equation*}
+    C = \max\{\norm{e_i}_1\sep i=1,\cdots,m\}.
+\end{equation*}
+Then,
+\begin{equation*}
+    \norm{x}_1 \leq C\max\{\ab{x_i}_K\sep i=1,\cdots,m\} = C\norm{x|K^m}.
+\end{equation*}
+\par\textbf{Problem 2}\\
+Suppose for all $C>0$ there is $x\in K^m$ such that 
+\begin{equation*}
+    \norm{x|K^m}>n\norm{x}_1.
+\end{equation*}
+Take a sequence $(x_n)_{n\in \N}$ in $K^m$ such that 
+\begin{equation*}
+    \norm{x_n|K^m}>n\norm{x_n}_1.
+\end{equation*}
+Then set $(y_n)_{n\in \N}$ be such that 
+\begin{equation*}
+    \forall n\in\N, y_n = {\frac {x_n} {x_n^{n_i}}},
+\end{equation*}
+where $x_n^{n_i}$ is the coefficient of $x_n$ in the standard basis with the largest absolute value. Since $(y_n)_{\N}$ is a bounded sequence and $K^m$ is Banach, there is a convergent subsequence of it with its limit $y$. Then, taking the limit in
+\begin{equation*}
+    1>{\frac {\norm{x}_1} {\norm{x|K^m}}}n = \norm{y_n}_1n.
+\end{equation*}
+we see that 
+\begin{equation*}
+    1>\norm{y}_1\lim_{n\to\infty}n.
+\end{equation*}
+But $\norm{y}_1\not=0$ since
+\begin{equation*}
+    1 = \lim_{n\to \infty}\norm{y_n|K^m} = \norm{y|K^m}.
+\end{equation*}
+Thus $\norm{y}_1\not=0$ as $y\not=0$. This is a contradiction.
+\par\textbf{Problem 3}\\
+Consider $p$ and $q$-adic norm and $\Q$ where $p,q$ are distinct primes. Then for any $n\in \N$, consider
+\begin{equation*}
+    \left\vert\left({\frac 1 p}\right)^n\right\vert_p = p^n,\left\vert\left({\frac 1 p}\right)^n\right\vert_q = 1.
+\end{equation*}
+Thus $\ab{\cdot}_p,\ab{\cdot}_q$ are not equivalent.
+\par\textbf{Problem 4}\\
+For $x\in L$, consider,
+\begin{equation*}
+    m_x(y) = xy.
+\end{equation*}
+Then $m_x$ is a linear operator between Banach algebras thus bounded. Also 
+\begin{equation*}
+    T:L\ni x\mapsto m_x \in \Hom(L,L)
+\end{equation*}
+is also a linear operator in finite dimensional Banach spaces thus bounded. We conclude,
+\begin{equation*}
+    \norm{m_x}_{\op}\leq C\norm{x}.
+\end{equation*} 
+Thus,
+\begin{equation*}
+    \norm{xy}\leq \norm{m_x}\norm{y}\leq C\norm{x}\norm{y}.
+\end{equation*}
+\par\textbf{Problem 5}\\
+Let $x\in\g_\U$, then 
+\begin{equation*}
+    \{\p\in\Spec A\sep x\in\p\}\in\U.
+\end{equation*}
+Thus,
+\begin{equation*}
+    \{\p\in\Spec A\sep x\in\p\}\subseteq\{\p\in\Spec A\sep ax\in\p\}.
+\end{equation*}
+As $\U$ is a filter, $\{\p\in\Spec A\sep ax\in\p\}\in\U$. Thus $ax\in\g_\U$.
+\par\textbf{Problem 6}\\
+Let $X=\Sper A$. Then $X$ is $T_0$ since for any distince $x,y\in X$, there exists an element $a$ such that $a\in x$ but $b\not\in y$. Thus $\mathcal{P}(-a)$ will separate them.
+
+Let $Z$ be an irreducible closed subset of $X$. Consider
+\begin{equation*}
+    C_Z = \bigcup_{C\in Z}C.
+\end{equation*}
+Then $C_Z$ is clearly a proper cone. To see this is prime, note that if there is $a\in A$ such that $a\in C,-a\not\in C,a\not\in C',-a\in C'$ for some $C,C'\in Z$. Then we have two non-empty open subsets $\mathcal{P}(a),\mathcal{P}(-a)$ of $Z$ whose intersection is empty. This contradicts to the fact that $Z$ is irreducible. Thus $C_Z$ is prime.
+Since $C_Z\subseteq C$ for any $C\in Z$, we conclude it is a generic point. In particular $X$ is sober. Couldn't figure out how to show that the topology base contains only quasi-compact sets.
+\par\textbf{Problem 7}\\
+Sobriety is clear as all closed subsets are finites set of points not containing $\eta$. Thus each irreducible closed subset admits a unique generic point which is itself. Also all open sets are quasi-compact as for any open covering $(U_i)$, let 
+\begin{equation*}
+    U = \bigcup_{i}U_i
+\end{equation*}
+then $X\backslash U$ is finite. Thus take any $U_1$ and as $X\backslash U_1$ is finite and contains $X\backslash U$, we only have to take at most $\vert X\backslash U_1\vert-\vert X\backslash U\vert$ many more open sets to cover $U$.
+\par\textbf{Problem 8}\\
+Since all open sets in $X$ are quasi-compact, and in particular $X\backslash \{x\}$ is quasi-compact. Therefore, $\{x\}$ is open in $X_{\text{con}}$ thus the topology on $X_{\text{con}}$ is discrete in particular $\{\{x\}\}$ is a neighborhood basis.
+\end{document}

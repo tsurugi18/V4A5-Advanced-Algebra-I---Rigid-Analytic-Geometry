@@ -82,7 +82,11 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Spa}{Spa}
 \DeclareMathOperator{\Lim}{Lim}
+\DeclareMathOperator{\Alg}{\mathcal{A}}
 \DeclareMathOperator{\glim}{glim}
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Spr}{Spr}
+\DeclareMathOperator{\clet}{c}
 %\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\Ouv}{\mathcal{O}}
@@ -97,22 +101,28 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\Q}[0]{\mathbb{Q}}
 \newcommand{\F}[0]{\mathcal{F}}
 \newcommand{\U}[0]{\mathcal{U}}
+\newcommand{\B}[0]{\mathcal{B}}
 \newcommand{\G}[0]{\mathbb{G}}
 \newcommand{\A}[0]{\mathbb{A}}
 \newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\K}[0]{\mathcal{K}}
 \newcommand{\Para}[0]{\mathbb{P}}
 \newcommand{\M}[0]{\mathcal{M}}
 \newcommand{\maniN}[0]{\mathcal{N}}
 \newcommand{\cinf}[0]{\mathcal{C}^\infty}
 \newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\cR}[0]{\mathcal{R}}
 \newcommand{\sep}[0]{\:|\:}
 \newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
 \newcommand{\compinc}[0]{\subset \subset}
 \newcommand{\sH}[0]{\mathscr{H}}
 \newcommand{\Nfil}[0]{\mathcal{N}}
 \newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\QC}[0]{\underline{\mathfrak{Q}}_C}
 \newcommand{\ab}[1]{\vert #1 \vert}
 \newcommand{\st}[0]{\:\straw\:}
+\newcommand{\cGamma}[0]{\clet\Gamma}
 \newcommand{\fib}[1]{%
   \mathbin{\mathop{\times}\limits_{#1}}%
 }
@@ -396,6 +406,7 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
     Every closed subset of a quasi-compact space is again quasi-compact.
 \end{proposition}
 \begin{proposition}
+    \label{fact_3}
     Let $X\stackrel{f}{\to}Y$ be a continuous with $X$ is quasi-compact and $Y$ is Hausdorff, then $f$ is closed (i.e. every closed set $A$ of $X$ has a closed image $f(A)$ in $Y$).
 \end{proposition}
 \begin{definition}
@@ -413,18 +424,21 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
     \label{fact_5}
     For a topological space $X$, the following conditions are equivalent.
     \begin{enumerate}[i).]
-        \item $\underline{\Ouv_C}(X) \defeq \{\Omega\in\Ouv_X\sep \Omega\text{ is quasi-compact}\}$ is a topology basis closed under finite intersection (including the empty intersection $\bigcap_\emptyset = X$).
-        \item There is a topology base $\mathcal{B}\subseteq\underline{\Ouv_C}(X)$ such that $\mathcal{B}$ consists of quasi-compact and it is closed under the finite intersection in $X$.
+        \item $\QC(X) \defeq \{\Omega\in\Ouv_X\sep \Omega\text{ is quasi-compact}\}$ is a topology basis closed under finite intersection (including the empty intersection $\bigcap_\emptyset = X$).
+        \item There is a topology base $\mathcal{B}\subseteq\QC(X)$ such that $\mathcal{B}$ consists of quasi-compact and it is closed under the finite intersection in $X$.
     \end{enumerate}
 \end{proposition}
 \begin{definition}
-    A topological space $X$ is spectral if it is sober and satisfies one of the conditions in Proposition \ref{proposition_2_5}. A spectral map is a map $X\stackrel{f}{\to}Y$ between spectral spaces such that for any quasi-compact subset $\Omega$ in $Y$, $f^{-1}(\Omega)$ is quasi-compact subset of $X$.
+    A topological space $X$ is spectral if it is sober and satisfies one of the conditions in Proposition \ref{proposition_2_5}. 
+\end{definition}
+\begin{definition}
+    A spectral map is a map $X\stackrel{f}{\to}Y$ between spectral spaces such that for any quasi-compact subset $\Omega$ in $Y$, $f^{-1}(\Omega)$ is quasi-compact subset of $X$.
 \end{definition}
 \begin{remark}
     Note that a spectral map is continuous.
 \end{remark}
 \begin{proposition}
-    If $\mathcal{B}\subseteq \Ouv_Y$ is a topology base as the second condition in Proposition \ref{proposition_2_5} for $Y$, then $f$ is spectral if and only if $\forall \Omega\in\mathcal{B},f^{-1}(\Omega)\in\underline{\Ouv_C}(X)$.
+    If $\mathcal{B}\subseteq \Ouv_Y$ is a topology base as in the second condition of Proposition \ref{proposition_2_5} for $Y$, then $f$ is spectral if and only if $\forall \Omega\in\mathcal{B},f^{-1}(\Omega)\in\QC(X)$.
 \end{proposition}
 \begin{example}
     $\Spec A$ is spectral and every ring homomorphism defines a spectral map and $\{D(f)\sep f\in A\}$ are such base at in Proposition \ref{proposition_2_5} for $\Spec A$.
@@ -432,17 +446,17 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
 \begin{example}
     The underlying space of qcqs (i.e. quasi-compact and quasi-separated) scheme is spectral.
 \end{example}
-\begin{definition}
-    \begin{equation*}
-        \underline{\Ouv_l}(A) = \{\text{$I$ ideals of $A$} \st \sqrt{I}=I\}.
-    \end{equation*}
-\end{definition}
+% \begin{definition}
+%     \begin{equation*}
+%         \underline{\Ouv_l}(A) = \{\text{$I$ ideals of $A$} \st \sqrt{I}=I\}.
+%     \end{equation*}
+% \end{definition}
 \begin{remark}
     \label{remark_example_1_b}
     Every closed and every quasi-compact open sets of a spectral space is spectral.
 \end{remark}
 \begin{remark}
-    A Noetherian space $X$ (i.e. $\underline{\Ouv_C}(X)=\Ouv_X$) is spectral if and only if it is sober.
+    A Noetherian space $X$ (i.e. $\QC(X)=\Ouv_X$) is spectral if and only if it is sober.
 \end{remark}
 \begin{proposition}
     Every non-empty closed subset of a spectral space $X$ contains a closed point.
@@ -522,9 +536,9 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
     \begin{equation*}
         \Lim\mathcal{F} = \{x\in X\sep \mathcal{N}_x\subseteq\mathcal{F}\}.
     \end{equation*}
-    is the set of limits of $\mathcal{F}$. If it contains precisely one $x\in X$, we have,
+    is the set of limits of $\mathcal{F}$. If it contains precisely one $x\in X$, we denote it by
     \begin{equation*}
-        \Lim\mathcal{F} = \{x\}.
+        \Lim\mathcal{F} = x.
     \end{equation*}
 \end{definition}
 \begin{definition}
@@ -660,9 +674,9 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
     If $X$ satisfies these equivalent conditions of Proposition \ref{proposition_2_5}, then for every ultrafilter $\U$ on $X$, the closed subset $\Lim\U\subseteq X$ is irreducible. 
 \end{proposition}
 \begin{proof}
-    Let $\Omega,\Theta\in\underline{\Ouv_C}(X)$ such that $\Omega\Lim\U\not=\emptyset$ and $\Theta\cap\Lim\U\not=\emptyset$. By the definition of $\Lim\U$, $\Omega,\Theta\in\U$. Hence $\Omega\cap\Theta\in\U$.
+    Let $\Omega,\Theta\in\QC(X)$ such that $\Omega\Lim\U\not=\emptyset$ and $\Theta\cap\Lim\U\not=\emptyset$. By the definition of $\Lim\U$, $\Omega,\Theta\in\U$. Hence $\Omega\cap\Theta\in\U$.
     As $\Omega\cap\Theta$ is quasicompact $\U\cap\Ouv_{\Omega\cap\Theta}$ has a limit $x\in\Omega\cap\Theta$ by Proposition \ref{proposition_2}. By Proposition \ref{proposition_2_11}, $x\in\Lim\U$. 
-    \par If $U$ and $V$ are open subsets such that $U\cap\Lim\U$ and $V\cap\Lim\U$ are not emptyset, there are $\Omega\subseteq U$ and $\Theta\subseteq V$ as above (as $\underline{\Ouv_C}(X)$ is a topology base), hence $U\cap V\cap\Lim\U$ is not empty. Finally by Proposition \ref{proposition_2}, $\Lim\U\not=\emptyset$ as $X$ is quasi-compact.
+    \par If $U$ and $V$ are open subsets such that $U\cap\Lim\U$ and $V\cap\Lim\U$ are not emptyset, there are $\Omega\subseteq U$ and $\Theta\subseteq V$ as above (as $\QC(X)$ is a topology base), hence $U\cap V\cap\Lim\U$ is not empty. Finally by Proposition \ref{proposition_2}, $\Lim\U\not=\emptyset$ as $X$ is quasi-compact.
 \end{proof}
 
 \begin{definition}
@@ -718,7 +732,7 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
 \end{proposition}
 
 \begin{proof}
-    If $X$ is separated, then by Proposition \ref{proposition_3}, $\Lim\U$ is always closed and irreducible subset, hence $\glim\U$ exists uniquely. By Proposition \ref{fact_14_b}, one has $\{U\in\Ouv_X\sep \text{$U$ is closed under $\glim$}\}=\underline{\Ouv_C}(X)$ is a topology base. If any ultrafilter has a unique generic limit, then $X$ is sober by Proposition \ref{fact_14_b} and $\mathcal{\Ouv_C}(X)=\{U\in\Ouv_X\sep \text{$U$ is closed under $\glim$}\}$ which is closed under finite intersection,
+    If $X$ is separated, then by Proposition \ref{proposition_3}, $\Lim\U$ is always closed and irreducible subset, hence $\glim\U$ exists uniquely. By Proposition \ref{fact_14_b}, one has $\{U\in\Ouv_X\sep \text{$U$ is closed under $\glim$}\}=\QC(X)$ is a topology base. If any ultrafilter has a unique generic limit, then $X$ is sober by Proposition \ref{fact_14_b} and $\mathcal{\Ouv_C}(X)=\{U\in\Ouv_X\sep \text{$U$ is closed under $\glim$}\}$ which is closed under finite intersection,
     in $X$ and by the assumption this is a topology base for $X$.
 \end{proof}
 
@@ -738,5 +752,527 @@ One $\mathfrak{g}_\U\in\Spec A$ that is let $a_1,a_2\in\mathfrak{g}_\U$, and $M_
 \end{equation*}
 But $M_1\cup M_2\in\U$ and $M_2\not\in\U$ implies $M_1\in\U$ hence $a_1\in\mathfrak{g}_\U$. It is also clear that $\g_\U\in D(f)$ if and only if $D(f)\in\U$. By Lemma \ref{lemma_1}, $\mathfrak{g}_\U$ is $\glim\U$ and all $D(f)$ are $\glim$-closed.
 \end{proof}
+%4/24
+\begin{lemma}
+    \label{lemma_1}
+    Let $\mathcal{B}$ be a topology base of the topological space $X$.
+    \begin{enumerate}[a)]
+        \item Let $\U$ be an ultrafilter on $X$ and $g\in X$ such that for all $\Omega\in\mathcal{B}$, $g\in\Omega \Leftrightarrow\Omega\in\U$. Then $g$ is a generic limit of $\U$.
+        \item If $X$ is $T_0$ and for every ultrafilter $\U$ on $X$, there is $g\in X$ as in a), then $X$ is spectral and the elements of $\B$ are quasi-compact.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Let $U\in\Nfil_x$. Then there is $\Omega\in \B$ such that $x\in\Omega\subseteq U$. By our assumption, $\Omega\in\U$ hence $U\in\U$ thus $g$ is a limit of $\U$. 
+    Let $x\not\in\overline{\{g\}}$ then there is $U\in\Nfil_x$ such that $g\not\in U$. As $\B$ is a topology base there is $\Omega\in\B$ such that $x\in\Omega\subseteq U$. Then $g\not\in \Omega$. Hence $\Omega\in\U$ Since $\Omega$ is a neighbourhood of $x$, this shows $x\not\in\Lim\U$. Thus $g$ is a generic limit. This proves a).
+    \par For b), it follows from our assumption and a) that $X$ has unique generic limits of ultrafilters and the elements of $\B$ are closed under such generic limits. The claim now follows from Proposition \ref{proposition_4}.
+\end{proof}
+\begin{remark}
+    \label{remark_4_1}
+    If $\U$ is an ultrafilter on $\Spec A$ and
+    \begin{equation*}
+        \g_\U = \{a\in A\sep \{\p\in\Spec A\sep a\in\p\}\in\U\}.
+    \end{equation*}
+    Then the lemma applies with $\B=\{D(a)\sep a\in A\}$.
+\end{remark}
+\begin{corollary}[Of Lemma \ref{lemma_1} b), and the proof of Theorem \ref{theorem_1}]
+    \label{corollary_2}
+    The subset $D(a)\subseteq \Spec A, a\in A$ are quasi-compact.
+\end{corollary}
+\begin{proof}
+    From Remark \ref{remark_4_1} and Lemma \ref{lemma_1}.
+\end{proof}
+\begin{definition}
+    Let $X$ be a topological space. A subset $U$ which is open and closed is called clopen.
+\end{definition}
+\begin{corollary}[Of Proposition \ref{proposition_4}]
+    \label{corollary_3}
+    For a compact (thus Hausdorff) X, the following conditions are equivalent.
+    \begin{enumerate}[a).]
+        \item $X$ is spectral.
+        \item The clopen subsets of $X$ form a topology base.
+    \end{enumerate}
+    In this case, the open subsets $U$ is quasi-compact if and only if it is clopen and when $Y$ is a spectral space a map $Y\to X$ is spectral it is continuous.
+\end{corollary}
+\begin{proof}
+    $X$ has unique generic limits which are the generic limits of ultrafilters and by Corollary \ref{corollary_1}, the open subsets which are invariant under these limits are preimages of the open subsets are also clesed.
+    \par To show these two are equivalent. If $U$ is closed, it is quasi-compact as it is a closed subset of a quasi-compact space. If $U$ is quasi-compact then it is closed by Proposition \ref{fact_3}. If $Y\stackrel{f}{\to} X$ is continuous and $\Omega\in\underline{Q}_C(X)$, then $\Omega$ is clopen hence $f^{-1}\Omega$ is clopen in $Y$, hence $f^{-1}\Omega\in \underline{Q}_C(Y)$.
+\end{proof}
+\begin{definition}
+    A set $\Alg$ of subsets of $X$ is a boolean algebra if the following conditions hold.
+    \begin{enumerate}
+        \item $\emptyset\in\Alg$.
+        \item $M\in\Alg\Rightarrow X\backslash M\in\Alg$.
+        \item $\Alg$ is closed under taking finite unions.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    From the basis axioms of boolean algebras. Clearly we have $X\in \Alg$ and $M_1,M_2\in\Alg\Rightarrow M_1\cap M_2\in\Alg$. 
+\end{remark}
+\begin{proposition}
+    \label{proposition_5}
+    Let $X$ be a spectral space. The following boolena algebras of subsets of $X$ coincide.
+    \begin{enumerate}
+        \item The boolean algebra generated by $\underline{Q}_c(X)$.
+        \item $\{M\subseteq X\sep \text{$M$ is closed under generic limits of ultrafilters}\}$.
+    \end{enumerate}
+    Let $\mathcal{K}_x$ be this boolean algebra of subsets of $X$. The topology on $X$ obtained by taking $\mathcal{K}_X$ as a topology base coincides with the one for which preserving the subsets $M\subseteq X$ which are closed under $\glim$ of ultrafilters are closed subsets.
+    \par Finally Let $X_{\con}$ be $X$ equipped with this topology. Then $X_{\con}$ is a spectral hausdorff space (i.e. $X_{\con}$ as in Corollary \ref{corollary_2}), and $X_{\con}\stackrel{\id_X}{\to}X$ is a spectral map.
+    \par For every ultrafilter $\U$ of $X$, $\lim_{X_{\con}}\U=\glim_X\U$. 
+\end{proposition}
+\begin{proof}[Not Required for the Exam]$\:$
+Let $\mathcal{K}_1$ be th Boolean algebra generated by $\QC(X)$ and 
+\begin{equation*}
+    \mathcal{K}_2 \defeq \{M\sep \text{$M$ and $X\backslash M$ closed under $\glim$}\}.
+\end{equation*}
+By Proposition \ref{fact_14_a}, $\mathcal{K}_2$ is a Boolean algebra. By Proposition \ref{proposition_4} b), and Corollary \ref{corollary_1}, $\QC(X)\subseteq\mathcal{K}_2$, hence we have an inclusion $\mathcal{K}_1\subseteq\mathcal{K}_2$.
+For the time being, $\mathcal{K}_x\defeq\mathcal{K}_1$. Let $X_1$ be the topological space with underlying space $X$ and the topology generated by $\K_x$. Let $X_2$ be the topological space again with the same underlying set such that for a subset $A\subseteq X$ is closed if and only if it is closed under $\glim$ of ultrafilters.
+By Proposition \ref{fact_14_a}, $X_2$ is indeed a topological space. Since $\K_x\subseteq \K_2$, $X_2$ is finer or equal to $X_1$.
+\par The space $X_1$ is Hausdorff. If $x\not=y$ then without loss of generality exchanging $x$ and $y$ if necessary, there is $U\in\Ouv_X$ such that $x\in U$ and $y\not\in U$. As $\QC(X)$ is a topology base, hence without loss of $U\in\QC(X)$. Then $U\in\K_X$ and $X\backslash U\in\K_X$ and they are distinguished neighbourhoods of $x$ and $y$ in $X_1$.
+Moreover, $X_2$ is quasi-compact by Proposition \ref{proposition_2}. Thus it suffices to consider an ultrafilter $\U$ on $X$ and to show that it has a limit in $X_2$. Let $g=\glim_X\U$. We claim that $g\in\Lim_{X_2}\U$. For this, let $U\in\Ouv_{X_2}$ such that $g\in U$, we must show $U\in\U$. Otherwise $X\backslash U\in\U$ But by the definition of $X_2$, $X\backslash U$ is closed undrer $\glim_X$ of ultrafilters. Thus $g\in X\backslash U$ which is a contradiction.
+\par By Proposition \ref{fact_3}, the continuous map $X_2\stackrel{\id_X}{\to}X$ is a homeomorphism. Thus first two parts are shown.
+\par Let $X_{\con}=X_1=X_2$. Let $\Omega\in\K_2$. By Corollary \ref{corollary_1}, $\Omega$ is clopen in $X_{\con}$ Since $\K_1$ is a topology base. $\Omega$ is a union of elements of $\K_1$ and since $\Omega\in\QC(X_{\con})$, the union can be chosen to be finite. Then $\Omega\in\K_1$ as $\K_1$ is a Boolean algebra of subsets.
+\par From now on, we will regard $\K_x=\K_1=\K_2$. Since the elements of $\K_x$ are clopen and $\K_x$ is a topology base for $X_{\con}$, and $X_{\con}$ compact. By Corollary \ref{corollary_3}, $X_{\con}$ is spectral. By Proposition \ref{proposition_4}, $X_{\con}\stackrel{\id_X}{\to}X$ is spectral. 
+\end{proof}
+\begin{definition}
+    \label{definition_13}
+    The elements of $\K_x$ are called constructible subsets and the topology of $X_{\con}$ the constructible topology.
+\end{definition}
+\begin{corollary}
+    \label{corollary_4}
+    A subset of $X$ is an element of $\K_x$ if and only if it is clopen in $X_{\con}$.
+\end{corollary}
+\begin{corollary}[Of Proposition \ref{proposition_4}]
+    A map $X\stackrel{f}{\to}Y$ between spectral spaces is continuous if and only if spectral is continuous and $X_{\con}\stackrel{f}{\to}Y_{\con}$ is continuous.
+\end{corollary}
+\begin{corollary}
+    \label{corollary_15}
+    For a spectral space $X$, $\QC(X) = \Ouv_X\cap\K_X$.
+\end{corollary}
+\begin{definition}
+    \label{definition_14}
+    Let $X$ be a spectral. We say that $x\in X$ is a specialization of $y\in X$ and conversely $y$ is a generalization of $x$ if $x\in\overline{\{y\}}$. We denote such relation by $x\preceq y$.
+\end{definition}
+\begin{proposition}$\:$
+    \label{proposition_6}
+    \begin{enumerate}
+    \item A subset $Z\subseteq X$ is closed in $X$ if nadonly if it is closed in $X_{\con}$ and closed under specialization. That is $x\preceq y,y\in Z\Rightarrow x\in Z$.
+    \item A subset $U\subseteq X$ is open in $X$ if and only if it is open in $X_{\con}$ and closed under generalization.
+    \item Let $Z$ be closed in $X_{\con}$ and $\overline{Z}$ be its closure in $X$. Then $\overline{Z}$ is the set of specialization of elements of $Z$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+If $z\in Z$ and $x\preceq z$, then $x\in\overline{\{z\}}\subseteq\overline{Z}$, there are ??. If $x\in\overline{Z}$ by Proposition \ref{proposition_1}, there is an ultrafilter $\U$ on $X$ such that $Z\in\U$ and $x\in\Lim\U$. Since $Z$ is closed in $X_{\con}$, $g=\glim\U\in\Z$. But $x\preceq g$, proving the third statement. The first two are equivalent and the first follows from the third.
+\end{proof}
+\begin{corollary}
+    \label{corollary_6}
+    For a spectral space $X$, the following statements are equivalent.
+    \begin{enumerate}
+        \item $X$ is $T_0$.
+        \item $X=X_{\con}$ as topological space.
+        \item Every quasi-compact subset of $X$ is closed.
+        \item $X$ is Hausdorff.
+        \item $X$ is $T_4$.
+    \end{enumerate}
+\end{corollary}
+\begin{corollary}
+    \label{corollary_7}
+    For a map $X\stackrel{f}{\to}Y$ between spectral spaces, the following statements are equivalent.
+    \begin{enumerate}
+        \item $\glim_Yf_*\U=f(\glim_X\U)$ for all ultrafilters $\U$ on $X$, and $x\preceq_X \xi$ implies $f(x)\preceq_Y f(\xi)$. 
+        \item $X_{\con}\stackrel{f}{\to}Y_{\con}$ and $x\preceq_X\xi$ implies $f(x)\preceq_Yf(\xi)$.
+        \item $f$ is spectral.
+    \end{enumerate}
+\end{corollary}
+\begin{corollary}
+    \label{corollary_8}
+    For a subset $Z\subseteq X$, the following statements are equivalent.
+    \begin{enumerate}[a).]
+        \item $Z$ is spectral with induced topology and $Z\to X$ is spectral.
+        \item $X$ is closed in $X_{\con}$.
+    \end{enumerate}
+    In this case, we dentoe $Z_{\con}$ to be the topology on $Z$ induced from topology $X_{\con}$
+\end{corollary}
+\subsection{The Valuation Spectrum of a Rings}
+
+\begin{definition}
+    \label{definition_1_ordered_abelian_group}
+    An ordered abelian group is an abelian group $\Gamma$ (under mulitplication) with a linear ordering $\leq$ such that 
+    \begin{equation*}
+        \gamma_1\leq \gamma_2, g_1\leq g_2\Rightarrow \gamma_1g_1\leq \gamma_2g_2.
+    \end{equation*}
+\end{definition}
+
+\begin{example}
+    $\{1\}$ and $(0,\infty)_\R^\times$ are ordered abelian groups. 
+\end{example}
+
+\begin{remark}
+    The inequality,
+    \begin{equation*}
+        \gamma_1\leq \gamma_2, g_1\leq g_2\Rightarrow \gamma_1g_1\leq \gamma_2g_2.
+    \end{equation*}
+    is strict if one of the inequalities in the left hand side is strict.
+    In particular, $g>1$ implies $g^k>1$ and $g<1$ implies $g^k<1$ for all $k\in\N$. Thus $\Gamma$ has no torsion.
+\end{remark}
+
+\begin{definition}
+    \label{definition_1_valuation_rings}
+    A (general) valuation of a ring $R$ is a map $R\stackrel{\gamma}{\to}\Gamma\cup\{0\}$ where $\Gamma$ is an ordered abelian group.
+\end{definition}
+
+\begin{definition}
+    \label{definition_5_2}
+    A valuation of a ring $R$ is a map $R\stackrel{\gamma}{\to}\Gamma\cup\{0\}$ where $\Gamma$ is an ordered abelian group with multiplication such that the following hold.
+    \begin{enumerate}[i).]
+        \item $\forall x\in\Gamma\cup\{0\}, 0\cdot x = x\cdot 0 = 0, 0\leq x$.
+        \item $\gamma(xy) = \gamma(x)\gamma(y)$
+        \item $\gamma(1) = 1$
+        \item $\gamma(0) = 0$
+        \item $\gamma(x+y)\leq \max\{\gamma(x),\gamma(y)\}$. 
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    \begin{equation*}
+        \gamma(-1) = 1,\quad \gamma(y)<\gamma(x)\Rightarrow\gamma(x+y) = \gamma(x).
+    \end{equation*}
+\end{remark}
+
+\begin{definition}
+    \label{definition_5_3}
+    Let $\Gamma_\gamma$ be the subgroup of $\Gamma$ generated by $\{\gamma(r)\sep r\in R\}\backslash\{0\}$.
+    We say that valuations $\gamma$ and $\omega$ are equivalent if there is an order preserving isomorphism $\Gamma_\gamma\stackrel{i, \sim}{\to}\Gamma_\omega$ such that 
+    \begin{equation*}
+        \omega(r) = i(\gamma(r)),
+    \end{equation*}
+    where we put $i(0)=0$.
+\end{definition}
+\begin{proposition}
+    \label{fact_5_1}
+    The valuation of $r$ and $w$ are equivalent if and only if 
+    \begin{equation*}
+        \{(r,s)\in R^2\sep \gamma(r)\leq \gamma(s)\} = \{(r,s)\in R^2\sep w(r)\leq w(s)\}.
+    \end{equation*}
+\end{proposition}
+\begin{definition}
+    \begin{equation*}
+        \supp\gamma = \{r\in R\sep \gamma(r) = 0\}.
+    \end{equation*}
+    \label{definition_5_4}
+\end{definition}
+\begin{remark}
+    $\supp\gamma$ is a prime ideal. Indeed, $\gamma(r) = 0$ then $\gamma(r,s) = \gamma(r)\gamma(s) = 0$ with $s\in R$, if $r,s\in\supp\gamma$ then $\gamma(r+s) \leq\max\{\gamma(r),\gamma(s)\} = 0$.
+    Clearly $1\not\in\supp\gamma$. If $\gamma(rs) = 0$, then $\gamma(r)\gamma(s) = 0$. Thus $\gamma(r) = 0$ or $\gamma(s) = 0$. 
+\end{remark}
+\begin{remark}
+    The support only depends on the equivalence classes.
+\end{remark}
+
+\begin{example}
+    If $\p$ is a prime ideal and 
+    \begin{equation*}
+        \gamma(r) = \begin{cases}
+            1,\quad r\not\in\p,\\
+            0,quad r\in\p.
+        \end{cases}
+    \end{equation*}
+    the trivial valuation beloning to $\p$.
+    \label{example_5_1}
+\end{example}
+\begin{definition}
+    A valuation is trivial if it is equivalent to this kind of valuation. That is $\Gamma_\gamma=\{1\}$.
+\end{definition}
+\begin{example}
+    \label{example_5_2}
+    If $R=K$ is a field, then $\gamma(s) = 1$ where $\gamma^k=1$ for some $k\in\N$ as $\Gamma$ has no torsion. Then for a finite field only admits trivial valuations. 
+\end{example}
+\begin{example}
+    \label{example_5_3}
+    The $p$-adic valuation of $\Q$ or $\Q_p$.
+\end{example}
+\begin{definition}
+    \label{definition_5_5}
+    Let $\Spr(R)$ be the set of equivalent classes of valuation of $R$. For $x\in\Spr(R)$, we choose a representative $\vert\cdot\vert_x$.
+    Let $\Gamma_x$  be the group generated by those $\vert r\vert_x$ which are non-zero. For $m\in\N$ and $(r_i)_{i=0}^m\in\R^{m+1}$, let 
+    \begin{equation*}
+        \mathcal{R}(r_0|r_1,\cdots,r_m)=\mathcal{R}_{\Spr(R)}(r_0|r_1,\cdots,r_m) = \{x\in\Spr(R)\sep 0\not=\vert f_0\vert_x\geq\vert f_i\vert_x, 1\leq i\leq m\}.
+    \end{equation*}
+    These are called rational open subsets. We equip $\Spr(R)$ with the topology for which the set of rational open subsets is a topology base. 
+    \par If $A\stackrel{\alpha}{\to}B$ is a ring homomorphism then this induces 
+    \begin{equation*}
+        \Spr(B)\stackrel{\Spr(\alpha)}{\to}\Spr(A)
+    \end{equation*}
+    sends $x\in\Spr(B)$ to the equivalence class of the valuation,
+    \begin{equation*}
+        a\mapsto\vert\alpha(a)\vert_x
+    \end{equation*}
+    of $A$. We set,
+    \begin{equation*}
+        \gamma(a) = \Spr(A)\backslash \mathcal{R}(a|).
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The topology there is the coordinated? for which
+    \begin{equation*}
+        \Spr\stackrel{x\mapsto\supp(x)}{\to}\Spec
+    \end{equation*}
+    is continuous and all
+    \begin{equation*}
+        \{x\in\Spr(A)\backslash R(a)\sep \vert\alpha\vert_x\leq\vert a\vert_x\}
+    \end{equation*}
+    for $(a,\alpha)\in A^2$ are open.
+\end{remark}
+\begin{remark}
+    The set of rational open subset is closed under finite intersections in $\Spr(R)$. Indeed,
+    \begin{align*}
+        \mathcal{R}(1|) &= \Spr(R),\\
+        \mathcal{R}(r_0|r_1,\cdots,r_m)\cap\mathcal{R}(s_0|s_1,\cdots,s_n) &= \mathcal{R}(r_0s_0|r_is_j,0\leq i\leq n,0\leq j\leq n).
+    \end{align*}
+    If you assume $m\leq 1$ or even $m=1$, you only get a topology subbase.
+\end{remark}
+One way of constructing generic limits of ultrafilters in $\Spr(R)$ would be to use Proposition \ref{fact_5_1} and 
+\begin{equation*}
+    \{(r,s)\in R^2\sep \vert r\vert_g\leq\vert s\vert_g\}\defeq \{(r,s)\in R^2\sep \{x\in\Spr(R)\sep \vert r\vert_x\leq \vert s\vert_x\}\in\U\}.
+\end{equation*}
+This would work and was shown by Huber. 
+\begin{definition}
+    \label{definition_5_6}
+    Let $\U$ be an ultrafilter on $\Lambda$ and $(X_\lambda)_{\lambda\in\Lambda}$ be a family of sets indexed by $\Lambda$. We call the elements $(x_\lambda)_{\lambda\in\Lambda}$ and $(\xi_\lambda)_{\Lambda}$ of $\prod_{\lambda\in\Lambda}X-\lambda$ $\U$-equivalent if 
+    \begin{equation*}
+        \{\lambda\sep x_\lambda=\xi_\lambda\}\in\U.
+    \end{equation*}
+    The ultraproduct $\prod_{\U}X_\lambda$ is the set of $\U$-equivalence classes of elments of $\prod_{\lambda\in\Lambda}X_\lambda$. If $X_\lambda$-s have group structures, $(x\xi)\in\prod_\U X_\lambda$ is given as the $\U$-equivalece classes of $(x_\lambda\xi_\lambda)_\Lambda$. If $X_\lambda$-s are equipped with linear ordering, put 
+    \begin{equation*}
+        (x_\lambda)_{\lambda\in\Lambda}/\sim_\U \leq (\xi_\lambda)_{\lambda\in\Lambda}/\sim_\U
+    \end{equation*}
+    if $\{\lambda\in\Lambda\sep x_\lambda\leq\xi_\lambda\}\in\U$.
+\end{definition}
+\begin{proposition}
+    \label{fact_5_2}
+    Suppose $X_\lambda\not=\emptyset$ for all $\lambda\in\Lambda$.
+    \begin{enumerate}
+        \item If $\U=\{\Theta\subseteq\Lambda\sep\lambda_0\in\Theta\}$ is the principal ultrafilter belonging to $\lambda_0$, then $\prod_\U X_\lambda=X_{\lambda_0}$.
+        \item If $F$ is a finite set and all $\lambda\in\Lambda,X_\lambda=F$. Then $\prod_\U F = F$ as $\Lambda = \bigcup_{f\in F}\{\lambda\sep x_\lambda =f\}$ (i.e. disjoint finite union hence there is ?? are $f\in F$ such that $\{\lambda\sep x_\lambda=f\}\in\U$ where $(x)_\lambda=\prod_{\Lambda}F$)
+        \item If $X_\lambda = X_\lambda'\cup X_\lambda^{''}$ (disjoint unions, $\forall \lambda\in\Lambda, X_\lambda',X^{''}_\lambda\not=\emptyset$) Then $\prod_{\U}(X'_\lambda\cup X^{''}_\lambda) = (\prod_\U X_\lambda')\cup(\prod_\U X^{''}_\lambda)$ which is also a disjoint union as $\Lambda = \{\lambda\in\Lambda\sep x_\lambda\in X_\lambda'\}\cup\{\lambda\in\Lambda\sep x_\lambda\in X_\lambda^{''}\}$.
+        \item Then $\prod_\U(\Gamma_\lambda\cup\{0\}) = (\prod_\U\Gamma_\lambda)\cup\{0\}$ and $\prod_\U\Gamma_\lambda$ is an ordered abelian group where all $\Gamma_\lambda$ are ordered abealian groups.
+    \end{enumerate}
+\end{proposition}
+%4/30
+\begin{remark}
+    When some of the $X_\lambda$ may be empty, it is better to define $\prod_{\U}X_\lambda$ as the set of equivalent classes of pairs $(M,\xi)$ where $M\in\U$ is a subset and $\xi$ a function defined on $M$ such that $\xi(\lambda)\in X_\lambda$ where $\lambda\in M$. Two pairs $(M,\xi),(N,\nu)$ are equivalent if 
+    \begin{equation*}
+        \{\lambda\in M\cap N\sep \xi(\lambda) = \nu(\lambda)\}\in\U.
+    \end{equation*}
+    With this, we define,
+    \begin{equation*}
+        \prod_\U\left(\bigcup_{i=1}^m X_\lambda^{(i)}\right)\cong \bigcup_{i=1}^m\prod_\U X_\lambda^{(i)}.
+    \end{equation*}
+\end{remark}
+\begin{remark}
+    $\prod_\U(\text{ordered abelian groupo})$ is again an ordered abeliangropu and 
+    \begin{equation*}
+        \prod_\U (\Gamma_\lambda\cup\{0\}) \cong (\prod_\U\Gamma_\lambda)\cdot\{0\}.
+    \end{equation*}
+\end{remark}
+\begin{proposition}
+    \label{propostion_6_1}
+    For every ring $R$, $\Spr(R)$ is a spectral space and a subset of the form $\cR(f_0|f_1,\cdots,f_m)$ with $m\in\N$ and $9(f_i)_{i=0}^m\in R^{m+1}$ is quasi-compact.
+    \par The generic limit of the ultrafiler $\U$ on $\Spr R$ is given by the equivalence classof the valuation,
+    \begin{equation*}
+        R\stackrel{r\mapsto (\text{the $\U$-equivalence class of $(\ab{r}_\gamma)_{\gamma\in\Spr R}$})}{\longrightarrow}\left({\prod_{\gamma\in\Spr R}}_\U\Gamma_\gamma\right)\cup\{0\}=\prod_\U(\Gamma_\gamma\cup\{0\}). \tag{1}\label{proposition_6_1_1}
+    \end{equation*}
+    Moreover, the map,
+    \begin{equation*}
+        \Spr(R)\stackrel{\gamma\mapsto \supp\ab{\cdot}_\gamma}{\longrightarrow}\Spec R
+    \end{equation*}
+    is spectral and for every ring homomorphism $R\stackrel{\rho}{\to}S$, the map 
+    \begin{equation*}
+        \Spr(S)\stackrel{\Spr(\rho)}{\to}\Spr(R)
+    \end{equation*}
+    is also spectral.
+\end{proposition}
+\begin{proof}
+    It is obvious from the definition and the properties of ultrafilters that \eqref{proposition_6_1_1} is indeed a valuation. To showthat is defines a generic limit of $\U$ and that the rational open subsets are quasi-compact, we use Lemma \ref{lemma_1}. Set 
+    \begin{equation*}
+        \mathcal{B} = \{\cR(f_0| f_1,\cdots,f_m)\sep m\in\N,(f_i)_{i=0}^m \in R^{m+1}\}.
+    \end{equation*}
+    if $g$ ??? the equivalence class of \eqref{proposition_6_1_1}, 
+    \begin{align*}
+        [g\in\cR(f_0|f_1,\cdots,f_m)]&\Leftrightarrow\ab{f_0}_g\not=0 \text{ and all $\ab{f_1}_g\leq \ab{f_0}_g$},\\
+        &\stackrel{\text{By \eqref{proposition_6_1_1}}}{\Leftrightarrow} (\ab{f_0}_x)_{x\in X}/\sim_\U \not=0\text{ and }(\ab{f_i}_x)_{x\in X}/\sim_\U\leq (\ab{f_0}_x)_{x\in X}/\sim_\U,\\
+        &\stackrel{\substack{\text{Definition of $\prod_\U$}\\\text{ and the valuation on it}}}{\Leftrightarrow} \{x\in X\sep \ab{f_0}_x\not=0\}\in\U\text{ and  all }\{x\in X\sep \ab{f_i(x)}\leq f_0(x)\}\in\U,\\
+        &\stackrel{\bigcap_{i=0}^m M_i\in\U\Leftrightarrow \forall M_i\in\U}{\Leftrightarrow} \{x\in X\sep \ab{f_0}_x\not=0\}\cap\bigcap_{i=1}^m \{x\in X\sep \ab{f_i(x)}\leq\ab{f_0(x)}\}\in\U,\\
+        &\stackrel{\text{Definition of rational open}}{\Leftrightarrow}\cR(f_0\sep f_1,\cdots,f_m)\in\U.
+    \end{align*}
+    Lemma \ref{lemma_1} can indeed be applied. That the induced map $\Spr(R)\stackrel{\supp}{\to}\Spec(R)$ is spectral follows from 
+    \begin{equation*}
+        \supp(D(f)) = \cR(f|).
+    \end{equation*}
+    Proposition \ref{fact_1_2_6}. That $\Spr(\rho)$ is spectral follows immediately from 
+    \begin{equation*}
+        \Spr(\rho)^{-1}\cR(f_0|f_1,\cdots,f_m) = \cR(\rho(f_0)|\rho(f_1),\cdots,\rho(f_m)).
+    \end{equation*}
+\end{proof}
+
+\begin{remark}
+    
+\end{remark}
+
+\begin{proposition}
+    \label{fact_6_3}
+    For every ideal $I\subseteq R$, if $R\stackrel{\pi}{\to}R/I$ denotes the canonical projection, then the induced map $\Spr(R/I)\stackrel{\pi}{\to} \Spr(R)$ is a homeomorphism. Explicitly, we have,
+    \begin{equation}
+        \Spr(R/I) = V_{\Spr(R)}(I) \defeq\{x\in\Spr(R)\sep \supp x\supseteq I\} = \Spr(R)\backslash\bigcup_{f\in I}\cR(f).\label{eq_spr_v_formula}
+    \end{equation}
+    If $I$ is finitely generated (i.e. $I = \langle g_1,\cdots,g_m\rangle_R$), then the right hand side of Equation \eqref{eq_spr_v_formula} can be written as,
+    \begin{equation*}
+        \Spr(R/I) = \bigcup_{i=1}^m \cR(g_i)
+    \end{equation*}
+    which is the embedded subset. Alternatively, we have,
+    \begin{equation*}
+        V_{\Spr(R)} = \{x\in\Spr(R)\sep \forall f\in I, \ab{f}_x = 0\}.
+    \end{equation*}
+    Furthermore, we can identify this with a homeomorphism,
+    \begin{equation*}
+        \Spr(R/I)\underset{\simeq}{\stackrel{\Spr(\pi)}{\to}} V(I).
+    \end{equation*}
+    \par Let $S$ be a multiplicative subset of $S$ and $\iota:R\to R_S$ be a canonical inclusion then,
+    \begin{equation}
+        \Spr(R_S) = \underset{\Spr(\iota)}{\stackrel{\simeq}{\to}}\bigcap_{s\in S}(\Spr(R)\backslash V(s)) = \bigcap_{s\in S}\cR(s|).
+    \end{equation}
+\end{proposition}
+
+\begin{proposition}
+    \label{fact_6_4}
+    Let $s$ be a specialization of $\eta\in\Spr(R)$, then 
+    \begin{equation}
+        \supp\eta\subseteq \supp s.
+    \end{equation}
+\end{proposition}
+\begin{proof}
+    \begin{equation}
+        r\not\in\supp s\iff s\in\cR(r|)\Rightarrow \eta\in\cR(r|)\iff r\not\in\supp\eta.
+    \end{equation}
+\end{proof}
+
+\begin{definition}
+    \label{definition_6_7}
+    Let $\gamma\in\Gamma\cup\{0\}$ and $R\stackrel{v}{\to}\Gamma\cup\{0\}$ be a valuation. We then define,
+    \begin{equation*}
+    K_{v\leq \gamma}\defeq \{r\in R\sep v(r)\leq \gamma\}.
+    \end{equation*}
+    For an equivalence class $x\in\Spr(R)$ where $v\in x$, we may denote,
+    \begin{equation*}
+        K_{x\leq\gamma} = K_{v\leq\gamma}.
+    \end{equation*}
+    For $\rho\in R$, we denote,
+    \begin{align*}
+        K_{v\leq\rho} \defeq K_{v\leq v(\rho)}, K_{x\leq \rho} \defeq K_{x\leq\ab{\rho}_x}.
+    \end{align*}
+    Similarly,
+    \begin{align*}
+        K_{v<\gamma} &= K_{x<\gamma} \defeq\{r\in R\sep v(r)<\gamma\}\\
+        K_{v<\rho} & = K_{x<\rho} \defeq K_{v<v(\rho)}.
+    \end{align*}
+\end{definition}
+
+\begin{proposition}
+    \label{fact_6_5}
+    $K_{v\leq 1}$ is an integrally closed subring of $R$, and $K_{v<1}$ is a prime ideal in $K_{v\leq 1}$.
+\end{proposition}
+\begin{proof}
+    These being a subring and an ideal can be checked easily. Let $r\not\in K_{r\leq 1}$, then if $m$ is a positive integer and $(p_i)_{i=1,\cdots,m}\in K_{v\leq 1}^m$, we have,
+    \begin{align*}
+    v(r^m) &= v(r)^m,\\
+    &> v(r)^{m-1}\leq\max_{1\leq i\leq m-1}v(p_i)v(r)^i,\\
+    & = \max_{1\leq i\leq m-1}v(p_ir^i),\\
+    & \leq v\left(\sum_{i=1}^{m-1}p_ir^i\right).
+    \end{align*}
+    Hence,
+    \begin{equation}
+        r^m \not = \sum_{i=1}^{m-1}p_ir^i.
+    \end{equation}
+    Thus $r$ is not integral over $K_{v\leq 1}$, in particular, $K_{v\leq 1}$ is integrally closed.
+    \par For $K_{v<1}$ being prime, obviously $1\not\in K_{v<1}$. Let $a,b\in K_{v\leq 1}\backslash K_{v<1}$. Then $v(a) = v(b) = 1$. Therefore $v(ab) = 1$. Showing $K_{v<1}$ is a prime ideal.
+\end{proof}
+
+\begin{proposition}
+    \label{fact_6_6}
+    Let $s$ be a specialization of $\eta\in\Spr(R)$. We have,
+    \begin{equation*}
+        a\in R\backslash\supp s\Rightarrow K_{\eta<a}\subseteq K_{s<a}.
+    \end{equation*}
+    Applying this to $a=1$, (recall that $\supp s$ is a prime ideal), we get,
+    \begin{equation*}
+        K_{\eta<1}\subseteq K_{s<1}.
+    \end{equation*}
+\end{proposition}
+
+\begin{proof}
+    By the assumption and Proposition \ref{fact_6_4}, we know that $\ab{a}_\eta\not=0$. Therefore,
+    \begin{equation*}
+        b\not\in K_{\eta<a}\iff\eta\not\in\cR(b|a)\Rightarrow s\not\in \cR(b|a)\iff b\not\in K_{s<a}.
+    \end{equation*}
+\end{proof}
+\begin{proposition}
+    \label{fact_6_7}
+    Let $s$ be a specilization of $\eta\in\Spr(R)$. 
+    \begin{equation*}
+        a\in R\backslash\supp(s)\Rightarrow K_{s\leq a}\subseteq K_{\eta\leq a}.
+    \end{equation*}
+    In particular for $a=1$, we get,
+    \begin{equation*}
+        K_{s\leq 1}\subseteq K_{\eta\leq 1}.
+    \end{equation*}
+\end{proposition}
+
+\begin{proof}
+    By Proposition \ref{fact_6_4}, $\ab{a}_\eta\not=0$. Hence,
+    \begin{equation*}
+        b\in K_{s\leq a}\iff s\in \cR(a|b)\Rightarrow \eta\in\cR(a|b)\iff b\in K_{\eta\leq a}.
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    \label{definition_6_8}
+    Let $X$ be a linearly ordered set. For $a,b\in X$ with $a\leq b$, we define the line segment between $a$ and $b$ to be 
+    \begin{equation*}
+        \vert x,y\vert_X \defeq\{x\in X\sep a\leq x\leq b\}.
+    \end{equation*}
+    A subset $C\subseteq X$ is convex if for any two elements $c,d\in C,c\leq d$, we have $\vert c,d\vert_X\subseteq C$.
+\end{definition}
+
+\begin{definition}
+    A convex subgroup $\Theta$ is a subgroup of a linearly ordered group $\Gamma$ which is convex.
+\end{definition}
+
+\begin{proposition}
+    \label{fact_6_8.5}
+    A subgroup $\Theta$ of a linearly ordered group $\Gamma$ is convex if and only if for any $\theta\in \Theta$ with $\theta<1$, $\vert \theta,\theta^{-1}\vert_\Gamma\subseteq\Theta$.
+\end{proposition}
+Recall that for a valuation $v:R\to \Gamma\cup\{0\}$, $\Gamma_v$ is the subgroup of $\Gamma$ generated by $v(R)\backslash\{0\}$.
+\begin{definition}
+    \label{definition_6_9}
+    $\cGamma_v$ is the convex subgroup of $\Gamma_v$ generated by $\{v(r)\sep r\in R, v(r)\geq1\}$. 
+\end{definition}
+\begin{remark}
+    Equivalently, we can define $\cGamma_v$ to be a subgroup generated by $\{v(r)\sep r\in R, v(r)>1\}$.
+\end{remark}
+
+\begin{proposition}
+    \label{fact_6_10}
+    \begin{equation*}
+        \cGamma_v = \{\gamma\in\Gamma_v\sep \exists r\in R \:\st\: \gamma v(r)\geq1\}
+    \end{equation*}
+\end{proposition}
+\begin{remark}
+    If $H$ is a convex subgroup of $\Gamma_v$, then $\cGamma_v\subseteq H$. Furthermore, we have,
+    \begin{equation*}
+        v|_{H}(r)=\begin{cases}
+            v(r)\quad(v(r)\in \cGamma_v)\\
+            0\quad(\text{otherwise}).
+        \end{cases}
+    \end{equation*}
+\end{remark}
 
 \end{document}

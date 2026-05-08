@@ -1,11 +1,11 @@
 # Fdb version 4
-["dvipdf"] 1776668835.82273 "V4A5Tutorial.dvi" "V4A5Tutorial.pdf" "V4A5Tutorial" 1776668835.98552 0
-  "V4A5Tutorial.dvi" 1776668835.79824 18644 b901a55578b142e479fcf0ff53bf73fe "latex"
+["dvipdf"] 1777881377.04029 "V4A5Tutorial.dvi" "V4A5Tutorial.pdf" "V4A5Tutorial" 1777881377.22309 0
+  "V4A5Tutorial.dvi" 1777881377.01646 33168 8a71e6355bbac0956bc35ea6eff319d1 "latex"
   (generated)
   "V4A5Tutorial.pdf"
   (rewritten before read)
-["latex"] 1776668835.4402 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Tutorial/V4A5Tutorial.tex" "V4A5Tutorial.dvi" "V4A5Tutorial" 1776668835.98446 0
-  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Tutorial/V4A5Tutorial.tex" 1776668835.17443 8897 7d3d5417228e295fda48b59c41569e31 ""
+["latex"] 1777881376.69552 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Tutorial/V4A5Tutorial.tex" "V4A5Tutorial.dvi" "V4A5Tutorial" 1777881377.22193 0
+  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Tutorial/V4A5Tutorial.tex" 1777881375.97256 18954 58652fcd9276b37f1f487d1716f28780 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -36,6 +36,11 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/rsfs/rsfs10.tfm" 1229303445 688 37338d6ab346c2f1466b29e195316aa4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/rsfs/rsfs5.tfm" 1229303445 684 3a51bd4fd9600428d5264cf25f04bb9a ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/rsfs/rsfs7.tfm" 1229303445 692 1b6510779f0f05e9cbf03e0f6c8361e6 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm" 1302307949 848 f478e0761563bbc369eca609a1741348 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/stmaryrd/stmary5.tfm" 1302307949 848 e1bc58a31b9ed9c3729ffea165acfaac ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/stmaryrd/stmary6.tfm" 1302307949 848 068dd119e13b75777e62821af7d4f2a6 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/stmaryrd/stmary7.tfm" 1302307949 848 26631fcb3e4cb6757598b9cda7967b63 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/stmaryrd/stmary8.tfm" 1302307949 848 6125cdd3627e68d3db8013b98e587508 ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex" 1673816307 1016 1c2b89187d12a2768764b83b4945667c ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex" 1601326656 43820 1fef971b75380574ab35a0d37fd92608 ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex" 1601326656 19324 f4e4c6403dd0f1605fd20ed22fa79dea ""
@@ -144,6 +149,8 @@
   "/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgffor.sty" 1601326656 348 ee405e64380c11319f0e249fed57e6c5 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty" 1601326656 274 5ae372b7df79135d240456a1c6f2cf9a ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty" 1601326656 325 f9f16d12354225b7dd52a3321f085955 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/stmaryrd/Ustmry.fd" 1137110872 1766 216b0f832c406513647608b5bb9bb8ff ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty" 1302307949 11080 aa7f81da60ce104f0dbb8b827dd14383 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/tikz-cd/tikz-cd.sty" 1620507957 823 2375f30bf77af9357d3b4834b054bf52 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty" 1717359999 10214 61188260d324e94bc2f66825d7d3fdf4 ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/tools/enumerate.sty" 1717359999 3468 ad69b54642e68f9fdf39ec1a16dd7341 ""
@@ -153,8 +160,8 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/latex.fmt" 1760893821 3345650 f2179b917b551c7214098855962de784 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "V4A5Tutorial.aux" 1776668835.79788 585 0890e1a236ec9775c1af45ae8a4fed15 "latex"
-  "V4A5Tutorial.tex" 1776668835.17443 8897 7d3d5417228e295fda48b59c41569e31 ""
+  "V4A5Tutorial.aux" 1777881377.01596 772 73193d2304fcd416a2b62fa578f16e4c "latex"
+  "V4A5Tutorial.tex" 1777881375.97256 18954 58652fcd9276b37f1f487d1716f28780 ""
   (generated)
   "V4A5Tutorial.aux"
   "V4A5Tutorial.dvi"

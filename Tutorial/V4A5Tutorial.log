@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=latex 2025.10.19)  20 APR 2026 09:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=latex 2025.10.19)  4 MAY 2026 09:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -447,7 +447,12 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \sift@deathcycles=\count316
 \@vwid@loff=\dimen285
 \@vwid@roff=\dimen286
-)) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+Package: stmaryrd 1994/03/03 St Mary's Road symbol package
+\symstmry=\mathgroup7
+LaTeX Font Info:    Overwriting symbol font `stmry' in version `bold'
+(Font)                  U/stmry/m/n --> U/stmry/b/n on input line 89.
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryarrows.code.tex
 File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -467,46 +472,48 @@ File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (./V4A5Tutorial.aux)
 \openout1 = `V4A5Tutorial.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 131.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 135.
+LaTeX Font Info:    ... okay on input line 135.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 136.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 131.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 136.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 131.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 136.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
+LaTeX Font Info:    Trying to load font information for U+stmry on input line 136.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 
 [1
 
 ]
-LaTeX Font Info:    Trying to load font information for U+euf on input line 189.
+LaTeX Font Info:    Trying to load font information for U+euf on input line 194.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 )
-Overfull \hbox (37.70576pt too wide) detected at line 209
+Overfull \hbox (37.70576pt too wide) detected at line 214
 []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 A; A[]\OT1/cmr/m/n/10 ) = \OMS/cmsy/m/n/10 f[]g\OML/cmm/m/it/10 = \OMS/cmsy/m/n/10 ^^X \OML/cmm/m/it/10 :
  []
 
 
-Overfull \hbox (9.47456pt too wide) in paragraph at lines 213--215
+Overfull \hbox (9.47456pt too wide) in paragraph at lines 218--220
 \OT1/cmr/m/it/10 from the cat-e-gory of rigid $\OML/cmm/m/it/10 K$\OT1/cmr/m/it/10 -spaces, to the cat-e-gory of adic spaces over $[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 K; K[]\OT1/cmr/m/n/10 )$\OT1/cmr/m/it/10 . 
  []
 
@@ -514,19 +521,27 @@ Overfull \hbox (9.47456pt too wide) in paragraph at lines 213--215
 
 [2]
 
-[3] (./V4A5Tutorial.aux)
+[3]
+
+[4]
+
+[5]
+
+[6]
+
+[7] (./V4A5Tutorial.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 16837 strings out of 473191
- 351146 string characters out of 5715825
- 831212 words of memory out of 5000000
- 39776 multiletter control sequences out of 15000+600000
- 569441 words of font info for 79 fonts, out of 8000000 for 9000
+ 17125 strings out of 473191
+ 354941 string characters out of 5715825
+ 832533 words of memory out of 5000000
+ 40052 multiletter control sequences out of 15000+600000
+ 570665 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 116i,14n,121p,574b,224s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 116i,14n,121p,587b,227s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on V4A5Tutorial.dvi (3 pages, 18644 bytes).
+Output written on V4A5Tutorial.dvi (7 pages, 33168 bytes).

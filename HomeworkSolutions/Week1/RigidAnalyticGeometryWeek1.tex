@@ -114,8 +114,8 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
   \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
 }
 
-\title{Rigid Analytic Geometry}
-\author{Lectures given by\\Prof. Dr. Jens Franke\\Typed by\\So Murata}
+\title{Rigid Analytic Geometry Week 1 Solution}
+\author{So Murata}
 \date{SoSe 26, University of Bonn}
 
 
@@ -123,16 +123,55 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \maketitle
 
 \par\textbf{Problem 1}\\
-By multiplicative property of the absolute value, we have $K^\circ$ is a valuation ring of $K$. Thus $\Spec K^\circ = \{K^{\circ\circ},\{0\}\}$.\\
+By multiplicative property of the absolute value, we have $K^\circ$ is a valuation ring of $K$. Thus $\Spec K^\circ = \{K^{\circ\circ},\{0\}\}$.
 \par\textbf{Problem 2}\\
 The second assertion is clear as for any $\alpha\in\Z_{\geq0}^m$, $1_\alpha=0$ unless $\alpha = 0$. For the first assertion, from the definition of $\norm{\cdot|\T_m}$, for each $f,g\in\T_m$ there are $\alpha,\beta\in\Z_{\geq0}^m$ such that 
 \begin{equation}
     \vert f_\alpha\vert=\norm{f|\T_m},\vert g_\beta\vert = \norm{g|\T_m}.
 \end{equation}
 Also,
+\begin{align*}
+\norm{fg|\T_m} &= \max_\gamma\left\{\left\vert\sum_{\alpha+\beta = \gamma}f_\alpha g_\beta\right\vert\sep \gamma\in\Z_{\geq0}\right\},\\
+&\leq\vert f_\alpha\vert\vert g_\beta\vert,\\
+& = \norm{f|\T_m}\norm{g|\T_m}.
+\end{align*}
+To show multiplicativeness, consider,
 \begin{equation*}
-\norm{fg|\T_m} = \left\{\left\vert\sum_{\alpha+\beta = \gamma}f_\alpha g_\beta\right\vert\sep \gamma\in\Z_{\geq0}\right\}.
+  \alpha_0 = \min\{\alpha\sep \vert f_\alpha\vert = \norm{f|\T_m}\},  \beta_0 = \min\{\beta\sep \vert g_\beta\vert = \norm{g|\T_m}\}.
 \end{equation*}
+
+Then,
+\begin{equation*}
+  \vert (fg)_{\alpha_0+\beta_0}\vert \leq \norm{fg|\T_m}.
+\end{equation*}
+
+For any $(\alpha,\beta)$ with $\alpha+\beta = \alpha_0+\beta_0$ we have,
+\begin{equation*}
+  \vert f_\alpha g_\beta\vert <\vert f_{\alpha_0}g_{\beta_0}\vert.
+\end{equation*}
+
+As $\vert\cdot\vert$ is non-archimedian, we have,
+\begin{equation*}
+  \left\vert\sum_{\substack{\alpha+\beta=\alpha_0+\beta_0\\(\alpha,\beta)\not=(\alpha_0,\beta_0)}}f_\alpha g_\beta\right\vert <\vert f_{\alpha_0}g_{\beta_0}\vert.
+\end{equation*}
+
+This can be seen by induction. Using it is non-archimedian, we have,
+\begin{align*}
+  \vert f_{\alpha_0}g_{\beta_0}\vert&=\left\vert (fg)_{\alpha_0+\beta_0}-\sum_{\substack{\alpha+\beta=\alpha_0+\beta_0\\(\alpha,\beta)\not=(\alpha_0,\beta_0)}}f_\alpha g_\beta\right\vert,\\
+  &\leq \max\left\{\vert (fg)_{\alpha_0+\beta_0}\vert,\left\vert\sum_{\substack{\alpha+\beta=\alpha_0+\beta_0\\(\alpha,\beta)\not=(\alpha_0,\beta_0)}}f_\alpha g_\beta\right\vert \right\}
+\end{align*}
+
+But 
+\begin{equation*}
+    \left\vert\sum_{\substack{\alpha+\beta=\alpha_0+\beta_0\\(\alpha,\beta)\not=(\alpha_0,\beta_0)}}f_\alpha g_\beta\right\vert <\vert f_{\alpha_0}g_{\beta_0}\vert.
+\end{equation*}
+
+Thus we conclude
+\begin{equation*}
+  \vert (fg)_{\alpha_0+\beta_0}\vert = \vert f_{\alpha_0}g_{\beta_0}\vert,
+\end{equation*}
+showing this is multiplicative.
+
 \par\textbf{Probmel 3}\\
 Clearly $0,1$ are idempotents thus $0,1\in A^\circ$. From the first property of the norm, 
 \begin{equation*}
@@ -148,7 +187,26 @@ Thus we can take the maximum of the upperbounds of $\{a^n\sep n\in\N\},\{b^n\sep
     \norm{(ax)^n|A}\stackrel{n\to\infty}{\to}0.
 \end{equation*}
 Since $A$ is a complete metric space with respect to the induced metric from $\norm{\cdot|A}$, $0$ is the unique element of norm $0$, thus $ax\in A^{\circ\circ}$. If $a^k\in A^{\circ\circ}$, then again by that $A$ is a complete metric space we have $a\in A^{\circ\circ}$ since $\norm{a^{kn}|A}\stackrel{n\to\infty}{\to}0$.\\
-\par\textbf{Problem 4}
+\par\textbf{Problem 4}\\
 If $\norm{\cdot|A}$ is multiplicative, the boundedness of the set $\{a^n\sep n\in\N\}$ is equivalent to the boundedness of $\{\norm{a|A}^n\sep n\in\N\}$. And the latter is equivalent to $\norm{a|A}\leq 1$. Similarly $\lim_{n\to\infty}a^n=0$ is equivalent to $\norm{a^n|A}\to 0$ and by the multiplicativeness this is equivalent to $\lim_{n\to\infty}\norm{a|A}^n=0$. This is equivalent to $\norm{a|A}<1$.
-
+\\\par\textbf{Problem 5}\\
+Take $a\in K$ such that $\vert a \vert\in(0,1)$. Then for a $K$-Banach algebra $A$, we have $a\cdot 1_A$ is a topologically nilpotent element.
+As any ideal $I$ contains $0$, thus if $I$ is open, it cotains an open neighbourhood of $0$. This means that for sufficiently large $n$ we have $(a\cdot 1_A)^n\in I$. Thus $1_A\in I$ meaning $I$ is not proper.
+\\\par\textbf{Problem 6}
+Let $A$ be a $K$-Banach algebra. Clearly $1_A\in A^\times$. If $A^\times$ contains an open neighbourhood $U$ of $1$, then for any $a\in A^\times, aU$ is an open neighbourhood of $a$ contained in $A^\times$. We set,
+\begin{equation*}
+  U = \{x\in A\sep \norm{x|A}<1\}.
+\end{equation*}
+Clearly $U$ is open. Note that for any $a\in A$, $x\mapsto a+x$ is a continuous function with inverse $x\mapsto -a+x$. And as $A$ is a $K$-Banach algebra, this is a bounded linear operator. Thus $1+U$ is homeomorphic to $U$.
+Consider,
+\begin{equation*}
+  (1-x)(1+x+x^2+\cdots+x^{n-1}) = 1-x^{n-1}.
+\end{equation*}
+As $\norm{x|A}<1$, thus the series, 
+\begin{equation*}
+  1+x+x^2+\cdots
+\end{equation*}
+is an element of $A$, we conclude $1-x\in A^\times$. In other words, $1+U$ is an open set contained in $A^\times$. Thus $A^\times$ is open.
+\\\par\textbf{Problem 7}
+By Problem 6, we know that in a $K$-Banach algebra $A$, $A^\times$ forms an open neighbourhood of $1$. If an ideal $I$ in $A$ is dense, $I$ intersects with $A^\times$. This means $I$ contains a unit thus $I=A$.
 \end{document}

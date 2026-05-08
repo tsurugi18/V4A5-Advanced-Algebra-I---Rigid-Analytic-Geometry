@@ -11,6 +11,7 @@
 \usepackage{fancyhdr}
 \usepackage{tikz-cd} 
 \usepackage{adjustbox} 
+\usepackage{stmaryrd}
 \numberwithin{equation}{section}
 \usetikzlibrary{arrows}
 \newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
@@ -88,6 +89,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \DeclareMathOperator{\Rig}{Rig}
 \DeclareMathOperator{\Adic}{Adic}
 \DeclareMathOperator{\FSch}{FSch}
+\DeclareMathOperator{\Sper}{Sper}
 %\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\Ouv}{\mathcal{O}}
@@ -104,6 +106,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\G}[0]{\mathbb{G}}
 \newcommand{\A}[0]{\mathbb{A}}
 \newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\U}[0]{\mathfrak{U}}
 \newcommand{\Para}[0]{\mathbb{P}}
 \newcommand{\M}[0]{\mathcal{M}}
 \newcommand{\maniN}[0]{\mathcal{N}}
@@ -115,6 +118,8 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\sH}[0]{\mathscr{H}}
 \newcommand{\ab}[1]{\vert #1 \vert}
 \newcommand{\st}[0]{\:\straw\:}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
 \newcommand{\fib}[1]{%
   \mathbin{\mathop{\times}\limits_{#1}}%
 }
@@ -224,4 +229,173 @@ then $(C_K,\Ouv)$ is isomorphic to a non-singular curve with function field $K$.
   If $X$ is a qcqs rigid $K$-space, the set of van der Put points of $X$ is one-to-one correspondent to points of $r_K(X)$.
 \end{remark}
 The problem session goes parallel to the lecture, meaning the lecture will focus on the modern treatment while the tutorial will focus on the classical one. Remark \ref{remark_2_classical_modern_intersection} will be the meeting point of these two.
+\section{Week1}
+\par\textbf{Problem 2}
+Let $f,g\in\T_m$. Set
+\begin{equation*}
+  f = \sum_{\alpha}a_\alpha x^\alpha,g=\sum_\beta b_\beta x^\beta.
+\end{equation*}
+Clearly,
+\begin{align*}
+  \norm{f+g} & = \max_{\alpha} \vert a_\alpha+b_\alpha\vert,\\
+  & \leq \max_\alpha\{\vert a_\alpha\vert,\vert b_\alpha\vert\},\\
+  & = \max\{\norm{f},\norm{g}\}.
+\end{align*}
+For $k\in K$, we have,
+\begin{equation*}
+  \norm{k\cdot f} = \max_\alpha\vert k a_\alpha\vert  = \vert k\vert \max_\alpha\vert a_\alpha\vert.
+\end{equation*}
+For the multiplicity, assume $\norm{f},\norm{g} = 1$. This means there are $\alpha_0,\beta_0$ such that 
+\begin{equation*}
+  a_{\alpha_0} = 1,b_{\beta_0} = 1.
+\end{equation*}
+
+Recall that $K^\circ$ is a local with maximal ideal $K^{\circ\circ}$ so set $k=K^\circ/K^{\circ\circ}$. Let $\overline{f},\overline{g}$ be reductions of some $f,g$ in $k[x_1,\cdots,x_n]$. Then $\overline{f},\overline{g}$ are non-zero so $\overline{f}\overline{g}$ is non-zero.
+This shows that some coefficients of $fg$ is in $K^\circ\backslash K^{\circ\circ}$. Thus $\norm{fg}\geq1$. 
+\par We have,
+\begin{align*}
+  \norm{fg}\leq\max_{\gamma}\max_{\alpha+\beta=\gamma}\vert a_\alpha b_\beta\vert\leq \norm{f}\norm{g}.
+\end{align*}
+\begin{definition}[Topological and Norm-free definition of boundedness, Power boundedness]
+  Let $A$ be a topological ring and a subset $X$ of $A$ is called bounded if for any neighbourhood $U$ of $0$, there is a open neighbourhood $V$ of $0$ such that 
+  \begin{equation*}
+    V\cdot X \subseteq U.
+  \end{equation*}
+    An element $a\in A$ is called power-bounded if $\{a^n\sep n\geq1\}$ is bounded.
+\end{definition}
+\begin{example}
+  Consider $A=k[x]/(x^2)$. 
+\end{example}
+\begin{remark}
+  If we consider the quotient topology on $A/I$ for $I$ open, then $A/I$ will be equipped with discrete topology. This is because $a+I$ is open thus the reduction $\{\overline{a}\}$ is open.
+\end{remark}
+If $A$ is a $K$-Banach algebra and the topological structure of $K$ is not discrete by definition. An open ideal $I$ in $A$ will make $K$-Banach algebra $A/I$ discrete, in particular, $K\subseteq A/I$ is discrete thus $A/I$ is trivial.
+\par Let $R=K^\circ$ be the valuation ring of $K$. We then define,
+\begin{equation*}
+  R\langle x_1,\cdots,x_n\rangle = \left\{f=\sum_{\alpha\in\N^m}a_\alpha x^\alpha\sep \vert a_\alpha\vert \to 0\right\}.
+\end{equation*}
+Define the topology on $R\langle x_1,\cdots,x_n\rangle$ as the subset topology of $\T_m$. Then this admits a non-trivial open proper ideal. We take a pseudo-uniformizer $\varpi\in R^{\circ\circ}=K^{\circ\circ}$ (i.e. $\vert\varpi\vert<1$), then $(\varpi)$ is an open ideal of $A$. Moreover,
+\begin{equation*}
+  \{(\varpi^n)\}_{n\in\N}=\left\{\sum_{\alpha\in\N^m}a_\alpha x^\alpha\sep \vert a_\alpha\vert\to 0 ,\vert a_\alpha\vert \leq\vert \varpi^n\vert \right\}.
+\end{equation*} 
+is a basis of neighborhoods of $0$. 
+\par What is the completion of $R[x]$ with respect to $(\varpi)$?
+\begin{definition}
+  The completion of $R[x]$ with respect to $(\varpi)$ is defined as 
+  \begin{equation*}
+    \varprojlim_n R[x]/(\varpi)^n = R\langle x\rangle, \varprojlim_n R[x]/x^n = R\llbracket x\rrbracket,\varprojlim_n R[x]/(x,\varpi)^n = R\llbracket x\rrbracket.
+  \end{equation*}
+\end{definition}
+
+Question is 
+\begin{equation*}
+  R\langle x_1,\cdots, x_n\rangle\tens{R}k \cong \T_m
+\end{equation*}
+and 
+\begin{equation*}
+  K\langle x\rangle\tens{K}K\langle y\rangle \cong K\langle x,y\rangle
+\end{equation*}
+hold? It turns out the first one does with $K=R\left[{\frac 1 \varpi}\right]$. However, the second one doesnt hold. But we have 
+\begin{equation*}
+  K\langle x\rangle\tens{K} K\langle y\rangle
+\end{equation*}
+ is dense in $K\langle x,y\rangle$.
+ \par Suppose $K=\overline{K}$ from now on. Here $\overline{B(0,1)}\subset K^n$ is endowed with maximum norm. We denote,
+ \begin{equation*}
+  K\langle x\rangle
+ \end{equation*}
+ as the set of analytic functions on $\overline{B}(0,1)$. What about $\overline{B}(0,r)$ for $0<r<1$?
+ By noting that $x\leq r\Leftrightarrow {\frac x r}\leq 1$, we have,
+ \begin{equation*}
+  K\left\langle {\frac x r}\right\rangle = \left\{\sum a_i x^i\sep \vert a_ir^i\vert\to 0\right\}.
+ \end{equation*}
+ is such set of analytic functions. The analytic functions on $B(0,1)$ is defined,
+ \begin{equation*}
+  \bigcap_{0<r<1}K\left\langle {\frac x r}\right\rangle = \left\{\sum a_ix^i \sep \vert a_ir^i\vert\to0,\forall 0<r<1\right\}.
+ \end{equation*}
+ \begin{proposition}[Universal Property of Tate algebra]
+  For any complete $K$-algebra $A$ with $(a_1,\cdots,a_n)$ ordered set of n pb elements in $A$, there s a unique continuous morphism of $K$-algebras,
+  \begin{equation*}
+    f:\T_n\to A
+  \end{equation*}
+  such that $f(x_i)=a_i$.
+ \end{proposition}
+ \begin{proposition}
+  Every filter is contained in a maximal filter.
+ \end{proposition}
+ \begin{proof}
+  Consider a sequence of filters, 
+  \begin{equation*}
+    \mathcal{U}_0\subseteq\cdots
+  \end{equation*}
+  Then we claim,
+  \begin{equation*}
+    \mathcal{U} = \bigcup_{i\in I}\mathcal{U}_i
+  \end{equation*}
+  is again a filter. Indeed if $M,N\in\mathcal{U}$, we have,
+  \begin{equation*}
+    M\cap N\in\mathcal{U}_l\subseteq\mathcal{U}.
+  \end{equation*}
+  Also $\emptyset\not\in\mathcal{U}$.  If $M\in\mathcal{U}$ and $M\subseteq N$ then take $M\in\mathcal{U}$ then $N\in\mathcal{U}_l\subseteq \mathcal{U}$. By Zorn's lennma, every filter is contained in an ultrafilter.
+ \end{proof}
+ \begin{proposition}
+  The direct image of an ultrafilter is an ultrafilter. If $\iota:A\hookrightarrow X$ then $\iota_*$ is a bijection from ultrafilters on $A$ to ultrafilters on $X$ containing $A$.
+ \end{proposition}
+ \begin{proof}
+  Recall that the following statements are equivalent.
+  \begin{enumerate}
+    \item $\mathcal{U}$ is an ultrafilter on $X$
+    \item For any subset $M\subseteq X$, either $M\in X$ or $X\backslash M\in X$. 
+    \item If $M\cup N\in\mathcal{U}$ then either $M\in\mathcal{U}$ or $N\in\mathcal{U}$. 
+  \end{enumerate}
+  Suppose $f:X\to Y$ and $\mathcal{U}$ is an ultrafilter on $X$, then define,
+  \begin{equation*}
+    f_*\mathcal{U} = \{V\subseteq Y\sep f^{-1}(V)\in\mathcal{U}\}.
+  \end{equation*}
+  Easy to veryfy this is again an ultrafilter. For $M\subseteq Y$, note that 
+  \begin{equation*}
+    f^{-1}(M)\sqcup f^{-1}(Y\backslash M)
+  \end{equation*}
+  thus exactly one of $f^{-1}(M)$ and $f^{-1}(Y\backslash M)$ is in $\mathcal{U}$ hence one of $M$ and $Y\backslash M$ is in $f_*\mathcal{U}$. 
+ \end{proof}
+ \section{Week 2}
+  \begin{lemma}
+  Let $\mathcal{B}$ be an open basis of the space $X$. If $X$ is $T_0$ then $X$ is spectral if and only if every ultrafilter $\U$ has a generic limit $g$ such that $g\in \Omega\Leftrightarrow \Omega\in \U$.
+  If this holds then for any $\mathcal{B}\ni\Omega$ is quasi-compact.
+ \end{lemma}
+ \par\textbf{Problem 5}\\
+ We already have seen $\Spec A$ is spectral. It is $T_0$ and for any ultrafilter $\U$ on $\Spec A$, define,
+ \begin{equation*}
+  \g_\U = \{x\in A\sep \{\p \in\Spec A\sep x\in \p\}\in\U\}
+ \end{equation*}
+ is an ideal. This is quite obvious as $\p$ is an ideal. That is 
+ \begin{equation*}
+  \{\p\sep ax\in\p\}\supseteq\{\p\sep x\in \p\}.
+ \end{equation*}
+ \par\textbf{Problem 6}\\
+ First prove that $X=\Sper A$ is $T_0$. If $P\not=Q$ then there is $a\in P\backslash Q$. Thus $P\not\in\mathcal{P}(-a)$ but $Q\in\mathcal{P}(-a)$. Let $\U$ be an ultrafilter on $X$. We then define,
+ \begin{equation*}
+  \mathfrak{P} = \{a\in A\sep \{C\in\Sper A\sep a\in C\}\in\U\}.
+ \end{equation*}
+
+ We would like to verify that $\mathfrak{P}$ is a generic limit. Let,
+ \begin{equation*}
+  F(a) \defeq \{\p\in\Sper A\sep a\in\p\}.
+ \end{equation*} 
+ For a square $b^2$, we have $F(b^2) = X$. Thus $b^2\in \mathfrak{P}$. For $F(-1) = \emptyset\not\in\U$ thus $-1\not\in \mathfrak{P}$.
+ \par Let $a,b\in\mathfrak{P}$ then $F(a+b)\supseteq F(a)\cap F(b)$. Thus $F(a+b)\in\U$. Also for $F(ab)$. If $ab\in\mathfrak{P}$ but $a\not\in \mathfrak{P}$, then 
+ \begin{equation*}
+  \{\p\sep -b\in\p\}\supseteq\{\p\sep ab\in\p,a\not\in\p\} = F(ab)\cap (X\backslash F(a)).
+ \end{equation*}
+Since $F(a)$ is not in $\U$ thus $X\backslash F(a)$ is in $\U$. Thus $F(-b)\in\U$. 
+\par For $\mathcal{P}(a)\in\mathcal{B}$, $\mathfrak{P}\in\mathcal{P}(a)$ if and only if $-a\not\in \mathfrak{P}$. Thus $F(-a)\not\in \U$. By definition $F(-a)\cup \mathcal{P}(a)=X$. Thus $\mathcal{P}(a)\in\U$.
+Also $\mathfrak{P}\in\mathcal{P}(a_1,\cdots,a_n)$ then $\mathfrak{P}\in\mathcal{P}(a_i)$ for all $i$. Thus $\mathcal{P}(a_i)\in\U$. In particular $\mathcal{P}(a_1,\cdots,a_n)\in\U$. By the lemma $X$ is spectral and all elements in $\mathcal{B}$ are quasi-compact.
+\par\textbf{Prroblem 7}\\
+Clearly $X$ is $T_0$ since for any $x\not=y\in X$. Without loss of generality, we assume $x\not=\eta$. Then $X\backslash\{x\}$ does the work. Let $\U$ be an ultrafilter on $X$. If $U\in\U$, then $X\backslash U$ is finite thus there is $\{x_i\}\in \U$. If $U$ is cofinite, then $x_i\in U\Leftrightarrow U\in\U$. So $U$ is quasi-compact. If $\U$ contains all non-empty open sets then $\eta$ the generic limit. So $X$ is spectral and cofinite subsets are quasi-compact.
+\par\textbf{Problem 8}\\
+Note that if $x\not =\eta$, then $\{x\}$ is open thus this is a open neighborhood. On the other hand, the neighbourhood basis of $\eta$ is the basis open basis is the neighborhood basis as $X\backslash U_i\ni \eta$ then $U_i=\emptyset$ thus it is the whole.
+\begin{theorem}
+  If $X$ is quasi-compact and Hausdorff and denote $C(X)$ be the set of continuous functions $X\to \R$. Then $C(X)$ is a commutative unital ring. Then there is a one-to-one correspondence between $X$ and the maximal ideals of $C(X)$, mapping $x\mapsto \m_x = \{f|f(x)=0\}$.   
+\end{theorem}
+Are there non-maximal prime ideal? The answer is if $X$ is first countable, then non-maximal prime ideal exists if and only if $X$ is an infinite set.
 \end{document}

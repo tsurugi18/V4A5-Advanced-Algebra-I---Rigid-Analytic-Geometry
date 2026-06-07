@@ -1,0 +1,236 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Sper}{Sper}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\con}{con}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Qc}[0]{\mathfrak{Q}_C}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\U}[0]{\mathfrak{U}}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry Week 3 Solution}
+\author{So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\par\textbf{Problem 1}\\
+As we have seen in the previous sheet that for a $K$-norm $\norm{\cdot}$ on $L$, there is $C>0$ such that
+\begin{equation*}
+    \forall x,y\in L, \norm{xy}\leq C\norm{x}\norm{y}
+\end{equation*}
+Let $\norm{\cdot}'$ be another norm such that 
+\begin{equation*}
+    \norm{\cdot}' = C\norm{\cdot}.
+\end{equation*}
+Then using the equation,
+\begin{equation*}
+    {\frac 1 C}\norm{xy}'=\norm{xy}\leq C\norm{x}\norm{y} = {\frac C {C^2}}\norm{x}'\norm{y}'.
+\end{equation*}
+Thus,
+\begin{equation*}
+    \norm{xy}'\leq \norm{x}'\norm{y}'.
+\end{equation*}
+\par\textbf{Problem 2}\\
+Suppose the limit,
+\begin{equation*}
+    \ab{l}_L = \lim_{n\to\infty}\sqrt[n]{\norm{l^n}_1}
+\end{equation*}
+exists for some norm $\norm{\cdot}_1$. Then for any norm $\norm{\cdot}_2$, we have,
+\begin{equation*}
+    c\norm{x}_1\leq \norm{x}_2\leq C\norm{x}_1,
+\end{equation*}
+for some $c,C>0$. Thus using the sandwich theorem, we obtain 
+\begin{equation*}
+    \lim_{n\to\infty}\sqrt[n]{\norm{l^n}_2}
+\end{equation*}
+also exists and equals to $\lim_{n\to\infty}\sqrt[n]{\norm{l^n}_1}$. 
+Let $a_n = \log \norm{l^n}$. Then we have,
+\begin{equation*}
+    a_{m+n} \leq a_m+a_n.
+\end{equation*}
+Using Fekete's lemma, there is a limit $\lim_{n\to\infty}{\frac {a_n} n}$ and thus there is a limit for $\lim_{n\to\infty}\sqrt[n]{\norm{l^n}}$.
+\par\textbf{Problem 3}
+\begin{equation*}
+    \ab{xy}_L=\lim_{n\to\infty}\sqrt[n]{\norm{(xy)^n}}\leq \lim_{n\to\infty}\sqrt[n]{\norm{x^n}\norm{y^n}} = \ab{x}_L\ab{y}_L.
+\end{equation*}
+Suppose $\norm{x} \leq \norm{y}$ and $\norm{y}\not=0$. Then, 
+\begin{equation*}
+    \ab{x}_L=\lim_{n\to\infty}\sqrt[n]{\norm{x^n}}\leq\lim_{n\to\infty}\sqrt[n]{\norm{y}} = \ab{y}_L.
+\end{equation*}
+\begin{align*}
+    \ab{x+y}_L&=\lim_{n\to\infty}\sqrt[n]{\left\Vert y^n\left({\frac x y }+1\right)^n\right\Vert}\leq \lim_{n\to\infty}\sqrt[n]{\norm{y^n}} = \ab{y}_L,\\
+\end{align*}
+Thus the strong triangle equality holds. For any $\lambda\in K$, 
+\begin{equation*}
+    \ab{\lambda x} = \lim_{n\to\infty}\sqrt[n]{\lambda^n\norm{x^n}} = \ab{\lambda}_K\lim_{n\to\infty}\sqrt[n]{\norm{x^n}} = \ab{\lambda}_K\ab{x}_L.
+\end{equation*}
+Finally, $\ab{0}_L=0$ as $\norm{0^n}=0$.
+\par\textbf{Problem 4}\\
+This amounts to show that $\ab{1}_L = \ab{1}_K$. Take a supremum norm $\norm{\cdot}_\infty$, then $\norm{1}_\infty=1$. Since the choice of norms is independent when defining $\ab{\cdot}_L$, we see,
+\begin{equation*}
+    \ab{1}_L = \lim_{n\to\infty}\sqrt[n]{\norm{1}_{\infty}} = 1.
+\end{equation*}
+The general case follows tha $\ab{k}_L = \ab{k}_K\ab{1}_L$ for all $k\in K$.
+\par\textbf{Problem 5}\\
+From Problem 1, we have,
+\begin{equation*}
+    \norm{x}= \norm{l^{-1}lx}\leq \norm{m_{l^{-1}}}_{\op}\norm{lx}.
+\end{equation*}
+Multiply ${\frac 1 {\norm{m_{l^{-1}}}_{\op}^2\norm{l}}}$, we get,
+\begin{equation*}
+    \norm{m_{l^{-1}}}^{-1}{\frac {\norm{m_{l^{-1}}}^{-1}}{\norm{l}}}\norm{x}\leq {\frac {\norm{m_{l^{-1}}}^{-1}} {\norm{l}}}\norm{lx}.
+\end{equation*}
+Define $\norm{\cdot}' = {\frac {\norm{m_{l^{-1}}}^{-1}} {\norm{l}}}\norm{\cdot}$, then the above equation turns into,
+\begin{equation*}
+    \norm{l}'\norm{x}'\leq \norm{lx}.
+\end{equation*}
+Using the independence of choices of norms defining $\ab{\cdot}_L$, we have,
+\begin{equation*}
+    \ab{l}_L\ab{x}\leq \ab{lx}_L\leq \ab{l}_L\ab{x}_L.
+\end{equation*}
+Thus $\ab{\cdot}_L$ is such norm.
+\par\textbf{Problem 6}\\
+We have $\ab{1}_L = 1,\ab{0}_L = 0$. It is also multiplicative. As it is a $K$-norm, we see this is ultrametric.
+\par\textbf{Problem 7}\\
+Since $X$ is spectral $\mathfrak{Q}_c$ is a topology base of it. Note that for any $z\in S_x$, we have $x\in\Omega\in\Qc(X)$ then $z\in\Omega$. Thus,
+\begin{equation*}
+    S_x = \bigcap_{\substack{\Omega\in\Qc(X)\\ x\in\Omega}}\Omega.
+\end{equation*}
+From this 
+\begin{equation*}
+    S_x\cap S_y = \bigcap_{\substack{\Omega\in\Qc(X)\\ x\in\Omega}}\Omega\cap \bigcap_{\substack{\Theta\in\Qc(X)\\ y\in\Theta}}\Theta = \bigcap_{\substack{x\in\Omega\\y\in\Theta}}\Omega\cap\Theta.
+\end{equation*}
+\par\textbf{Problem 8}\\
+Note that $X_{\con}$ is compact. By the assumption,
+\begin{equation*}
+    \bigcap_{\Omega,\Theta}\Omega\cap\Theta = \emptyset.
+\end{equation*}
+In $X_{\con}$ we get,
+\begin{equation*}
+    \bigcup (X\backslash(\Omega\cap\Theta)) = X_{\con}
+\end{equation*}
+Using the compactness of $X_{\con}$, for some $\Omega_i,\Theta_i,i=1,\cdots,n$,
+\begin{equation*}
+    \bigcap_{i=1}^n \Omega_i\cap\Theta_i = \emptyset.
+\end{equation*}
+In particular $\Omega = \bigcap_{i=1}^n \Omega_i,\Theta_{i=1}^n\Theta_i$ are disjoint sets separating $x,y$.
+\par\textbf{Problem 9}\\
+Since $H$ is a subgroup $1\in H$ and $0\not\in H$. Thus $w(1) = 1,w(0) = 0$. For the multiplicativeness, note that $H$ is a group thus $ x\in H,y\not\in H\Rightarrow xy\not\in H$ by the cancellation law. Thus $w$ is multiplicative. 
+$w$ satisfies the strong triangle inequality on $H$ and since it is $0$ outside $H$, it holds globally on $\Gamma$.
+\end{document}

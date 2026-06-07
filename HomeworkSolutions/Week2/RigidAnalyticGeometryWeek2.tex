@@ -214,6 +214,92 @@ Sobriety is clear as all closed subsets are finites set of points not containing
     U = \bigcup_{i}U_i
 \end{equation*}
 then $X\backslash U$ is finite. Thus take any $U_1$ and as $X\backslash U_1$ is finite and contains $X\backslash U$, we only have to take at most $\vert X\backslash U_1\vert-\vert X\backslash U\vert$ many more open sets to cover $U$.
-\par\textbf{Problem 8}\\
-Since all open sets in $X$ are quasi-compact, and in particular $X\backslash \{x\}$ is quasi-compact. Therefore, $\{x\}$ is open in $X_{\text{con}}$ thus the topology on $X_{\text{con}}$ is discrete in particular $\{\{x\}\}$ is a neighborhood basis.
+%% Tutor's solution.
+\par\textbf{Problem 10}\\
+Up shot : On a complete valuation field $K$, given an irreducible polynomial $f\in K[x]$, then any $K[x]$ close enough to $f$ of the same degree is automatically irreducible, giving the same field extension as $f$. 
+Let $L/K$ be a Galois extension. There is $\alpha\in L$ such that $L = K(\alpha)$. Take 
+\begin{equation*}
+    f = x^n+a_{n-1}x^{n-1}+\cdots+a_0,
+\end{equation*}
+be ethe minimal polynomial of $\alpha$. Take,
+\begin{equation*}
+    g(x) = x^n+b_{n-1}x^{n-1}+\cdots+b_0
+\end{equation*}
+such that $\norm{f-g}<\max_{0\leq i <n}\ab{a_i}^{{\frac 1 {n-i}}}$. Take $\beta$ to be a root of $g$. Let $\alpha_1=\alpha,\alpha_2,\cdots,\alpha_n$ be roots of $f$, then 
+\begin{equation*}
+    \left\vert\prod_{1\leq i\leq n}(\beta-\alpha_i)\right\vert = \ab{f(\beta)}=\ab{f(\beta)-g(\beta)} \leq \norm{f-g}\max\{\ab{\beta}^n,1\}.
+\end{equation*}
+Finally, by sheet 4 problem 6
+\begin{equation*}
+    \leq \norm{f-g}\cdot\max\{\ab{a_i}^{{\frac 1 {n-i}}}\}.
+\end{equation*}
+Take $g$ close enough to $f$ such that 
+\begin{equation*}
+    \norm{f-g}\cdot\max\{\ab{\alpha_i}^{{\frac 1 {n-i}}}\}<\min_{1\leq i<j\leq n}\ab{\alpha_i-\alpha_j}.
+\end{equation*}
+There is $1\leq i_0\leq n$ such that 
+\begin{equation*}
+    \ab{\beta-\alpha_{i_0}}<\min_{i\not=j}\ab{\alpha_i-\alpha_j}.
+\end{equation*}
+By Krasner's lemma,
+\begin{equation*}
+    \alpha_{i_0}\in K(\beta).
+\end{equation*}
+On the other hand,
+\begin{equation*}
+    n = [L:K]\leq [K(\beta):K]\leq [K(\beta):K]\leq n.
+\end{equation*}
+In particular $[K(\beta):K]=n$, thus $g$ is irreducible over $K$. Let $\beta_1=\beta,\beta_2,\cdots,\beta_n$ be roots of $g$. Since $L/K$ is Galois $\beta_1,\cdots,\beta_n\in L$> Let 
+\begin{equation*}
+    L'\defeq K(\beta_1,\cdots,\beta_n).
+\end{equation*}
+Since $K(\beta)$ is dense in $L$, so is $L'$. Also $L$ is the splitting field of $g$, $L/K$ is Galois. 
+\par\textbf{Problem 11} Skipped, general topology argument.
+\par\textbf{Problem 12}\\
+Take 
+\begin{equation*}
+    U = \mathcal{R}(f_0|f_1,\cdots,f_n).
+\end{equation*}
+Take $\varepsilon\in K^\times$ such that $\ab{\varepsilon}<1$. Then for any $N>0$, 
+\begin{equation*}
+    \langle f_0,f_1,\cdots,f_n,\varepsilon^N\rangle_{\T_1} = \T_1.
+\end{equation*}
+Moreover,
+\begin{equation*}
+    U = \bigcup_{N>0} \mathcal{R}(f_0|f_1,\cdots,f_n,\varepsilon^N).
+\end{equation*}
+\begin{example}
+    Consider $\T_{1,K}$ where $K=\overline{K}$. Then,
+    \begin{equation*}
+        \Sp\T_1 = K^\circ.
+    \end{equation*}
+    Taket $\varepsilon\in K^\times $ with $\ab{\varepsilon}<1$ and ,
+    \begin{align*}
+        U_N \defeq \mathcal{R}(\varepsilon^N|X), V\defeq \mathcal{R}(1|X)\cap\mathcal{R}(X|1) = \mathcal{R}(X|1,X^2).
+    \end{align*}
+    Then 
+    \begin{align*}
+        U_N\Leftrightarrow\{l\in K^\circ\sep \ab{l}<\ab{\varepsilon_N}\}, V\Leftrightarrow \{l\in K^\circ\sep \ab{l}=1\}.
+    \end{align*}
+    Then $\Sp\T_1 = \bigcup_{N\geq 1}U_N\cup $. But this cover is not in $\mathcal{I}_{\T_1}$, because it dose not have a finite subcover.
+\end{example}
+\par\textbf{Problem 14}\\
+Let $U=\mathcal{R}(f_0|f_1,\cdots,f_n),V=\mathcal{R}(g_0|g_1,\cdots,g_m)$. We claim that 
+\begin{equation*}
+    U\cap V = \mathcal{R}(f_0g_0|f_ig_j,0\leq i\leq n,0\leq j \leq m).
+\end{equation*}
+Indeed,
+\begin{align*}
+    \ab{f_0(x)},\ab{g_0(x)}\not=0\iff \ab{(f_0g_0)(x)} \not=0,\\
+    \langle f_ig_j\sep 0\leq i\leq n,0\leq j\leq m\rangle_A = \langle f_i\sep i\rangle_A\cdots\langle g_j\sep j\rangle_A = A.\\
+    \forall i,j, \begin{cases}
+        \ab{f_0(x)}\geq\ab{f_i(x)},\\
+        \ab{g_0(x)}\geq \ab{g_j(x)}.
+    \end{cases}
+    \iff \begin{cases}
+        \ab{f_0g_0(x)}\geq\ab{f_ig_0(x)},\\
+        \ab{f_0g_0(x)}\geq \ab{f_0g_j(x)}.
+    \end{cases}
+\end{align*}
+
 \end{document}

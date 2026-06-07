@@ -1,0 +1,178 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Sper}{Sper}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Gal}{Gal}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Qc}[0]{\mathfrak{Q}_C}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\U}[0]{\mathfrak{U}}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry Week 4 Solution}
+\author{So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\par\textbf{Problem 1}\\
+Suppose $x\in L^{\circ m}$. Then for any $f\in \T_m$, we have,
+\begin{equation*}
+    \ab{f(x)} \leq \max\{\ab{f_\alpha x^\alpha}\sep \alpha\in\N^m\} \leq \max\{\ab{f_\alpha}\sep \alpha\in\N^m\} = \norm{f|\T_m}.
+\end{equation*}
+\par\textbf{Problem 2}\\
+The implication from the third to the first is clear.
+\par Suppose $f\in\T_m$ is not invertible. Then there is a maximal ideal containing it. By proposition, $f\in\m_x$ for some $x\in L$ where $L/K$ is a finite extension. Thus $f(x) = 0$. Taking the contrapositive, we have the implication.
+\par Clearly, if $f\in\T_m^\times$, then it is nowhere $0$. If $f\in\T_m^\times$. Observe that $\ab{f^{-1}(x)} = \ab{f(x)}^{-1},\norm{f^{-1}|\T_m} = \norm{f|\T_m}^{-1}$. Using the inequality, 
+\begin{equation*}
+    \ab{f(x)}\leq\norm{f|T_m},\ab{f(x)^{-1}}\leq \norm{f^{-1}|\T_m}\iff \ab{f(x)}\geq\norm{f|\T_m},
+\end{equation*}
+we get the equality.
+\par\textbf{Problem 3}\\
+Fix $x_0\in K^\circ$. By setting $f\mapsto f(\cdot+x_0)$, we assume $x_0=0$. Similarly, by setting $f\mapsto f\left({\frac {\cdot} R}\right)$, we reduce to the case where $R=1$. Then by Problem 2, $\vert f(y)\vert = \norm{f|\T_m}$.
+\par\textbf{Problem 4}\\
+Let $(x_i)_{i\in\N}$ be the sequence in $L$ approximating $x\in L$. As $L$ is perfect, there is $(y_i)_{i\in\N}$ such that $y_i^p = x_i$ for the characteristic $p$ of $L$. Note that 
+\begin{equation*}
+    y_i^p-y_j^p = (y_i-y_j)\left(\sum_{k=0}^{p-1}y_i^ky_j^{p-1-k}\right) = x_i-x_j.
+\end{equation*}
+Note also that $(\ab{y_i})_{i\in\N}$ is bounded. With this, we conclude $(\vert y_i-y_j\vert)_{i\in\N}$ is Cauchy thus admits a limit $y$ in $\mathbb{L}$. Since $(\cdot)\mapsto(\cdot)^p$ is continuous, $y^p = x$.
+\par\textbf{Problem 5}\\
+Let $G=\Gal(L/K)$. We first show that $\sigma\in G$ preserves metric. Indeed, let us define,
+\begin{equation*}
+\norm{\cdot}_\sigma = \ab{\sigma(\cdot)}_L.
+\end{equation*}
+Since $\sigma$ fixes $K$, this defines a $K$-norm on $L$. Thus by the uniquenss of $\ab{\cdot}_L$, we have,
+\begin{equation*}
+    \ab{\sigma(x)}_L = \ab{x}_L
+\end{equation*}
+for any $x\in L$. Since $K(\beta)$ is a subfield of $L$, there is $H\subseteq G$ such that $L^H = K(\beta)$. Let $\sigma\in H$ then,
+\begin{equation*}
+    \ab{\beta-\alpha}=\ab{\sigma(\beta-\alpha)} = \ab{\beta-\sigma(\alpha)} .
+\end{equation*}
+Under the assumption, we get $\sigma(\alpha) = \alpha$. In particular $\alpha\in L^H = K(\beta)$.
+\par\textbf{Problem 6}\\
+Let $R = \max\{\ab{a_1},\cdots,\ab{a_n}\}$. Since coeffiencts $p_i$ are elementary symmetric polynomials in $a_j$, we have,
+\begin{equation*}
+    \ab{p_i} =\left\vert\sum_{\alpha\in\N^d, \ab{\alpha}=d-i}a^\alpha\right\vert \leq R^{d-i}.
+\end{equation*}
+Indeed, the equality holds as $a_j$ is in the summands where $\ab{a_j}=R$. That is, 
+\begin{equation*}
+    \ab{a_j^{d-i}}\leq \max\{\ab{p_i},\ab{p_i-a_j^{d-i}}\}\leq \ab{a_j^{d-i}}.
+\end{equation*}
+We then conclude the statement.
+\end{document}

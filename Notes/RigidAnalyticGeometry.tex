@@ -11,6 +11,7 @@
 \usepackage{fancyhdr}
 \usepackage{tikz-cd} 
 \usepackage{adjustbox} 
+\usepackage{ stmaryrd }
 \numberwithin{equation}{section}
 \usetikzlibrary{arrows}
 \newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
@@ -85,11 +86,13 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \DeclareMathOperator{\Alg}{\mathcal{A}}
 \DeclareMathOperator{\glim}{glim}
 \DeclareMathOperator{\con}{con}
-\DeclareMathOperator{\Spr}{Spr}
+\DeclareMathOperator{\Spv}{Spv}
 \DeclareMathOperator{\clet}{c}
+\DeclareMathOperator{\Sheaf}{Sheaf}
+\DeclareMathOperator{\Cont}{Cont}
 %\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
 \newcommand{\defeq}{\vcentcolon=}
-\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\Ouv}{\mathscr{O}}
 \newcommand{\norm}[1]{\Vert #1 \Vert}
 \newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
 \newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
@@ -119,10 +122,21 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\Nfil}[0]{\mathcal{N}}
 \newcommand{\g}[0]{\mathfrak{g}}
 \newcommand{\p}[0]{\mathfrak{p}}
-\newcommand{\QC}[0]{\underline{\mathfrak{Q}}_C}
+\newcommand{\QC}[0]{\mathfrak{Q}_C}
 \newcommand{\ab}[1]{\vert #1 \vert}
 \newcommand{\st}[0]{\:\straw\:}
-\newcommand{\cGamma}[0]{\clet\Gamma}
+\newcommand{\cGamma}[0]{c\Gamma}
+\newcommand{\sC}[0]{\mathscr{C}}
+\newcommand{\sU}[0]{\mathscr{U}}
+\newcommand{\sV}[0]{\mathscr{V}}
+\newcommand{\sS}[0]{\mathscr{S}}
+\newcommand{\cB}[0]{\mathcal{B}}
+\newcommand{\cA}[0]{\mathcal{A}}
+\newcommand{\cC}[0]{\mathcal{C}}
+\newcommand{\tand}[0]{\text{ and }}
+\newcommand{\tor}[0]{\text{ or }}
+\newcommand{\dcirc}[0]{\circ\circ}
+\newcommand{\otherwise}[0]{\text{ otherwise }}
 \newcommand{\fib}[1]{%
   \mathbin{\mathop{\times}\limits_{#1}}%
 }
@@ -368,9 +382,9 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
 \end{remark}
 \begin{proposition}
     Let $X$ be a topological space. For a point $x\in X$, 
-    \begin{equation}
+    \begin{equation*}
         \overline{\{x\}} = \{ y \in X\sep \text{every neighbourhood of $y$ in $X$ cotains $x$}\}.
-    \end{equation}
+    \end{equation*}
 \end{proposition}
 \begin{definition}
     A point $x\in X$ is a generic point if $\overline{\{x\}} = X$, (i.e. $\{x\}$ is dense in $X$).
@@ -387,14 +401,26 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
 \end{definition}
 \begin{definition}
     \label{definition_2}
-    A topological space $X$ is sober if every irreducible neighbourhood has precisely one generic point or equivalently if $X$ is $T_0$ and every irreducible subsets has at least one generic point.
+    A topological space $X$ is sober if it satisfies one of the following equivalent conditions.
+    \begin{enumerate}[1).]
+        \item Every irreducible neighborhood of $X$ has precisely one generic point.
+        \item $X$ is $T_0$ and every irreducible subset has at least one generic point.
+    \end{enumerate}
 \end{definition}
 \begin{remark}
     It is easy to see that these are local conditions.
 \end{remark}
 \begin{definition}
-    A topological space is $T_1$ is for $x,y\in X$, $x\not=y$ implies there is $U\in\Ouv_X$ such that $x\in U$ and $y\not\in U$. Equivalently, every point is closed.
-    It is $T_2$ or Hausdorff if we can take $U,V\in\Ouv_X$ such that $U\cap V=\emptyset$ and $x\in U$ and $y\in V$. Or equivalently, the diagonal is closed in $X\times X$.
+    A topological space is $T_1$ if it satisfies one of the following equivalent conditions.
+    \begin{enumerate}[1).]
+        \item For any $x,y\in X$, $x\not=y\Rightarrow $ there is $U\in\Ouv_X$ such that $x\in U$ and $y\not\int U$.
+        \item Every point of $X$ is closed.
+    \end{enumerate}
+    It is $T_2$ or Hausdorff if it satisfies one of the following equivalent conditions.
+    \begin{enumerate}[1).]
+        \item Any pair of points $x,y\in X$ has disjoint neighborhoods $U,V$ such that $x\in U$ and $y\in V$.
+        \item The diagonal set $\{(x,x)\sep x\in X\}$ is closed in $X\times X$.
+    \end{enumerate}
 \end{definition}
 \begin{definition}
     $X$ is quasi-compact if every open covering admits a fintie subcovering. A subset $M$ of $X$ is quasi-compact if it is a quasi-compact as a topological space with the subset topology from $X$.
@@ -407,7 +433,7 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
 \end{proposition}
 \begin{proposition}
     \label{fact_3}
-    Let $X\stackrel{f}{\to}Y$ be a continuous with $X$ is quasi-compact and $Y$ is Hausdorff, then $f$ is closed (i.e. every closed set $A$ of $X$ has a closed image $f(A)$ in $Y$).
+    Let $X\stackrel{f}{\to}Y$ be a continuous with $X$ being quasi-compact and $Y$ being Hausdorff, then $f$ is closed (i.e. every closed set $A$ of $X$ has a closed image $f(A)$ in $Y$).
 \end{proposition}
 \begin{definition}
     A subset $\mathcal{B}\subseteq\Ouv_X$ is a topology basis for $X$ if for any $U\in\Ouv_X$, we have $U=\bigcup_{V\in\mathcal{B}_U}V$ where $\mathcal{B}_U=\{V\in\mathcal{B}\sep V\subseteq U\}$.
@@ -435,13 +461,13 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
     A spectral map is a map $X\stackrel{f}{\to}Y$ between spectral spaces such that for any quasi-compact subset $\Omega$ in $Y$, $f^{-1}(\Omega)$ is quasi-compact subset of $X$.
 \end{definition}
 \begin{remark}
-    Note that a spectral map is continuous.
+    A spectral map is automatically continuous.
 \end{remark}
 \begin{proposition}
     If $\mathcal{B}\subseteq \Ouv_Y$ is a topology base as in the second condition of Proposition \ref{proposition_2_5} for $Y$, then $f$ is spectral if and only if $\forall \Omega\in\mathcal{B},f^{-1}(\Omega)\in\QC(X)$.
 \end{proposition}
 \begin{example}
-    $\Spec A$ is spectral and every ring homomorphism defines a spectral map and $\{D(f)\sep f\in A\}$ are such base at in Proposition \ref{proposition_2_5} for $\Spec A$.
+    $\Spec A$ is spectral and every ring homomorphism defines a spectral map and $\{D(f)\sep f\in A\}$ are such base as in Proposition \ref{proposition_2_5} for $\Spec A$.
 \end{example}
 \begin{example}
     The underlying space of qcqs (i.e. quasi-compact and quasi-separated) scheme is spectral.
@@ -461,12 +487,13 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
 \begin{proposition}
     Every non-empty closed subset of a spectral space $X$ contains a closed point.
 \end{proposition}
+
 \begin{proof}
-    By Remark \ref{remark_example_1_b}, it suffices to show the case for every spectral space $X\not=\emptyset$. Set,
+    By Remark \ref{remark_example_1_b}, it suffices to show that every spectral space $X\not=\emptyset$ contains a closed point as non-empty closed subsets are again spectral. Set,
     \begin{equation*}
-        \mathcal{M}=\{Z\subseteq X\sep \text{$Z$ is closed}\}.
+        \mathcal{M}\defeq\{Z\subseteq X\sep \text{$Z$ is closed}\}.
     \end{equation*}
-    Equiq $\mathcal{M}$ with a partial order by $\subseteq$. Since $X$ is quasi-compact, $\mathcal{M}$ has a minimal element with such order. Let $Z$ be a such minimal element in $\mathcal{M}$. If $Z$ has two different element $x,y$, by $T_0$ condition, we have $U\in\Ouv_X$ such that $x\not\in U$ and $y\in U$. Then $Z'=Z\backslash U$ is in $\mathcal{M}$. As $x\in Z'$, this contradicts to the minimality of $Z$ as $y\in Z\backslash Z'$.
+    Equiq $\mathcal{M}$ with a partial order by $\subseteq$. Since $X$ is quasi-compact, $\mathcal{M}$ has a minimal element with such order. Let $Z$ be a such minimal element in $\mathcal{M}$. If $Z$ has two different element $x,y$, then by $T_0$ condition, we have $U\in\Ouv_X$ such that $x\not\in U$ and $y\in U$. Then $Z'=Z\backslash U$ is in $\mathcal{M}$. As $x\in Z'$, this contradicts to the minimality of $Z$ as $y\in Z\backslash Z'$.
 \end{proof}
 \begin{definition}
     A filter base of a set $M$ is a non-empty subset $\mathcal{B}$ of $\mathfrak{P}(M)$ such that 
@@ -486,7 +513,7 @@ where $N$ is as in Equation \eqref{formula_1_1}, and $\norm{f}_r = \sup\{\vert f
 \end{definition}
 \begin{example}
     \label{example_2}
-Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that 
+A neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that 
 \begin{equation*}
     \mathcal{N}_x\defeq\{N\subseteq X\sep \exists U\in\Ouv_X\:\st\: x\in U\subseteq N\}.
 \end{equation*}
@@ -498,9 +525,9 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
         \mathcal{P}_x=\{N\subseteq X\sep x\in N\}.
     \end{equation*}
 \end{example}
-\begin{definition}
+\begin{remark}
     A neighbourhood base for $x\in X$ is a filter base $\mathcal{B}$ such that it generates the neighbourhood filter of $x$.
-\end{definition}
+\end{remark}
 \begin{remark}
     The notion of filters is introduced by Cartan.
 \end{remark}
@@ -528,7 +555,7 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
 \begin{proposition}
     Let $\mathcal{U}$ be an ultrafilter of $X$ then all direct images of $\mathcal{U}$ are ultrafilters. If $\iota:A\to X$ is the inclusion of a subset then this induces,
     \begin{equation*}
-        \{\text{ultrafilters on $A$}\}\stackrel{\iota}{\to}\{\text{ultrafilters on $X$ containing $A$}\},
+        \{\text{ultrafilters on $A$}\}\stackrel{\iota_*}{\to}\{\text{ultrafilters on $X$ containing $A$}\},
     \end{equation*}
     which is a bijectin.
 \end{proposition}
@@ -541,45 +568,57 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
         \Lim\mathcal{F} = x.
     \end{equation*}
 \end{definition}
+% \begin{definition}
+%     \label{definition_9}
+%     We say that $x\in X$ is a point of accumulation (denoteds by point of accumulation, sometimes called point of condensation) if for a neighbourhood $V\in\mathcal{N}_x$ and $M\in\mathcal{F}$, we have $V\cap M\not=\emptyset$. 
+% \end{definition}
 \begin{definition}
     \label{definition_9}
-    We say that $x\in X$ is a point of accumulation (denoteds by poa, sometimes called point of condensation) if for a neighbourhood $V\in\mathcal{N}_x$ and $M\in\mathcal{F}$, we have $V\cap M\not=\emptyset$. 
+    We say that $x\in X$ is a point of accumulation (denoteds by point of accumulation, sometimes called point of condensation) if for every neighbourhood $V\in\mathcal{N}_x$ and every $M\in\mathcal{F}$, we have $V\cap M\not=\emptyset$. 
 \end{definition}
 \begin{proposition}
     Let $x\in X$ then
     \begin{equation*}
-        \overline{\{x\}} = \lim\mathcal{P}_x = \text{poa of the principal filter of $x$} = \Lim\mathcal{N}_x.
+        \overline{\{x\}} = \Lim\mathcal{P}_x = \text{point of accumulation of the principal filter of $x$} = \Lim\mathcal{N}_x.
     \end{equation*}
 \end{proposition}
-\begin{proposition}
+\begin{proposition}Let $\F,\mathcal{G}$ be filters such that $\F\subseteq\mathcal{G}$ and $\U$ be a ultrafilter.
     \label{fact_11}
     \label{proposition_2_11}
-    Every limit of a filter $\mathcal{F}$ is a poa of $\mathcal{F}$. If $\mathcal{F}$ is a subset of some filter $\mathcal{G}$, then every limit of $\mathcal{F}$ is a limit of $\mathcal{G}$ and every poa of $\mathcal{G}$ is a poa of $\mathcal{F}$.
-    Furthermore if $\mathcal{U}$ is an ultrafilter, every poa of $\mathcal{U}$ is a limit of $\mathcal{U}$. For every filter, the set of its limit and of its points of accumulation points are closed. If $A\stackrel{\iota}{\to}X$ is an with induces topology then $\Lim\mathcal{F}=A\cap\Lim\iota_*\mathcal{F}$.
+    \begin{enumerate}
+        \item Every limit of $\F$ is a point of accumulation of $\F$.
+        \item Every limit of $\F$ is a limit of $\mathcal{G}$.
+        \item Every point of accumulation of $\mathcal{G}$ is a point of accumulation of $\F$.
+        \item A point $x\in X$ is a limit of $\U$ if and only if it is a point of accumulation of $\U$.
+        \item The sets of its limits and its point of accumulations are closed for $\F$.
+        \item Let $\iota:A\to X$ be a canonical inclusion where $A$ has an induced topology from $X$. Then $\Lim\F = A\cap\Lim\iota_*\F$.
+    \end{enumerate}
+    % Every limit of a filter $\mathcal{F}$ is a point of accumulation of $\mathcal{F}$. If $\mathcal{F}$ is a subset of some filter $\mathcal{G}$, then every limit of $\mathcal{F}$ is a limit of $\mathcal{G}$ and every point of accumulation of $\mathcal{G}$ is a point of accumulation of $\mathcal{F}$.
+    % Furthermore if $\mathcal{U}$ is an ultrafilter, every point of accumulation of $\mathcal{U}$ is a limit of $\mathcal{U}$. For every filter, the set of its limit and of its points of accumulation points are closed. If $A\stackrel{\iota}{\to}X$ is an with induces topology then $\Lim\mathcal{F}=A\cap\Lim\iota_*\mathcal{F}$.
 \end{proposition}
 \begin{proof}
-    For the third assertion, if $a$ is a poa of $\mathcal{U}$ and $V\in\mathcal{N}_x$, then $X\backslash V\not\in\mathcal{U}$ as $x$ is a poa. Hence $V\in\mathcal{U}$ by Proposition \ref{proposition_2_8}. For the forth assertion, let $x\not\in\Lim\mathcal{F}$, (respectively $x$ not a poa of $\mathcal{F}$) then there is $U\in\mathcal{N}_x$ such that $U\not\in\mathcal{F}$ (respectively, such that there is $M\in\mathcal{F}$ such that $U\cap M=\emptyset$). Then no elememt of $U$ is a limit (respectively, poa) of $\mathcal{F}$. 
+    For the third assertion, if $a$ is a point of accumulation of $\mathcal{U}$ and $V\in\mathcal{N}_x$, then $X\backslash V\not\in\mathcal{U}$ as $x$ is a point of accumulation. Hence $V\in\mathcal{U}$ by Proposition \ref{proposition_2_8}. For the forth assertion, let $x\not\in\Lim\mathcal{F}$, (respectively $x$ not a point of accumulation of $\mathcal{F}$) then there is $U\in\mathcal{N}_x$ such that $U\not\in\mathcal{F}$ (respectively, such that there is $M\in\mathcal{F}$ such that $U\cap M=\emptyset$). Then no elememt of $U$ is a limit (respectively, point of accumulation) of $\mathcal{F}$. 
 \end{proof}
 \begin{proposition}
     \label{proposition_1}
     For a subset $M$ of a topological space $X$, the following subsets all coincide.
     \begin{enumerate}[a).]
         \item $\{\text{limits of ultrafilters $\mathcal{U}$ of $X$ such that $M\in\mathcal{U}$}\}$,
-        \item $\bigcup_{\text{$\mathcal{F}$ filter, $M\in\mathcal{F}$}}\Lim\mathcal{F}$. 
-        \item $\{x\in X\sep \text{there is a filter $\mathcal{F}$ such that $M\in\mathcal{F}$ and $x$ is a poa of $\mathcal{F}$}\}$.
-        \item $\bigcap_{M\subseteq Z\subseteq X,\text{closed}}Z$.
+        \item $\bigcup_{\substack{\text{$\mathcal{F}$ filter}\\\text{$M\in\mathcal{F}$}}}\Lim\mathcal{F}$. 
+        \item $\{x\in X\sep \text{there is a filter $\mathcal{F}$ such that $M\in\mathcal{F}$ and $x$ is a point of accumulation of $\mathcal{F}$}\}$.
+        \item $\bigcap_{\substack{M\subseteq Z\subseteq X\\\text{$Z$ closed}}}Z$.
     \end{enumerate}
 \end{proposition}
 \begin{proof}
     Denote those sets by $M_a,M_b,M_c,M_d$. Then,
     \begin{equation*}
-        M_a\underbrace{\subset}_{\text{trivial}}M_b\underbrace{\subseteq}_{\text{Proposition \ref{proposition_2_11}}} M_c \underbrace{\subseteq}_{\text{definition}} M_d.
+        M_a\underbrace{\subseteq}_{\text{trivial}}M_b\underbrace{\subseteq}_{\text{Proposition \ref{proposition_2_11}}} M_c \underbrace{\subseteq}_{\text{definition}} M_d.
     \end{equation*}
-    For the reverse direction,  $M_d = \bigcup_{U\in\Ouv_X,U\cap M=\emptyset}(X\backslash U)$. Finally if $x\in M_d$, then 
+    For the reverse direction, note that $M_d = \bigcup_{\substack{U\in\Ouv_X,\\U\cap M=\emptyset}}(X\backslash U)$. If $x\in M_d$, then 
     \begin{equation*}
         \{U\cap M\sep U\in\mathcal{N}_x\}
     \end{equation*}
-    is a filter base containing $M$, by Theorem \ref{theorem_tarski}, it is contained in some ultrafilter $\mathcal{U}$ and $x\in\Lim\mathcal{U}$.
+    is a filter base containing $M$ and in particular containing $\mathcal{N}_x$. By Theorem \ref{theorem_tarski}, it is contained in some ultrafilter $\mathcal{U}$ and by definition $x\in\Lim\mathcal{U}$.
 \end{proof}
 \begin{definition}
     \label{definition_10}
@@ -595,7 +634,7 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
     For a subset $A$ of a topological space $X$, the following conditions are equivalent.
     \begin{enumerate}[i).]
         \item If $\F$ is a filter on $X$ such that $A\in\F$ and $x$ is a limit of $\F$ then $x\in A$.
-        \item If $\F$ is a filter on $X$ such that $A\in\F$ and $x$ is a poa of $\F$ then $x\in A$.
+        \item If $\F$ is a filter on $X$ such that $A\in\F$ and $x$ is a point of accumulation of $\F$ then $x\in A$.
         \item If $\mathcal{U}$ is a ultrafilter on $X$ such that $A\in\mathcal{U}$, every limit of $\mathcal{U}$ in $X$ is in $A$.
         \item $A$ is closed.
     \end{enumerate}
@@ -609,17 +648,20 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
     \begin{enumerate}[i).]
         \item $f$ is continuous.
         \item If $\F$ is a filter on $X$ and $x\in\Lim\mathcal{F}$ then $f(x)\in\Lim f_*\F$.
-        \item If $\F$ is a filter on $X$ and $x\in X$ is a poa of $\F$, then $f(x)$ is a poa of $f_*\F$.
+        \item If $\F$ is a filter on $X$ and $x\in X$ is a point of accumulation of $\F$, then $f(x)$ is a point of accumulation of $f_*\F$.
         \item If $\mathcal{U}$ is a ultrafilter on $X$ and $x\in\Lim\mathcal{U}$, then $f(x)\in\Lim f_*\mathcal{U}$.
     \end{enumerate}
 \end{proposition}
-\begin{proof}
-    i)$\Rightarrow$ii) and iii) are equivalent, essentially from Definition \ref{definition_9}. iii)$\Rightarrow$iv) trivial and due to Proposition \ref{proposition_2_11}. i)$\Rightarrow$iv) is by Corollary \ref{corollary_1} as $f^{-1}(A)$ is closed for any closed $A$ in $Y$.
+\begin{proof}$\:$
+    \par i) $\Rightarrow $ii). This follows from that $f_*\mathcal{N}_x=\mathcal{N}_{f(x)}$ and $f_*$ preserves inclusion.
+    \par ii) $\Rightarrow$ iii). By Proposition \ref{proposition_2_11}, every limit is a point of accumulation. 
+    \par iii)$\Rightarrow$iv). By Proposition \ref{proposition_2_11}, every point of accumulation of a ultrafilter is a limit of the filter and $f_*$ maps ultrafilters to ultrafilters.
+    \par i)$\Rightarrow$iv). If $A\subseteq Y$ is closed, we want to show that $f^{-1}(A)$ is closed. Let $\U$ be an ultrafilter in $X$ such that $f^{-1}(A)\in\U$. Then $f_*\U$ is a ultrafilter on $Y$ containing $A$ and by Corollary \ref{corollary_1}, any limit of $f_*\U$ is in $A$. Since limits of $\U$ are mapped to limits of $f_*\U$, $f^{-1}(A)$ contains limits of $\U$. Again by Corollary \ref{corollary_1} as $f^{-1}(A)$ is closed.
 \end{proof}
 \begin{remark}
     \label{fact_13}
     By Definition \ref{definition_9}, we have the following.
-    The set of poa of a filter $\F$ is the intersection of the closure of the elements of $\F$ or the intersection of all $A\in\F$ which are closed in $X$.
+    The set of points of accumulation of a filter $\F$ is the intersection of the closure of the elements of $\F$ or the intersection of all $A\in\F$ which are closed in $X$.
 \end{remark}
 \begin{proposition}
     \label{proposition_2}
@@ -627,56 +669,53 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
     \begin{enumerate}[i).]
         \item $X$ is Hausdorff.
         \item Every filter has at most one limit.
-        \item Every ultrafilter on $X$ has at most most limit.
-    \end{enumerate}
-    The following conditions are also equivalent.
-    \begin{enumerate}[i').]
-        \item $X$ is quasi-compact.
+        \item Every ultrafilter on $X$ has at most one limit.
     \end{enumerate}
 \end{proposition}
 \begin{proof}$\:$
-    \par i)$\Rightarrow$ii). If $xnot=y$, has disjoint neighborhoods $x\in U$ and $y\in V$. If $U\in\F$ and $V\in\F$, then $\cap=U\cap V\in\F$, which is not possible. Thus precisely one of $x$ and $y$ is in $\Lim\F$. 
+    \par i)$\Rightarrow$ii). If $x\not=y$, they have disjoint neighborhoods $x\in U$ and $y\in V$. If $U\in\F$ and $V\in\F$, then $\emptyset=U\cap V\in\F$, which is not possible. Thus precisely one of $x$ and $y$ is in $\Lim\F$. 
     \par ii)$\Rightarrow$iii) is trivial.
     \par iii)$\Rightarrow$i). Assume $x\not=y$ and consider the set 
     \begin{equation*}
-    \{U\cap V\sep U\in\Nfil_x,V\in\Nfil_Y\}.
+    \{U\cap V\sep U\in\Nfil_x,V\in\Nfil_y\}.
     \end{equation*}
-    This is afilter 
+    This is a filter unless it contains $\emptyset$. In that case, it is contained in some ultrafilter $\U$. By definition of limits, $x,y$ are both limits of $\U$ thus $x=y$ which is a contradiction.
 \end{proof}
 \begin{proposition}
     \label{proposition_2_another}
     Let $X$ be a topological space. The following conditions are equivalent.
     \begin{enumerate}[i').]
         \item $X$ is quasi-compact.
-        \item Every filter has at least one poa.
+        \item Every filter has at least one point of accumulation.
         \item Every ultrafilter has at least one limit.
     \end{enumerate}
 \end{proposition}
 \begin{proof}$\:$
-    \par i')$\Rightarrow$ii') By \ref{fact_13},
-    \begin{equation}
-        \{x\sep x\text{ is a poa of $\F$}\} = \bigcap_{M\in\F}\overline{M}=\emptyset.
-    \end{equation}
-    by quasi-compactness $X$ ,as every finite intersection is in $\mathcal{F}$ hence this is not $\emptyset$.
-    \par ii')$\Rightarrow$iii'). By Proposition \ref{proposition_2_11}.
+    \par i')$\Rightarrow$ii') By Remark \ref{fact_13},
+    \begin{equation*}
+        \{x\sep x\text{ is a point of accumulation of $\F$}\} = \bigcap_{M\in\F}\overline{M}.
+    \end{equation*}
+    By quasi-compactness $X$ and applying it to the complement, this is a finite intersection of elements in $\F$. By definition, any filter is closed under finite intersection and does not contain the emptyset, this is not empty.
+    \par ii')$\Rightarrow$iii'). Every filter is contained in some ultrafilter and limits and points of accumulation are the same in ultrafilter by Proposition \ref{proposition_2_11}.
     \par iii')$\Rightarrow$i'). Let $(A_\lambda)_\Lambda$ be a faimly of closed subsets such that for any finite subset $F\subseteq\Lambda$, we have,
     \begin{equation*}
         \bigcap_{\lambda\in F}A_\lambda\not=\emptyset.
     \end{equation*}
     Then the collection,
     \begin{equation*}
-        \left\{\bigcap_{\lambda\in F}A_\lambda\sep F\subseteq\Lambda,\vert F\vert<\infty\right\}
+        \left\{\bigcap_{\lambda\in F}A_\lambda\:\bigg{|}\: F\subseteq\Lambda,\vert F\vert<\infty\right\}
     \end{equation*}
     is a filter base, thus it is contained in some ultrafilter $\U$. Let $x\in\Lim\U$. For $\lambda\in \Lambda$, $A_\lambda\in\U$ hence $x\in A_\lambda$ by Corollary \ref{corollary_1}. Hence $x\in\bigcap_{\lambda\in\Lambda}A_\lambda$ and this intersection is not empty.
+    This is the definition of quasi-compactness stated in terms of closed sets.
 \end{proof}
 \begin{proposition}
     \label{proposition_3}
     If $X$ satisfies these equivalent conditions of Proposition \ref{proposition_2_5}, then for every ultrafilter $\U$ on $X$, the closed subset $\Lim\U\subseteq X$ is irreducible. 
 \end{proposition}
 \begin{proof}
-    Let $\Omega,\Theta\in\QC(X)$ such that $\Omega\Lim\U\not=\emptyset$ and $\Theta\cap\Lim\U\not=\emptyset$. By the definition of $\Lim\U$, $\Omega,\Theta\in\U$. Hence $\Omega\cap\Theta\in\U$.
-    As $\Omega\cap\Theta$ is quasicompact $\U\cap\Ouv_{\Omega\cap\Theta}$ has a limit $x\in\Omega\cap\Theta$ by Proposition \ref{proposition_2}. By Proposition \ref{proposition_2_11}, $x\in\Lim\U$. 
-    \par If $U$ and $V$ are open subsets such that $U\cap\Lim\U$ and $V\cap\Lim\U$ are not emptyset, there are $\Omega\subseteq U$ and $\Theta\subseteq V$ as above (as $\QC(X)$ is a topology base), hence $U\cap V\cap\Lim\U$ is not empty. Finally by Proposition \ref{proposition_2}, $\Lim\U\not=\emptyset$ as $X$ is quasi-compact.
+    Let $\Omega,\Theta\in\QC(X)$ such that $\Omega\cap \Lim\U\not=\emptyset$ and $\Theta\cap\Lim\U\not=\emptyset$. By the definition of $\Lim\U$, $\Omega,\Theta\in\U$. Hence $\Omega\cap\Theta\in\U$.
+    As $\Omega\cap\Theta$ is quasi-compact $\U\cap\Ouv_{\Omega\cap\Theta}$ has a limit $x\in\Omega\cap\Theta$ by Proposition \ref{proposition_2_another}. By Proposition \ref{proposition_2_11}, $x\in\Lim\U$. 
+    \par If $U$ and $V$ are open subsets such that $U\cap\Lim\U$ and $V\cap\Lim\U$ are not emptysets, there are $\Omega\subseteq U$ and $\Theta\subseteq V$ as above (as $\QC(X)$ is a topology base), hence $U\cap V\cap\Lim\U$ is not empty. Finally by Proposition \ref{proposition_2_another}, $\Lim\U\not=\emptyset$ as $X$ is quasi-compact.
 \end{proof}
 
 \begin{definition}
@@ -714,12 +753,12 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
 \end{proposition}
 \begin{proof}
     For 1), the closedness under the intersections is obvious. If $M\cup N\in\U$ then $M\in\U$ or $N\in\U$ by Proposition \ref{fact_8}. Hence $\glim\U\in M\subseteq M\cup N$ or $\glim\U\in N\subseteq M\cup N$.
-    \par Let $\U$ be an ultrafilter on $V$ and $\mathcal{V}$ be the image of $\U$ under the embedding $V\hookrightarrow X$. If $V$ is closed under $\glim$ then $\glim\mathcal{V}\in V$ is a limit of $\U$ by Proposition \ref{proposition_2_11}.
-    By Proposition \ref{proposition_2}, $V$ is quasi-compact. If $V$ is quasi-compact, $\mathcal{U}$ has a lmit $x\in V$ and $x\in\Lim\mathcal{V}$ by Proposition \ref{fact_11}. Hence $x\in\overline{\{y\}}$ hence $y\in V$ and $V$ is closed.
+    \par Let $\mathcal{V}$ be an ultrafilter on $V$ and $\mathcal{U}$ be the image of $\mathcal{V}$ under the embedding $V\hookrightarrow X$. If $V$ is closed under $\glim$ then $\glim\mathcal{V}\in V$ is a limit of $\U$ by Proposition \ref{proposition_2_11}.
+    By Proposition \ref{proposition_2}, $V$ is quasi-compact. If $V$ is quasi-compact, $\mathcal{V}$ has a limit $x\in V$ and $x\in\Lim\mathcal{V} = V\cap\Lim\mathcal{U}$ by Proposition \ref{fact_11}. Hence $x\in\overline{\{y\}}$ hence $y\in V$ and $V$ is closed under $\glim$.
 \end{proof}
 
 \begin{definition}
-    A spectral space $X$ is quasii-separated if for any ultrafilter $\U$ on $X$, if its limit $\Lim\U$ is non-empty then it is an irreducible closed subset.
+    A spectral space $X$ is quasi-separated if for any ultrafilter $\U$ on $X$, if its limit $\Lim\U$ is non-empty then it is an irreducible closed subset.
 \end{definition}
 
 \begin{proposition}$\:$
@@ -727,10 +766,10 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
     \begin{enumerate}[1).]
         \item A topological space $X$ is separated if and only if every ultrafilter on $X$ has a unique generic limit and the set of those $\Omega\in\Ouv_X$ which are closed under $\glim$ is a topology base.
         \item An open subset of a separated space $X$ is quasi-compact if and only if it is closed under $\glim$. (This is proved in Proposition \ref{fact_14_b}).
-        \item A map $f:X\to Y$ is separated if and only iuf it is continuous and $\glim_Y f_*\U = f(\glim_X\U)$ for every ultrafilter $\U$ on $X$. (This is proved by the above assertion).
+        \item A map $f:X\to Y$ is separated if and only if it is continuous and $\glim_Y f_*\U = f(\glim_X\U)$ for every ultrafilter $\U$ on $X$. (This is proved by the above assertion).
     \end{enumerate}
 \end{proposition}
-
+%current Current
 \begin{proof}
     If $X$ is separated, then by Proposition \ref{proposition_3}, $\Lim\U$ is always closed and irreducible subset, hence $\glim\U$ exists uniquely. By Proposition \ref{fact_14_b}, one has $\{U\in\Ouv_X\sep \text{$U$ is closed under $\glim$}\}=\QC(X)$ is a topology base. If any ultrafilter has a unique generic limit, then $X$ is sober by Proposition \ref{fact_14_b} and $\mathcal{\Ouv_C}(X)=\{U\in\Ouv_X\sep \text{$U$ is closed under $\glim$}\}$ which is closed under finite intersection,
     in $X$ and by the assumption this is a topology base for $X$.
@@ -742,11 +781,11 @@ Neighbourhood filter $\mathcal{N}_x$ of $x\in X$ is such that
 \end{theorem}
 
 \begin{proof}
-We omit the hard part which is $\Rightarrow$ direction (the existence of such ring $A$ for every spectral space $X$). That $\Spec A$ is spectral can be seen as follows. Let $\U$ be an ultrafilter on $\Spec A$ and 
+We omit the hard part which is $\Rightarrow$ direction (the existence of such ring $A$ for every spectral space $X$). That $\Spec A$ is spectral can be seen as follows. Let $\U$ be an ultrafilter on $\Spec A$ and set
 \begin{equation*}
-    \mathfrak{g}_\U = \{a\in A\sep V(a)\in\U\} = \{a\in A\sep \{\mathfrak{p}\in\Spec A\sep a\in\mathfrak{p}\}\in\U\}.
+    \mathfrak{g}_\U \defeq \{a\in A\sep V(a)\in\U\} = \{a\in A\sep \{\mathfrak{p}\in\Spec A\sep a\in\mathfrak{p}\}\in\U\}.
 \end{equation*}
-One $\mathfrak{g}_\U\in\Spec A$ that is let $a_1,a_2\in\mathfrak{g}_\U$, and $M_i = \{\mathfrak{p}\in\Spec A\sep a_i\in\mathfrak{p}\}\in\U$ hence $M_1\cap M_2\in\U$, hence $\{\mathfrak{p}\sep a_1+a_2\in\mathfrak{p}\}\in\U$. as this contains $M_1\cap M_2$. Hence $a_1+a_2\in\mathfrak{g}_\U$ thus it is an ideal. Let $a_1a_2\in\mathfrak{g}_\U$, but $a_2\not\in\mathfrak{g}_\U$. Then $M_2\not\in\U$ but $M_1\cup M_2\in\U$ since $a_1a_2\in\mathfrak{p}$, one of them must belong to it. Hence 
+We show $\mathfrak{g}_\U\in\Spec A$ that is let $a_1,a_2\in\mathfrak{g}_\U$, and $M_i = \{\mathfrak{p}\in\Spec A\sep a_i\in\mathfrak{p}\}\in\U$ hence $M_1\cap M_2\in\U$, hence $\{\mathfrak{p}\sep a_1+a_2\in\mathfrak{p}\}\in\U$ as $\U$ is closed under finite intersection. Hence $a_1+a_2\in\mathfrak{g}_\U$ thus it is an ideal. Let $a_1a_2\in\mathfrak{g}_\U$, but $a_2\not\in\mathfrak{g}_\U$. Then $M_2\not\in\U$ but $M_1\cup M_2\in\U$ since $a_1a_2\in\mathfrak{p}$, one of them must belong to it. Hence 
 \begin{equation*}
     M_1\cup M_2\supseteq\{\mathfrak{p}\sep a_1a_2\in\mathfrak{p}\}\in\U.
 \end{equation*}
@@ -762,8 +801,8 @@ But $M_1\cup M_2\in\U$ and $M_2\not\in\U$ implies $M_1\in\U$ hence $a_1\in\mathf
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    Let $U\in\Nfil_x$. Then there is $\Omega\in \B$ such that $x\in\Omega\subseteq U$. By our assumption, $\Omega\in\U$ hence $U\in\U$ thus $g$ is a limit of $\U$. 
-    Let $x\not\in\overline{\{g\}}$ then there is $U\in\Nfil_x$ such that $g\not\in U$. As $\B$ is a topology base there is $\Omega\in\B$ such that $x\in\Omega\subseteq U$. Then $g\not\in \Omega$. Hence $\Omega\in\U$ Since $\Omega$ is a neighbourhood of $x$, this shows $x\not\in\Lim\U$. Thus $g$ is a generic limit. This proves a).
+    Let $U\in\Nfil_g$. Then there is $\Omega\in \B$ such that $g\in\Omega\subseteq U$. By our assumption, $\Omega\in\U$ hence $U\in\U$ thus $g$ is a limit of $\U$. 
+    Let $x\not\in\overline{\{g\}}$ then there is $U\in\Nfil_x$ such that $g\not\in U$. As $\B$ is a topology base there is $\Omega\in\B$ such that $x\in\Omega\subseteq U$. Then $g\not\in \Omega$, hence $\Omega\not\in\U$. Since $\Omega$ is a neighbourhood of $x$, this shows $x\not\in\Lim\U$. Thus $g$ is a generic limit. This proves a).
     \par For b), it follows from our assumption and a) that $X$ has unique generic limits of ultrafilters and the elements of $\B$ are closed under such generic limits. The claim now follows from Proposition \ref{proposition_4}.
 \end{proof}
 \begin{remark}
@@ -791,11 +830,11 @@ But $M_1\cup M_2\in\U$ and $M_2\not\in\U$ implies $M_1\in\U$ hence $a_1\in\mathf
         \item $X$ is spectral.
         \item The clopen subsets of $X$ form a topology base.
     \end{enumerate}
-    In this case, the open subsets $U$ is quasi-compact if and only if it is clopen and when $Y$ is a spectral space a map $Y\to X$ is spectral it is continuous.
+    In this case, the open subsets $U$ is quasi-compact if and only if it is clopen and for a spectral space $Y$, a map $Y\to X$ is spectral it is continuous.
 \end{corollary}
 \begin{proof}
-    $X$ has unique generic limits which are the generic limits of ultrafilters and by Corollary \ref{corollary_1}, the open subsets which are invariant under these limits are preimages of the open subsets are also clesed.
-    \par To show these two are equivalent. If $U$ is closed, it is quasi-compact as it is a closed subset of a quasi-compact space. If $U$ is quasi-compact then it is closed by Proposition \ref{fact_3}. If $Y\stackrel{f}{\to} X$ is continuous and $\Omega\in\underline{Q}_C(X)$, then $\Omega$ is clopen hence $f^{-1}\Omega$ is clopen in $Y$, hence $f^{-1}\Omega\in \underline{Q}_C(Y)$.
+    Every ultrafilter $\U$ of $X$ admits a unique limit by Proposition \ref{proposition_2} and Proposition \ref{proposition_2_another}. Such limits are trivially generic limits. By Corollary \ref{corollary_1}, the open subsets which are invariant under $\glim$ are closed.% are preimages of the open subsets are also clesed.
+    \par To show these two are equivalent. If $U$ is closed, it is quasi-compact as it is a closed subset of a quasi-compact space. If $U$ is quasi-compact then it is closed by Proposition \ref{fact_3}. If $Y\stackrel{f}{\to} X$ is continuous and $\Omega\in\QC(X)$, then $\Omega$ is clopen hence $f^{-1}(\Omega)$ is clopen in $Y$, hence $f^{-1}(\Omega)\in \QC(Y)$.
 \end{proof}
 \begin{definition}
     A set $\Alg$ of subsets of $X$ is a boolean algebra if the following conditions hold.
@@ -806,20 +845,20 @@ But $M_1\cup M_2\in\U$ and $M_2\not\in\U$ implies $M_1\in\U$ hence $a_1\in\mathf
     \end{enumerate}
 \end{definition}
 \begin{remark}
-    From the basis axioms of boolean algebras. Clearly we have $X\in \Alg$ and $M_1,M_2\in\Alg\Rightarrow M_1\cap M_2\in\Alg$. 
+    From the basic axioms of boolean algebras. Clearly we have $X\in \Alg$ and $M_1,M_2\in\Alg\Rightarrow M_1\cap M_2\in\Alg$. 
 \end{remark}
 \begin{proposition}
     \label{proposition_5}
     Let $X$ be a spectral space. The following boolena algebras of subsets of $X$ coincide.
     \begin{enumerate}
-        \item The boolean algebra generated by $\underline{Q}_c(X)$.
+        \item The boolean algebra generated by $\QC(X)$.
         \item $\{M\subseteq X\sep \text{$M$ is closed under generic limits of ultrafilters}\}$.
     \end{enumerate}
-    Let $\mathcal{K}_x$ be this boolean algebra of subsets of $X$. The topology on $X$ obtained by taking $\mathcal{K}_X$ as a topology base coincides with the one for which preserving the subsets $M\subseteq X$ which are closed under $\glim$ of ultrafilters are closed subsets.
-    \par Finally Let $X_{\con}$ be $X$ equipped with this topology. Then $X_{\con}$ is a spectral hausdorff space (i.e. $X_{\con}$ as in Corollary \ref{corollary_2}), and $X_{\con}\stackrel{\id_X}{\to}X$ is a spectral map.
+    Let $\mathcal{K}_X$ be this boolean algebra of subsets of $X$. The topology on $X$ obtained by taking $\mathcal{K}_X$ as a topology base coincides with the one for which taking the subsets $M\subseteq X$ which are closed under $\glim$ of ultrafilters as closed subsets.
+    \par Finally let $X_{\con}$ be $X$ equipped with this topology. Then $X_{\con}$ is a spectral hausdorff space (i.e. $X_{\con}$ as in Corollary \ref{corollary_2}), and $X_{\con}\stackrel{\id_X}{\to}X$ is a spectral map.
     \par For every ultrafilter $\U$ of $X$, $\lim_{X_{\con}}\U=\glim_X\U$. 
 \end{proposition}
-\begin{proof}[Not Required for the Exam]$\:$
+\begin{proof}[Proof:(Caution : This is not required for the exam)]$\:$
 Let $\mathcal{K}_1$ be th Boolean algebra generated by $\QC(X)$ and 
 \begin{equation*}
     \mathcal{K}_2 \defeq \{M\sep \text{$M$ and $X\backslash M$ closed under $\glim$}\}.
@@ -835,11 +874,11 @@ Moreover, $X_2$ is quasi-compact by Proposition \ref{proposition_2}. Thus it suf
 \end{proof}
 \begin{definition}
     \label{definition_13}
-    The elements of $\K_x$ are called constructible subsets and the topology of $X_{\con}$ the constructible topology.
+    The elements of $\K_X$ are called constructible subsets and the topology of $X_{\con}$ the constructible topology.
 \end{definition}
 \begin{corollary}
     \label{corollary_4}
-    A subset of $X$ is an element of $\K_x$ if and only if it is clopen in $X_{\con}$.
+    A subset of $X$ is an element of $\K_X$ if and only if it is clopen in $X_{\con}$.
 \end{corollary}
 \begin{corollary}[Of Proposition \ref{proposition_4}]
     A map $X\stackrel{f}{\to}Y$ between spectral spaces is continuous if and only if spectral is continuous and $X_{\con}\stackrel{f}{\to}Y_{\con}$ is continuous.
@@ -992,47 +1031,47 @@ If $z\in Z$ and $x\preceq z$, then $x\in\overline{\{z\}}\subseteq\overline{Z}$, 
 \end{example}
 \begin{definition}
     \label{definition_5_5}
-    Let $\Spr(R)$ be the set of equivalent classes of valuation of $R$. For $x\in\Spr(R)$, we choose a representative $\vert\cdot\vert_x$.
+    Let $\Spv(R)$ be the set of equivalent classes of valuation of $R$. For $x\in\Spv(R)$, we choose a representative $\vert\cdot\vert_x$.
     Let $\Gamma_x$  be the group generated by those $\vert r\vert_x$ which are non-zero. For $m\in\N$ and $(r_i)_{i=0}^m\in\R^{m+1}$, let 
     \begin{equation*}
-        \mathcal{R}(r_0|r_1,\cdots,r_m)=\mathcal{R}_{\Spr(R)}(r_0|r_1,\cdots,r_m) = \{x\in\Spr(R)\sep 0\not=\vert f_0\vert_x\geq\vert f_i\vert_x, 1\leq i\leq m\}.
+        \mathcal{R}(r_0|r_1,\cdots,r_m)=\mathcal{R}_{\Spv(R)}(r_0|r_1,\cdots,r_m) = \{x\in\Spv(R)\sep 0\not=\vert f_0\vert_x\geq\vert f_i\vert_x, 1\leq i\leq m\}.
     \end{equation*}
-    These are called rational open subsets. We equip $\Spr(R)$ with the topology for which the set of rational open subsets is a topology base. 
+    These are called rational open subsets. We equip $\Spv(R)$ with the topology for which the set of rational open subsets is a topology base. 
     \par If $A\stackrel{\alpha}{\to}B$ is a ring homomorphism then this induces 
     \begin{equation*}
-        \Spr(B)\stackrel{\Spr(\alpha)}{\to}\Spr(A)
+        \Spv(B)\stackrel{\Spv(\alpha)}{\to}\Spv(A)
     \end{equation*}
-    sends $x\in\Spr(B)$ to the equivalence class of the valuation,
+    sends $x\in\Spv(B)$ to the equivalence class of the valuation,
     \begin{equation*}
         a\mapsto\vert\alpha(a)\vert_x
     \end{equation*}
     of $A$. We set,
     \begin{equation*}
-        \gamma(a) = \Spr(A)\backslash \mathcal{R}(a|).
+        \gamma(a) = \Spv(A)\backslash \mathcal{R}(a|).
     \end{equation*}
 \end{definition}
 \begin{remark}
     The topology there is the coordinated? for which
     \begin{equation*}
-        \Spr\stackrel{x\mapsto\supp(x)}{\to}\Spec
+        \Spv\stackrel{x\mapsto\supp(x)}{\to}\Spec
     \end{equation*}
     is continuous and all
     \begin{equation*}
-        \{x\in\Spr(A)\backslash R(a)\sep \vert\alpha\vert_x\leq\vert a\vert_x\}
+        \{x\in\Spv(A)\backslash R(a)\sep \vert\alpha\vert_x\leq\vert a\vert_x\}
     \end{equation*}
     for $(a,\alpha)\in A^2$ are open.
 \end{remark}
 \begin{remark}
-    The set of rational open subset is closed under finite intersections in $\Spr(R)$. Indeed,
+    The set of rational open subset is closed under finite intersections in $\Spv(R)$. Indeed,
     \begin{align*}
-        \mathcal{R}(1|) &= \Spr(R),\\
+        \mathcal{R}(1|) &= \Spv(R),\\
         \mathcal{R}(r_0|r_1,\cdots,r_m)\cap\mathcal{R}(s_0|s_1,\cdots,s_n) &= \mathcal{R}(r_0s_0|r_is_j,0\leq i\leq n,0\leq j\leq n).
     \end{align*}
     If you assume $m\leq 1$ or even $m=1$, you only get a topology subbase.
 \end{remark}
-One way of constructing generic limits of ultrafilters in $\Spr(R)$ would be to use Proposition \ref{fact_5_1} and 
+One way of constructing generic limits of ultrafilters in $\Spv(R)$ would be to use Proposition \ref{fact_5_1} and 
 \begin{equation*}
-    \{(r,s)\in R^2\sep \vert r\vert_g\leq\vert s\vert_g\}\defeq \{(r,s)\in R^2\sep \{x\in\Spr(R)\sep \vert r\vert_x\leq \vert s\vert_x\}\in\U\}.
+    \{(r,s)\in R^2\sep \vert r\vert_g\leq\vert s\vert_g\}\defeq \{(r,s)\in R^2\sep \{x\in\Spv(R)\sep \vert r\vert_x\leq \vert s\vert_x\}\in\U\}.
 \end{equation*}
 This would work and was shown by Huber. 
 \begin{definition}
@@ -1076,18 +1115,18 @@ This would work and was shown by Huber.
 \end{remark}
 \begin{proposition}
     \label{propostion_6_1}
-    For every ring $R$, $\Spr(R)$ is a spectral space and a subset of the form $\cR(f_0|f_1,\cdots,f_m)$ with $m\in\N$ and $9(f_i)_{i=0}^m\in R^{m+1}$ is quasi-compact.
-    \par The generic limit of the ultrafiler $\U$ on $\Spr R$ is given by the equivalence classof the valuation,
+    For every ring $R$, $\Spv(R)$ is a spectral space and a subset of the form $\cR(f_0|f_1,\cdots,f_m)$ with $m\in\N$ and $9(f_i)_{i=0}^m\in R^{m+1}$ is quasi-compact.
+    \par The generic limit of the ultrafiler $\U$ on $\Spv R$ is given by the equivalence classof the valuation,
     \begin{equation*}
-        R\stackrel{r\mapsto (\text{the $\U$-equivalence class of $(\ab{r}_\gamma)_{\gamma\in\Spr R}$})}{\longrightarrow}\left({\prod_{\gamma\in\Spr R}}_\U\Gamma_\gamma\right)\cup\{0\}=\prod_\U(\Gamma_\gamma\cup\{0\}). \tag{1}\label{proposition_6_1_1}
+        R\stackrel{r\mapsto (\text{the $\U$-equivalence class of $(\ab{r}_\gamma)_{\gamma\in\Spv R}$})}{\longrightarrow}\left({\prod_{\gamma\in\Spv R}}_\U\Gamma_\gamma\right)\cup\{0\}=\prod_\U(\Gamma_\gamma\cup\{0\}). \tag{1}\label{proposition_6_1_1}
     \end{equation*}
     Moreover, the map,
     \begin{equation*}
-        \Spr(R)\stackrel{\gamma\mapsto \supp\ab{\cdot}_\gamma}{\longrightarrow}\Spec R
+        \Spv(R)\stackrel{\gamma\mapsto \supp\ab{\cdot}_\gamma}{\longrightarrow}\Spec R
     \end{equation*}
     is spectral and for every ring homomorphism $R\stackrel{\rho}{\to}S$, the map 
     \begin{equation*}
-        \Spr(S)\stackrel{\Spr(\rho)}{\to}\Spr(R)
+        \Spv(S)\stackrel{\Spv(\rho)}{\to}\Spv(R)
     \end{equation*}
     is also spectral.
 \end{proposition}
@@ -1104,13 +1143,13 @@ This would work and was shown by Huber.
         &\stackrel{\bigcap_{i=0}^m M_i\in\U\Leftrightarrow \forall M_i\in\U}{\Leftrightarrow} \{x\in X\sep \ab{f_0}_x\not=0\}\cap\bigcap_{i=1}^m \{x\in X\sep \ab{f_i(x)}\leq\ab{f_0(x)}\}\in\U,\\
         &\stackrel{\text{Definition of rational open}}{\Leftrightarrow}\cR(f_0\sep f_1,\cdots,f_m)\in\U.
     \end{align*}
-    Lemma \ref{lemma_1} can indeed be applied. That the induced map $\Spr(R)\stackrel{\supp}{\to}\Spec(R)$ is spectral follows from 
+    Lemma \ref{lemma_1} can indeed be applied. That the induced map $\Spv(R)\stackrel{\supp}{\to}\Spec(R)$ is spectral follows from 
     \begin{equation*}
         \supp(D(f)) = \cR(f|).
     \end{equation*}
-    Proposition \ref{fact_1_2_6}. That $\Spr(\rho)$ is spectral follows immediately from 
+    Proposition \ref{fact_1_2_6}. That $\Spv(\rho)$ is spectral follows immediately from 
     \begin{equation*}
-        \Spr(\rho)^{-1}\cR(f_0|f_1,\cdots,f_m) = \cR(\rho(f_0)|\rho(f_1),\cdots,\rho(f_m)).
+        \Spv(\rho)^{-1}\cR(f_0|f_1,\cdots,f_m) = \cR(\rho(f_0)|\rho(f_1),\cdots,\rho(f_m)).
     \end{equation*}
 \end{proof}
 
@@ -1120,31 +1159,31 @@ This would work and was shown by Huber.
 
 \begin{proposition}
     \label{fact_6_3}
-    For every ideal $I\subseteq R$, if $R\stackrel{\pi}{\to}R/I$ denotes the canonical projection, then the induced map $\Spr(R/I)\stackrel{\pi}{\to} \Spr(R)$ is a homeomorphism. Explicitly, we have,
+    For every ideal $I\subseteq R$, if $R\stackrel{\pi}{\to}R/I$ denotes the canonical projection, then the induced map $\Spv(R/I)\stackrel{\pi}{\to} \Spv(R)$ is a homeomorphism. Explicitly, we have,
     \begin{equation}
-        \Spr(R/I) = V_{\Spr(R)}(I) \defeq\{x\in\Spr(R)\sep \supp x\supseteq I\} = \Spr(R)\backslash\bigcup_{f\in I}\cR(f).\label{eq_spr_v_formula}
+        \Spv(R/I) = V_{\Spv(R)}(I) \defeq\{x\in\Spv(R)\sep \supp x\supseteq I\} = \Spv(R)\backslash\bigcup_{f\in I}\cR(f).\label{eq_spr_v_formula}
     \end{equation}
     If $I$ is finitely generated (i.e. $I = \langle g_1,\cdots,g_m\rangle_R$), then the right hand side of Equation \eqref{eq_spr_v_formula} can be written as,
     \begin{equation*}
-        \Spr(R/I) = \bigcup_{i=1}^m \cR(g_i)
+        \Spv(R/I) = \bigcup_{i=1}^m \cR(g_i)
     \end{equation*}
     which is the embedded subset. Alternatively, we have,
     \begin{equation*}
-        V_{\Spr(R)} = \{x\in\Spr(R)\sep \forall f\in I, \ab{f}_x = 0\}.
+        V_{\Spv(R)} = \{x\in\Spv(R)\sep \forall f\in I, \ab{f}_x = 0\}.
     \end{equation*}
     Furthermore, we can identify this with a homeomorphism,
     \begin{equation*}
-        \Spr(R/I)\underset{\simeq}{\stackrel{\Spr(\pi)}{\to}} V(I).
+        \Spv(R/I)\underset{\simeq}{\stackrel{\Spv(\pi)}{\to}} V(I).
     \end{equation*}
     \par Let $S$ be a multiplicative subset of $S$ and $\iota:R\to R_S$ be a canonical inclusion then,
     \begin{equation}
-        \Spr(R_S) = \underset{\Spr(\iota)}{\stackrel{\simeq}{\to}}\bigcap_{s\in S}(\Spr(R)\backslash V(s)) = \bigcap_{s\in S}\cR(s|).
+        \Spv(R_S) = \underset{\Spv(\iota)}{\stackrel{\simeq}{\to}}\bigcap_{s\in S}(\Spv(R)\backslash V(s)) = \bigcap_{s\in S}\cR(s|).
     \end{equation}
 \end{proposition}
 
 \begin{proposition}
     \label{fact_6_4}
-    Let $s$ be a specialization of $\eta\in\Spr(R)$, then 
+    Let $s$ be a specialization of $\eta\in\Spv(R)$, then 
     \begin{equation}
         \supp\eta\subseteq \supp s.
     \end{equation}
@@ -1161,7 +1200,7 @@ This would work and was shown by Huber.
     \begin{equation*}
     K_{v\leq \gamma}\defeq \{r\in R\sep v(r)\leq \gamma\}.
     \end{equation*}
-    For an equivalence class $x\in\Spr(R)$ where $v\in x$, we may denote,
+    For an equivalence class $x\in\Spv(R)$ where $v\in x$, we may denote,
     \begin{equation*}
         K_{x\leq\gamma} = K_{v\leq\gamma}.
     \end{equation*}
@@ -1198,7 +1237,7 @@ This would work and was shown by Huber.
 
 \begin{proposition}
     \label{fact_6_6}
-    Let $s$ be a specialization of $\eta\in\Spr(R)$. We have,
+    Let $s$ be a specialization of $\eta\in\Spv(R)$. We have,
     \begin{equation*}
         a\in R\backslash\supp s\Rightarrow K_{\eta<a}\subseteq K_{s<a}.
     \end{equation*}
@@ -1216,7 +1255,7 @@ This would work and was shown by Huber.
 \end{proof}
 \begin{proposition}
     \label{fact_6_7}
-    Let $s$ be a specilization of $\eta\in\Spr(R)$. 
+    Let $s$ be a specilization of $\eta\in\Spv(R)$. 
     \begin{equation*}
         a\in R\backslash\supp(s)\Rightarrow K_{s\leq a}\subseteq K_{\eta\leq a}.
     \end{equation*}
@@ -1262,17 +1301,902 @@ Recall that for a valuation $v:R\to \Gamma\cup\{0\}$, $\Gamma_v$ is the subgroup
 \begin{proposition}
     \label{fact_6_10}
     \begin{equation*}
-        \cGamma_v = \{\gamma\in\Gamma_v\sep \exists r\in R \:\st\: \gamma v(r)\geq1\}
+        \cGamma_v = \{\gamma\in\Gamma_v\sep \exists r\in R \:\st\: \min\{\gamma,\gamma^{-1}\} v(r)\geq1\}
     \end{equation*}
 \end{proposition}
-\begin{remark}
-    If $H$ is a convex subgroup of $\Gamma_v$, then $\cGamma_v\subseteq H$. Furthermore, we have,
+\begin{proof}
+    Let $\cGamma_v' =  \{\gamma\in\Gamma_v\sep \exists r\in R \:\st\: \min\{\gamma,\gamma^{-1}\} v(r)\geq1\}$. We will show that $\cGamma_v=\cGamma_v'$.
+    If $r\in R$ is as in the construction of $\cGamma_v'$, then $v(a)\geq1$ thus $v(a)\in\cGamma_v$. If $\gamma\in\cGamma_v'$, then 
     \begin{equation*}
-        v|_{H}(r)=\begin{cases}
+        v(a)^{-1}\leq \gamma\leq v(a).
+    \end{equation*}
+    Hence $\gamma\in\cGamma_v$. In particular $\cGamma_v'\subseteq\cGamma_v$. On the other hand $\cGamma_v'$ is aa convx subgroup of $\Gamma_v$ containing all $\gamma(r)$ such that $\gamma(r)\geq1$. Thus by the minimality of $\cGamma_v$, we have shown the statement.
+\end{proof}
+\begin{remark}
+    If $H$ is a convex subgroup of $\Gamma_v$, then $\cGamma_v\subseteq H$.?
+\end{remark}
+
+%5/11
+
+\begin{remark}
+    If $R$ is a field then $\cGamma_v=\Gamma_v$.
+\end{remark}
+
+\begin{definition}
+    \label{definition_7_10}
+    Let $A\stackrel{v}{\to}\Gamma$ be a valuation of $A$ and $H\subseteq\Gamma_v$ a convex subgroup containing $\cGamma_v$. Let 
+    \begin{equation*}
+        v|_{H}(r)\defeq\begin{cases}
             v(r)\quad(v(r)\in \cGamma_v)\\
             0\quad(\text{otherwise}).
         \end{cases}
     \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    \label{fact_7_8}
+    Under the assumption of Definition \ref{definition_6_8}, $v|_H$ is indeed a valuation of $A$ and $v|_H$ is a specialization of $v$ in $\Spv(A)$.
+\end{proposition}
+\begin{proof}
+    Let $M$ be the convex hull of $\{0\}\cup H$ in $\Gamma_v\cup\{0\}$. For $m\in M$, set,
+    \begin{equation*}
+        \varphi(m) =\begin{cases}
+            m,\quad(m\in H),\\
+            0,\quad (\text{otherwise}).
+        \end{cases}
+    \end{equation*}
+    Since $H\supseteq\Gamma_v$, we have $v(a)\in M$ for all $a\in A$. (note that $[0,1]_{\Gamma_v\cup\{0\}}\supseteq M$ and $v(a)\in\cGamma_v\subseteq H\subseteq M$ where $v(a)\geq1$ )
+    Since $r$ is ??? and $\varphi(0) = 0$, and $\varphi(1) = 1$, the axiom,
+    \begin{equation*}
+        w(0) = 0,w(1) = 1,w(a+b)\leq\max\{w(a),w(b)\}
+    \end{equation*}
+    for $w=v|_H=\varphi r$ follow from their counterparts for $v$. Also $M$ is multiplicative ?? and $\varphi(m\mu) = \varphi(m)\varphi(\mu)$. (This is obvious when $\varphi(m)\varphi(\mu)\not=0$. Otherwise, without loss of generality $\varphi(m)=0$, hence $m\not\in H$. In particular, $m<1$. Also $hm<1$ for all $h\in H$ by the ??? of $H$. Thus, $nm<1$ for all $n\in M$, in particular $m\mu<1$. Now $m\mu\in H$ would imply $\mu\in H$ as $m\mu\leq \mu$ and $\mu\in M$ (hence $\mu$ is bounded from above by some $h\in H$). But then $m\in H$ a contradiction). 
+    \par To see $w$ is a specialization of $r$, observe that 
+    \begin{align*}
+        w\in\cR(f_0|f_1,\cdots,f_m) &\iff [w(f_0)=0\text{ and } w(f_0)\geq w(f_i),i=1,\cdots,m],\\
+        &\iff[v(f_0)\in H\text{ and }v(f_0)\geq w(f_i),i=1,\cdots,m],\\
+        &\iff [v(f_0)\in H\tand v(f_0)\geq v(f_i),i=1,\cdots,m].
+    \end{align*}
+    Note that $v(f_i)>v(f_0)\in H$ would imply $v(f_i)\in H$ by the conexity of $H$, as $v(f_i)\in H$, hence $v(f_i)$ bounded from above by some elements of $H$. Hnce $w(f_i)=v(f_i)>v(f_0) = w(f_0)$ if $v(f_i)>v(f_0)$.
+    Furthermore,
+    \begin{equation*}
+        \Rightarrow [v(f_0)\not=0\tand v(f_i)\leq v(f_0),i=1,\cdots,m]\iff (v/\sim)\in\cR(f_0|f_1,\cdots,f_m).
+    \end{equation*}
+\end{proof}
+
+\begin{remark}
+    Motivated by the above notion, we say $s\in\Spv(R)$ is a horizontal specialization of $\eta\in\Spv(R)$ if there is $v\in\eta$ and a convex subgroup $\cGamma_v\subseteq H\subseteq\Gamma_v$ such that $s$ is equivalent to $v|_H$.
 \end{remark}
+
+\begin{corollary}
+    \label{fact_7_9}
+    If $x$ is a closed point of $\Spv(A)$, then $\cGamma_x=\Gamma_x$. 
+\end{corollary}
+\begin{proof}
+    If this is not the case, $x|_{\cGamma_x}$ is a proper specialization of $x$.
+\end{proof}
+
+\begin{proposition}
+    \label{fact_7_10}
+    If $s\in\Spv(A)$ is a horizontal specialization of $\eta\in\Spv(A)$ and $\Omega\in\cR(f_0|f_1,\cdots,f_m)$ then $s\in\Omega\iff(\eta\in\Omega\tand\ab{f_0}_s\not=0)$.
+\end{proposition}
+
+\begin{proof}
+    Indeed, the construction of the end of the proof of Proposition \ref{fact_7_8} imply 
+    \begin{equation*}
+        (w/\sim)\in\Omega\iff[(v/\sim)\in\Omega\tand w(f_0)\not=0].
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    Let $A\stackrel{v}{\to}\Gamma\cup\{0\}$ be a valuation and a convex subgroup $H\subseteq \Gamma$ or $H\subseteq\Gamma_v$. The vertical specialization of $v$ with respect to $H$ is
+    \begin{equation*}
+        (v/H)(a)=\begin{cases}
+            v(a)H \:(\text{i.e. a coset represented by $v(a)$}),\quad(v(a)\not=0),\\
+            0,\quad(\otherwise).
+        \end{cases}
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    $s$ is a vertical specilization of $\eta\in\Spv(A)$ if and only if $s$ is a specialization of $\eta$ and $\supp s = \supp \eta$. 
+\end{remark}
+\begin{remark}
+    In Huber's literature, he refers horizontal specialization as primary specialization and the vertical specializations as the secondary specializations.
+\end{remark}
+
+\begin{remark}
+    Note that $v|_H$ is a specialization of $v$ while $v$ is a specialization of $v/H$.
+\end{remark}
+
+\subsection{Valuation Rings}
+
+\begin{definition}
+    Let $K$ be a field. A subring $R\subseteq K$ is a valuation ring of $K$ if for all $x\in K^\times, x\in R\tor x^{-1}\in R$.
+\end{definition}
+
+\begin{example}
+    Every discrete valuation rings is a valuation ring of its field of fraction. More concretely, $\Z_p$ is a valuation ring of $\Q_p$. 
+\end{example}
+\begin{example}
+    If $S$ is a valuation ring of $L$ and $K\subseteq L$ is a subfield then $S\cap K$ is a valuation ring of $K$.
+\end{example}
+
+\begin{example}
+    If $\mathcal{L}$ is a set of valuation rings which is linearly ordered by $\subseteq$. Then $\bigcap_{R\in\mathcal{L}}R$ is a valuation ring of $K$ (if $\mathcal{L}=\emptyset$ then the intersection would be $K$ itself which is trivially a valuation ring) and if $\mathcal{L}\not=\emptyset$ then $\bigcup_{R\in\mathcal{L}}R$ is also a valuation ring of $K$.
+\end{example}
+
+\begin{example}
+    If $R$ is a valuation ring of $K$ and $R\subseteq S\subseteq K$ then $S$ is a valuation ring of $K$.
+\end{example}
+
+\begin{proposition}Let $R$ be a valuation ring of $K$. We have the following.
+    \label{fact_7_1}
+    \begin{enumerate}[a).]
+        \item The field of fractions of $R$ is $K$. 
+        \item For $a,b\in R$, either $a\mid b$ or $b\mid a$. 
+        \item $R$ is a Bézout domain. That is every finitely generated ideals are principal. 
+        \item $R$ is integrally closed in $K$. 
+        \item $R$ is Noetherian if and oly if $R$ is a discrete valuation ring if and only if the unique maximal ideal $\m_R$ is principal and this is equivalent to $R$ being a principal ideal domain.
+        \item The set of ideals of $R$ is linearly ordered by the inclusion.
+        \item $\Spv(R)$ is linearly orded by specizalization.
+        \item An ideal $I\subseteq R$ is prime if and only if $I=\sqrt{I}$ and $1\not\in I$.
+        \item We have an order reversing bijection such that 
+        \begin{center}
+        \begin{tikzcd}
+\Spec(R) \arrow[r, "\p\mapsto R_\p", shift left] & \{S\sep R\subseteq S\subseteq K\tand S\text{ is a subring of $K$}\} \arrow[l, "R\cap\m_S\mapsfrom S", shift left]
+\end{tikzcd}
+        \end{center}
+        \item The set of $S$ such that $R\subseteq S\subseteq K$ and $S$ is a subring of $K$ is linearly ordered by inclusion.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+    \label{fact_7_2}
+    If $R$ and $S$ are valuation ring of $K$ then $R\subseteq S$ is equivalent to $\m_S\subseteq\m_R$.
+\end{proposition}
+\begin{proof}
+    \begin{equation*}
+        \m_R=\{0\}\cup\{x\in K^\times\sep x\not\in R\}.
+    \end{equation*}
+\end{proof}
+\begin{proposition}
+    \label{proposition_7_1}
+    We have following bijections,
+    \begin{center}
+        \begin{tikzcd}
+\Spv(K) \arrow[r, "x\mapsto \{k\in K\sep \ab{k}_x\leq1\}", shift left] & \{\text{valuation rings $R$ of $K$}\} \arrow[l, "v_R/\sim\mapsfrom R", shift left]
+\end{tikzcd}
+    \end{center}
+    where 
+    \begin{equation*}
+        v_R(x) = \begin{cases}
+            x\cdot R^\times ,\quad(x\not=0),\\
+            0,\quad(x=0).
+        \end{cases},\Gamma_R = K^\times/R^\times.
+    \end{equation*}
+    The ordering on $\Gamma_R$ is given as follows,
+    \begin{equation*}
+        xR^\times\leq yR^\times \iff x\in yR.
+    \end{equation*}
+\end{proposition}
+
+%5/15 
+
+\begin{remark}
+    Under the bijection in Proposition \ref{proposition_7_1}, if the embedding of $K$ into a field extension $L$ is denoted $i$, $\Spv(i)(x_R) = x_{K\cap R}$ where $R$ is a valuation ring of $L$, $x_R\in\Spv(L)$. Moreover, $x_R\in\cR(f_0|f_1,\cdots,f_m)$ if and only if $f_0=0$ and $f_i\in f_0\cR$. 
+\end{remark}
+
+\begin{proposition}
+    \label{fact_8_3}
+    $x_R$ be a specialization of $x_S$ if and only if $R\subseteq S$. 
+\end{proposition}
+
+\begin{proof}$\:$
+    \par $\Rightarrow$: follows by the preserving $f$ and 
+    \begin{align*}
+        x_R\in\cR(f_0|f_1,\cdots,f_m) &\iff [f_0\not=0\tand \forall f\in f_0\cR]\\
+        &\Rightarrow [f_0\not=0\tand \forall f_i\in f_0S],\\
+        &\iff [x_S\in\cR(f_0|f_1,\cdots,f_m)].
+    \end{align*}
+    If $x_R$ is a specialization of $x_S$, then $R = K_{x_R\leq 1}\subseteq K_{x_S\leq 1}=S$ by Proposition \ref{fact_6_7}.
+\end{proof}
+
+
+\begin{lemma}
+    \label{lemma_8_aux}
+    Let $B$ be an $A$-algebra and $M\subseteq B$ be a finitely generated $A$-submodule of $B$ such that $bM=0$for any $b\in B$  implies $aM=0$. If $b\in B$ is such that $bM\subseteq M$ then $b$ is integral over $A$. 
+\end{lemma}
+\begin{proof}
+    Let $(m_i)_{i=1}^l$ be generators of $M$ as an $A$-module. 
+    \begin{equation*}
+        bm_i = \sum_{i=1}^l \alpha_{ij}m_j.
+    \end{equation*}
+    Set $p\in A[T]$ be the characteristic polynomial of $(\alpha_{ij})$. Then $p(b) = 0 $ by Cauchy-Hamilton.
+\end{proof}
+
+\begin{proposition}
+    \label{proposition_8_2}
+    Let $A$ be a subring of the filed $K$. Then the integral closure $A$ in $K$ is equal to the intersection of the valuation rings of $K$ containing $A$.
+\end{proposition}
+
+\begin{proof}
+    Let $A'$ be the intersection of all valuation rings containing $A$. $A'\supseteq A$ is clear as all valuation rings are integrally closed. Thus it is sufficient to consider an element $x\in K$ which is not integral over $A$ and show there is a valuation ring $R$ of $K$ which doesn't contain $x$.
+    To this end, set 
+    \begin{equation*}
+        \mathcal{M}\defeq \{A\subseteq B\subseteq K\sep\text{$B$ is an intermediate ring with $x$ is not integral over $B$}\}.
+    \end{equation*}
+    Since $A\in\mathcal{M}$, $\mathcal{M}\not=\emptyset$. Let $\mathcal{L}\subseteq\mathcal{M}$ be a non-emptyset which is linearly ordered with respect to inclusion. Then $C=\bigcup_{B\in\mathcal{L}}B$ is in $\mathcal{M}$. That is $\mathcal{L}$ is bounded in $\mathcal{M}$.
+    By Zorn's lemma, there is a maximal element $R$. It remains to show that $R$ is a valuation ring.
+    \par Let $k\in K\backslash R$ such that $k^{-1}\not\in R$. Then $x$ is integral over $R[x^{\pm}]$, hence there are polynomials $(p_j^{\pm})_{j=0}^{d_{\pm}-1}$ such that 
+    \begin{equation*}
+        x^{d_\pm} = \sum_{j=0}^{d_\pm-1}x^jp_j^{(\pm)}(k^{\pm1}).
+    \end{equation*}
+    Let $d = \max\{d_+,d_-\}$ and $e$ the maximum of all $\deg p_j^{(\pm)}$ with $0\leq j<d^{(\pm)}$. Let $N\subseteq K$ be the $R$-submodule generated by the $x^ik^j$ where $0\leq i<d, 0\leq j< 2e$. Then $N$ is a finitely generated $R$-module
+    and $xN\subseteq N$. Indeed, consider a generator $y=x^ik^j$ of $N$. We can assume that $j<e$. If $i<d_+-1$ then $xy$ is in the set generators of $N$. Otherwise, 
+    \begin{equation*}
+        xy = x^{i+1-d_+}\sum_{l=0}^{d_+-1}x^lp_l^{(+)}(k)k^j\in N.
+    \end{equation*}
+    Now assume $j\geq e$. If $i<d-1$, then $xy$ is in the set of generators of $N$. Otherwise, 
+    \begin{equation*}
+        xy = x^{i+1-d_-}\sum_{l=0}^{d_--1}x^lk^j p_l^{(-)}(k^{-1})\in N.
+    \end{equation*}
+    By Lemma \ref{lemma_8_aux}, $x$ is integral over $R$. This contradicts that $R\in\mathcal{M}$.
+\end{proof}
+
+\begin{remark}
+    The book of Kniebuch and Schrecker also has a proof. 
+\end{remark}
+
+\section{$G_+$-topological span and their sheaf cohomology}
+\subsection{Grothendieck topologies and $G_+$-topological span}
+Let $\sC$ be a category. In the application we are interested in, it will be given by a poset $(P,\preceq)$. Objects of $\sC$ are the all of $P$ and a morphism $x\stackrel{\mu}{\to}x$ exists if and only if $x\preceq y$, in which case $\mu$ is unique. In fact $P=\Ouv_X$ (all open subsets of $X$) or $P$ is some topology base of $X$, and $\preceq$ is containment $\subseteq$. However, the case where therer may be more than one morphism between objects of $\sC$ are very important in other applications like étale or crystalline cohomology.
+\begin{definition}
+    \label{definition_8_1}
+    A sieve on (or over) an object $X$ of $\sC$ or an $X$-sieve is a class $\mathscr{S}$ of morphisms $U\to X$ such that $[U\stackrel{\nu}{\to}X]\in\mathscr{S}$ then $\nu\omega\in\mathscr{S}$ where $V\stackrel{\omega}{\to}U$ is any morphism in $\sC$.
+\end{definition}
+\begin{definition}
+    \label{definition_8_1_1}
+    If $\sS$ is a $X$-sieve and $Y\stackrel{\xi}{\to}X$ then $\xi^*\sS$ is the $Y$-sieve of all morphism $U\stackrel{\nu}{\to}Y$ such that $\xi\nu\in\sS$.
+\end{definition}
+\begin{definition}
+    \label{definition_8_2}
+    A Grothendieck topology on $\sC$ is a collection $(\Pi_X)_{X\in\Ob(\sC)}$ of $X$-sieves (where $\Pi_x$ being called the class of covering sieves of $X$) satisfying the following conditions.
+    \begin{enumerate}[]
+        \item (GT-Triviality) The all-sieve $\sS$ on $X$ (i.e. the class of all morphisms with its target to $X$) is in $\Pi_X$.
+        \item (GT-Transitivity) If $\sS\in\Pi_X$ and $Y\stackrel{\nu}{\to}Y$ and any morphism $Y\stackrel{\nu}{\to}X$ in $\sC$, we have $ \nu^*\sS\in\Pi_Y$.
+        \item (GT) If $\sS\in\Pi_X$ and any $X$-sieve $\mathscr{T}$ such that $\nu^*\mathscr{T}\in\Pi_U$ for any morphism $(U\stackrel{\nu}{\to}X)\in\sS$, then $\mathscr{T}\in\Pi_X$.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    Recall that a presheaf on $\sC$ is a contravariant functor $\sC\stackrel{\mathcal{G}}{\to}(\text{Sets})$. The idea is that $\mathcal{G}$ is a sheaf if and only if $\mathcal{G}(X)\to\lim_{\sS}\mathcal{G}$ where morphisms in $\sS$ are morphisms of $X$-objects, is an isomorphism for all $\sS\in\Pi_X$.
+\end{remark}
+\begin{remark}
+    If $\sC$ is given by a poset, then $\sS$ is also a poset (of $\preceq$-predecessor of $X$) and 
+    \begin{equation*}
+        \varprojlim_{\sS}\mathcal{G}=\left\{(g_Y)_{Y\in\sS}\in\prod_{Y\in\sS}\mathcal{G}(Y)\:\bigg{|}\: g_Y|_Z = g_Z\text{ where }Z\preceq Y\right\}.
+    \end{equation*}
+    Here $\mathcal{G}(\text{the unique morphisms $Z\to Y$})$ are denoted by $\cdot|_Z$.
+\end{remark}
+\begin{remark}
+    In general (fpqc-topology or proétale topology), set theoretic patterns arise which we can ? because they were $\sC$ is gien by a poset $P$ (all all sieves the being subsets of $P$).
+\end{remark}
+\begin{proposition}$\:$
+    \label{fact_8_1} 
+    \begin{enumerate}
+        \item If $\sS\subseteq\mathscr{T}$ and $\sS\in\Pi_X$, then $\mathscr{T}\in\Pi_X$. 
+        \item If $\sS_1,\sS_2\in\Pi_X$, then $\sS_1\cap \sS_2\in\Pi_X$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    If $v\in\sS$, then $v^*\mathscr{T}\supseteq v^*\sS=(\text{all-sieve on the source $U$ of $\nu$})$ hence $v^*\mathscr{T}=(\text{all sieve on $U$})\in\Pi_U$ by GT-?
+    By GT-Loz, $T\in\Pi_X$. 
+    \par Let $\mathscr{T}=\sS_1\cap \sS_2$. If $[U\stackrel{\nu}{\to}X]\in\sS_1$, $v^*\mathscr{T}=v^*\sS_2\in\Pi_U$ by GT- and $\sS_2\in\Pi_X$. By GT- $\mathscr{T}\in\Pi_X$.
+\end{proof}
+From now on, $\sC$ will be given by some topology base $\mathcal{B}$ in a topology space $X$ turned into a poset by the inclusion.
+\begin{definition}
+    \label{definition_8_3}
+    \begin{align*}
+        [U_i|i\in I]&\defeq \bigcap_{\substack{$W$-\text{sieves }\sS\\ \forall i\in I,U_i\in\sS}}\sS,\\
+        & \{U\in\mathcal{B}\sep \forall i\in I, U\subseteq U_i\},
+    \end{align*}
+    where all $U_i\in\mathcal{B}_W=\{\Omega\in\mathcal{B}\sep \Omega\subseteq W\}$.
+\end{definition}
+\begin{definition}
+    A $W$-sieve is finitely generated if it has the form $[\Omega_1,\cdots,\Omega_n]$ where all $\Omega\in\mathcal{B}_W$. If several topology bases are under consideration, we will use $[\Omega_1,\cdots,\Omega_n]_\mathcal{B}$ for disambiguation.
+\end{definition}
+\begin{definition}
+    \label{definition_9_3}
+    We denote,
+    \begin{equation}
+        [U_1,\cdots,U_n] = (\text{$\Ouv_U$-sieve generated by $U_i$}) = \bigcup_{i=1}^n\Ouv_{U_i}.
+    \end{equation}
+    If we specify the topology base $\mathcal{B}$, we denote,
+    \begin{equation}
+        [\Omega_1,\cdots,\Omega_n]_{\mathcal{B}}=(\text{$\mathcal{B}$-sieves generated by $\Omega_i$}) = \bigcup_{i=1}^n\mathcal{B}_{\Omega_i}.
+    \end{equation}
+    A sieve is finitely generated if it can be generated in this way by finitely many of its elements. 
+    \begin{equation*}
+        \sS/= U \iff \sS \text{ is a $U$-sieve and $\sS\in\Pi_U$}.
+    \end{equation*}
+    Also,
+    \begin{equation}
+        \sS//U\iff \sS|_U/=U,
+    \end{equation}
+    where $\sS|_U=\sS\cap \Ouv_U$.
+\end{definition}
+
+\begin{proposition}
+    \label{proposition_9_1}
+    Let $X$ be a topological space and $\cB$ be a topology base for it. Then we have a bijection between the following two sets.
+    \begin{enumerate}[1).]
+        \item Grothendieck topologies $\Pi$ on $\cB$.
+        \item Grothendieck topologies $\Pi$ on $\Ouv_X$ with the additional property that $[\cB_u]\in\Pi_U$ holds for all $U\in\Ouv_U$.
+    \end{enumerate}
+    The bijection is explicitly given by the following way.
+    \begin{enumerate}[a).]
+        \item If $\Pi^{(\cB)}$ is given, $\sS\in\Pi_U$ if and only if $\sS\cap\cB_\Omega\in\Pi_\Omega^{(\cB)}$ holds for all $\Omega\in\cB_U$.
+        \item If $\Pi$ is given, $\sS\in\Pi_\Omega^{(\cB)}$ if and only if $[\sS]\in\Pi_\Omega$, (where $[\sS]=[\theta\sep \theta\in\sS]$ is the sieve on $\Ouv_\Omega$ generated by $\sS$).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Ommited. Hint : it becomes easier if it is assumed that $\Omega,\Theta\in\cB\Rightarrow \Omega\cap\Theta\in\cB$.
+\end{proof}
+\begin{definition}
+    \label{definition_9_4}
+    A $G_+$-topological space is a $T_0$-space $X$ with a Grothendieck topology on $\Ouv_X$ such that
+    \begin{enumerate}
+        \item $\emptyset/=\emptyset$ (implies $\mathcal{G}(\emptyset)=\{0\}$ for sheaves $\mathcal{G}$ of abelian groups).
+        \item If $\sS/=U$ then $U = \bigcup_{V\in\sS}V$.
+    \end{enumerate}
+\end{definition}
+\begin{definition}
+    \label{definition_9_5}
+    If $X$ is a $G_+$-space then a $G_+$-base for $X$ is a subset $\cB\subseteq\Ouv_X$ such that $\cB$ is a topology base in the ??? and $[\cB_u]/=U$ for all $U\in\Ouv_U$. We say that $\cB$ is $G_{++}$ if in addition,
+    \begin{enumerate}[a).]
+        \item $\Omega,\Theta\in\cB \Rightarrow \Omega\cap \Theta \in\cB$.
+        \item Membership in $\cB$ is local in the sense that $\Omega\in\cB,V\in\Ouv_\Omega$ and $[\Theta\in\cB_\Omega\sep U\cap \Theta\in\cB]/=\Omega$ then $V\in\cB$.
+    \end{enumerate}
+\end{definition}
+\begin{definition}
+    \label{definition_9_6}
+    If $X$ is a $G_+$-space then $V\in\Ouv_X$ is called $G_+$-quasicompact $(G_{+qc})$ if for all $\sS\in\Pi_U$, there are finitely many $(V_i)_{i=1,\cdots,n}$ such that 
+    \begin{equation*}
+        [V_1,\cdots,V_n]/=V.
+    \end{equation*}
+    (i.e. every covering sieve of $U$ has a finitely generated covering subsieve).
+\end{definition}
+\begin{example}
+    If $X$ is a $T_0$-space it gets the structure of a $G_+$-space by
+    \begin{equation*}
+    \Pi_U=\left\{\text{sieves $\sS$ in $U$ such that $U = \bigcup_{V\in I}V$}\right\}.
+    \end{equation*}
+\end{example}
+\begin{proposition}
+    \label{proposition_9_2}
+    Let $X$ be a $T_0$-space, $\cB$ a topology base for it such that $\Omega,\Theta\in\cB$ implies $\Omega\cap\Theta\in\cB$. Put 
+    \begin{equation*}
+        \Pi_U = \left\{\text{sieves $\sS$ in $U$ such that for all $\Omega\in\cB_U$ there are $(\Theta)_{i=1,\cdots,n}, n\in\N, \Theta_i\in\sS$ such that $\Omega=\bigcup_{i=1}^n\Theta_i$ }\right\}
+    \end{equation*}
+    Then $X$ becomes a $G_+$-topological space and $\cB$ is a $G_+$-base and the elements of $\cB$ are $G_{+qc}$.
+\end{proposition}
+\begin{proof}
+    The axiom for a Grothendieck topology are easily verified (see sheet 5). That $\emptyset/=\emptyset$ is clear from the definition.
+    \par The other parts of $G_+$ for $X$ is also clear. Let $U\in\Ouv_X$ and $\sS[\cB_U]$. If $\Omega\in\cB_U$ then $\Omega\in\sS$ hence $n=1,\theta_1=\Omega$ can be taken.
+    \par Finally let $\sS/=\Omega$. If $\Theta_1,\cdots,\Theta_n$ are as in the formulation of the Propositionthe. Then $\mathscr{T} = [\Theta_1,\cdots,\Theta_n]$ then $\mathscr{T}/=\Omega$ as $\Xi\in\cB_\Omega$, $\Xi_i = \Xi\cap \Omega_i\in\cB\cap \mathscr{T}$ and $\\Xi=\bigcup_{i=1}^n\Xi_i$.
+\end{proof}
+\begin{remark}
+    The assertion of the Proposition \ref{proposition_9_2} will still hold when $\Omega,\Theta\in\cB\Rightarrow (\exists n\in\N \exists (\Xi_i)_{i=1,\cdots,n}\in\cB^n\:\st \: \Omega\cap\Theta = \bigcup_{i=1}^n \Xi_i)$.
+\end{remark}
+\begin{definition}
+    \label{definition_9_7}
+    This is called the $G_+$-topology on $X$ enforcing the quasicompactness of the elements of $\cB$.
+\end{definition}
+\begin{definition}
+    \label{definition_9_8}
+    A sieve in $\Ouv_X$ is called a prime sieve if $n\in\N$ and $\bigcap_{i=1}^nU_i\in\sS$, (intersection in $X$ and all $U_i\in\Ouv_U$) implies that there is $i$ such that $1\leq i\leq n$ and $U_i\in\sS$.
+\end{definition}
+\begin{remark}
+    It is sufficient to require this when $n=0,(X\not\in\sS)$ and $n=2(U\cap V\in\sS\Rightarrow U\in\sS$ or $V\in\sS$).
+\end{remark}
+\begin{proposition}
+    \label{proposition_9_3}
+    For a subset $\xi\subseteq\Ouv_X$ the following conditions are equivalent.
+    \begin{enumerate}[a).]
+        \item $\xi$ satisfies 
+            \begin{enumerate}[i).]
+                \item $V\in\xi,V\in\Ouv_X,U\subseteq V\Rightarrow V\in\xi$.
+                \item $U,V\in\xi\Rightarrow U\cap V\in\sS$ and $V\in\xi$.
+                \item If $U\in\xi$ and $\sS\in\Pi_U$ then $\sS\cap\xi\not=\emptyset$.
+            \end{enumerate}
+        \item $\mathscr{T}=\Ouv_X\backslash\xi$ is a prime sieve containing every open subset covered by it ($U\in\Ouv_X$ and $\mathscr{T}//U$ implie s$U\in\mathscr{T}$).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Obvious.
+\end{proof}
+\begin{definition}
+    \label{definition_9_9}
+    We call $\xi$ a van der Put point.
+\end{definition}
+\begin{remark}
+    The set of topos points (refering to SGA 4.1). If the category of sheaves of sets on $X$ (as defined later on) is in canonical bijection between van der Put points.
+\end{remark}
+\begin{definition}
+    \label{definition_9_10}
+    The set of vander Put points of $X$ is denoted by $X^*$.
+\end{definition}
+\begin{proposition}
+    \label{fact_9_2}
+    Let $X$ be a $G_+$-space and $U\in\Ouv_U$ be an open subset. Equip $U$ with the $G_+$-structure $\Pi^{(U)}=\Pi|_{\Ouv_U}$, we then have a bijection
+    \begin{center}
+        \begin{tikzcd}
+\{\text{van der Put poitns $\xi_U$ of $U$}\} \arrow[r, "\xi_U\mapsto \xi=\{U\in\Ouv_X\sep V\cap U\in\xi_U\}", shift left] & U^*=\{\xi\in X^*\sep U\in\xi\} \arrow[l, "\xi_U=\xi\cap\Ouv_X\mapsfrom \xi", shift left]
+\end{tikzcd}
+    \end{center}
+    We have $(U\cap V)^*=U^*\cap V^*$.
+\end{proposition}
+\begin{definition}
+    \label{definition_9_11}
+    We equip $X^*$ with the topology for which $\{U^*\sep U\in\Ouv_X\}$ is a topology base.
+\end{definition}
+\begin{proposition}$\:$
+    \label{fact_9_3}
+    \begin{enumerate}[a).]
+        \item If $\sS/=U$ then $U^*=\bigcup_{V\in\sS}V^*$. This follows from Proposition \ref{proposition_9_3} a.iii.
+        \item If $\cB$ is sa $G_+$ base then $\cB^*=\{\Omega^*\sep \Omega\in\cB\}$ is a topology base for $X^*$. Follows from Definition \ref{definition_9_5}.
+        \item $\xi\in X^*$ is a specialization (i.e. $\xi\in\overline{\{u\}}$ of $u\in X^*$ ) if and only if $\xi\subseteq u$.
+        \item If $\sS$ is a maximal element of the set of sieves on $X$ which are not in $\Pi_X$. Then $\xi=\Ouv_U\backslash\sS$ is a closed point of $X^*$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    We show the proof of d). Obviously, $X\not\in\sS$ by GT-Triv. Let $U_1,U_2\not\in\sS$ such that $U=U_1\cap U_2 \in\sS$. By maximality of $\sS$, $\sS_i=\sS\cup\Ouv_{U_i}\in\Pi_X$. But $\sS|_V=\sS_2|_V$ for all $V\in\sS_1$.
+    Then $\sS\in\Pi_X$ by GT-Loc, a contradiction. Thus $\sS$ is a prime sieve. if $\sS/V$ then $\sS\cup\Ouv_X\not\in\Pi_X$ (otherwise $\sS/=X$ by GT-Loc). Then $V\in\sS$ by maximality of $\sS$. By Proposition \ref{proposition_9_3}, $\xi=\Ouv_X\backslash\sS$ is a van der Put point. If $\xi$ has a proper specialization $u$ then $T=\Ouv_X\backslash u\not\in\Pi_X$ and $\mathscr{T}\supseteq\sS$ a contradition..
+\end{proof}
+
+% 5/22
+
+\begin{definition}
+    \label{definition_10_10}
+    Let $X$ be a $G_+$-space. We say $X$ has sufficiently many van der Put points if for all $U\in\Ouv_X$, and every $U$-sieve $\sS$, $U^*-\bigcup_{V\in\sS}V^*$ implies $\sS/=U$. 
+\end{definition}
+
+\begin{remark}
+    Definition \ref{definition_10_10} can be restated by saying that the converse of a) in Proposition \ref{fact_9_3} also holds.
+\end{remark}
+
+\begin{lemma}
+    If $X$ has sufficently many van der Put points, then it is $G_+$-quasicompact and $\sS$ is an $\Ouv_X$-sieve such that $X^*=\bigcup_{U\in\sS}U^*$ then $\sS = X$.
+\end{lemma}
+
+\begin{proof}
+    Assume that $\sS$ is not covering $X$. We apply Zorn's lemma to $\mathcal{M}$, the po set of sieves by inclusion such that $\mathcal{T}\not\in\Pi_X$. This is possible as $\mathcal{M}\not=\emptyset$ because $\sS\in\mathcal{M}$ and if $\mathcal{L}\subseteq\mathcal{M}$ is non-empty subset linearly ordered by $\subseteq$, then $\tilde{\sS}=\bigcup_{\mathcal{T}\in\mathcal{L}}\mathcal{T}$ is a sieve containinig $\sS$. If $\tilde{\sS}$ $\in\Pi_X$, then by the quqsi-compactness of $X$, there are $U_1,\cdots,U_n$ such that $U_i\in\tilde{\sS}$ such that $[U_1,\cdots,U_n]/=X$. Then there is $\mathcal{T}\in\mathcal{L}$ such that all $U_i\in\mathcal{T}/=X$ by Proposition \ref{fact_9_1}, which is a contradiction to $\mathcal{T}\in\mathcal{M}$.
+    \par It follows that $\mathcal{M}$ has a $\subseteq$-maximal element. By Proposition \ref{fact_9_3}, $xi=(\Ouv_X\backslash\sS_{\max})\in X^*$. If $U\in\sS\subseteq\sS_{\max}$, then $\xi\not\in U^*$ (otherwise $U\in\xi$, but by Proposition \ref{fact_9_2}, $\xi\cap\sS_{\max}\not=\emptyset$). A contradiction to our assumption that $X^*=\bigcup_{U\in\sS}U^*$.
+\end{proof}
+
+\begin{proposition}
+    If $X$ is a $G_+$-space which has a $G_+$-base $\cB$ where eelemnts are $G_+$-quasicompact. Then $X$ has sufficiently many van der Put points. 
+    If $\cB$ is closed under finite intersection in $X$ (including intersection over an empty set thus $X\in\cB$), then $X^*$ is a spectral space.
+\end{proposition}
+
+\begin{proof}
+    Let $U\in\Ouv_X$ and $\sS$ any $U$-sieve such that $U^* = \bigcup_{V\in\sS}V^*$. Let $\Omega\in\cB_U$ and $\sS_\Omega = \sS|_\Omega$. Then $\Omega^*\subseteq U^*=\bigcup_{V^*}$ hence $\Omega^*=\bigcup_{V\in\sS}\Omega^*\cap V^*=\bigcup_{V\in\sS}(\Omega\cap V)^*$. (Note that $(V\cap W)^* = V^*\cap W^*$ by definition).
+    Some $\Omega\cap V\in\sS_\Omega$, it follows that $\Omega^* = \bigcup_{V\in\sS_\Omega}V^*$. By Lemma \ref{lemma_1}, $\sS/=\Omega$. Let $\mathcal{T}$ beb the sieve generated by $\cB_U$. From GT-Transitivity and what we have seen $\sS//W$ where $W\in\mathcal{T}$. By GT-Loc, $\sS/=U$ hence $X$ has sufficiently many van der Put points.
+    \par For the spectrality of $X^*$, it is easy to see that $\Omega^*$ is quasicompact if $\Omega$ is $\Omega$ is $G_+$-quasicompact. Then $\{\Omega^*\sep \Omega\in\cB\}$ satisfy the requirement for the quasicompactness part of the definition of spectrality. If $Z\subseteq X^*$ is a van der Put point, then $\xi=\{U\in\Ouv_X\sep U^*\cap Z\not=\emptyset\}$ is a generic point of $Z$. $T_0$ is also easy to show.
+\end{proof}
+
+\begin{remark}
+    \begin{equation*}
+        \glim_{X^*}U = \{U\in\Ouv_X\sep \text{$U$ contains some $\Omega\in\cB$ such that $\Omega^*\in\mathcal{F}$}\}
+    \end{equation*}
+    All $\Omega^*$ with $\Omega\in\cB$ are closed under this. 
+\end{remark}
+
+\subsection{Sheaves}
+\begin{definition}
+    \label{definition_10_1}
+    A presheaf on $X$ with values in (sets, abelian groups, rings) is a contravariant functor $\mathcal{G}$ from $\Ouv_X$ to one of these categories. Then all $\mathcal{G}(U)$ are objects in these categories and we have
+    \begin{equation*}
+    V\subseteq U\Rightarrow \mathcal{G}(U)\stackrel{g\mapsto g|_V}{\to}\mathcal{G}(V),
+    \end{equation*}
+    which is a morphism in the target category such that $g\in\mathcal{G}$ then $g|_U = g,(g|_V)_W=g|_W$ if $W\subseteq V\subseteq U$.
+    If this is only given on elements of a certain topology base $\cB$, we speak of a presheaf on $\cB$. In all cases, if a Grothendieck topology in $\cB$ is given, then a sheaf is a presheaf $\mathcal{G}$ satisfying the additional assumption that 
+    \begin{equation*}
+        \mathcal{G}(\Omega)\stackrel{\sim}{\to}\varprojlim_{\theta\in\sS}\mathcal{G} = \{(g_\theta)_{\theta\in\sS}\in\prod_{\theta\in\sS}\mathcal{G}(\theta)\sep g_\theta|_{\Xi} = g_\Xi\text{ where $\theta\in\sS, \Xi\in\cB_\theta$}\}.
+    \end{equation*}
+    If the map is only injective, then 
+\end{definition}
+
+\begin{definition}$\:$
+    \label{definition_10_2}
+    \begin{enumerate}
+        \item A stalk of $\mathcal{G}$ at $\xi\in X^*$ is such that
+        \begin{equation*}
+            \mathcal{G}_\xi = \varinjlim_{\Omega\in\xi}\mathcal{G}(\Omega) = \{(\Omega,g)\sep \Omega\in\xi\cap\cB,g\in\mathcal{G}(\Omega)\}/\sim
+        \end{equation*}
+        where the equivalent relation is given by $(g,\Omega)\sim (r,\Theta)$ if there is $\Xi\subseteq\Omega\cap \Theta$ such that $\Xi\in\cB$ and $g|_{\Xi} = g|_{\Xi}$.
+        \item A $G$-skyscraper sheaf of $\xi\in X^*$ is \begin{equation*}
+            ([G]_\xi)(U) = \begin{cases}
+                G,\quad U\in\xi,\\
+                \{0\}
+            \end{cases}
+        \end{equation*}
+        \item When $X$ is a $G_+$-space with sufficiently many van der Put points 
+        \begin{equation*}
+            (\mathcal{G})(U) = \left\{\gamma\in\prod_{\xi\in V^*}\mathcal{G}_\xi\:\bigg{|}\:\sS_\gamma /=U\right\}
+        \end{equation*}
+        where $\sS_\gamma$ is the sieve of or in $\Ouv_X$ generated by as in Proposition \ref{proposition_9_1} those $\Omega\in\cB_u$ such that there is $g\in\mathcal{G}(\Omega)$ such that $\gamma_\xi$ the component of $\xi$ of $\gamma$) is the image of $g$ under $\mathcal{G}(\Omega)\to\mathcal{G}_\xi$, for all $\xi\in\Omega^*$.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    \label{proposition_10_1}
+    Let $X$ be a $G_+$-space with sufficiently many van der Put points.
+    \begin{enumerate}[a)]
+        \item The stalk is exact on presheaves.
+        \item $[G]_\xi$ is a sheaf and $\mathcal{G}\mapsto\mathcal{G}_\xi$ is left adjoint to $G\mapsto [G]_\xi$ on (pre)sheaves.
+        \item if $\mathcal{G}$ is a presheaf, the morphism $\G\to\Sheaf(\mathcal{G})$ sending $g\in\mathcal{G}(U)$ to $($image of $g$ in $\mathcal{G}_\xi)_{\xi\in\U^*}\in\prod_{\xi\in U^*}\mathcal{G}_\xi$ defines an isomorphisms on stalks. 
+        \item $(\mathcal{G}_\cB)\stackrel{\simeq}{\to}\mathcal{G}_\xi$ for all $x\in\in X$. 
+        \item A morphism of presheaves defining isomorphism on stalks defines an isomorphism on sheafification. 
+        \item If $\mathcal{G}$ is a sheaf, $\mathcal{G}\to\Sheaf(\mathcal{G})$ is an isomorphism. If $\mathcal{G}$ is only defined on $\cB$, $\mathcal{G}\stackrel{\simeq}{\to}\Sheaf(\mathcal{G})|_\cB$.
+        \item A morphism of sheaves defining isomorphism on all stalks is an isomorphism.
+        \item Sheafification $(\text{Presheaves on $\cB$})\to(\text{sheaves on $\Ouv_X$})$ is left adjoint to the functor of restriction to $\cB$.
+        \item One has a equivalence of category between sheaves on $X$ (for the Grothendieck topology on $X$) and (ordinary) sheaves on $X^*$, ? a sheaf $\mathcal{G}$ on $X$ to the sheafification of the (pre)sheaf $U^*\to \mathcal{G}(U)$ on $\{U^*\sep U\in\Ouv_X\}$ ( a topology base for $X^*$) and a sheaf $\mathcal{H}$ on $X^*$ to $\mathcal{G}(U)\to\mathcal{H}(U^*)$. 
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    a)-h) are showwn in some ways as in derived sheaf theory. i) follows from these 
+\end{proof}
+
+%6/1
+
+\section{General non-archimedian topological ring}
+\subsection{General topological rings and modules}
+\begin{definition}
+    \label{definition_11_1_1}
+    A topological group is a group $G$ with a topology on the underlying set such that multiplication and inversion are continuous. That is 
+    \begin{equation*}
+        \mu(g,h)=gh,\iota(g) = g^{-1}
+    \end{equation*}
+    are continuous.
+\end{definition}
+\begin{definition}
+    \label{definition_11_1_2}
+    A topological ring is a ring $R$ with a topology on the underlying set such that it is a topological group under addition and 
+    \begin{equation*}
+        R\times R\ni(a,b)\mapsto ab\in R
+    \end{equation*}
+    is continuous. (We do not assume the continuity of $a\mapsto a^{-1}$ for $a\in R^\times$).
+\end{definition}
+\begin{definition}
+    \label{definition_11_1_3}
+    Let $R$ be a topological ring. A topological $R$-module $M$ is an $R$-module with topology on its underlying set such that $(M,+)$ is a topological group and 
+    \begin{equation*}
+        R\times M\ni (a,m)\mapsto am\in M
+    \end{equation*}
+    is continuous.
+\end{definition}
+\begin{proposition}
+    \label{fact_11_1}
+    For a topological group $G$, the following conditions are equivalent.
+    \begin{enumerate}[a).]
+        \item $G$ is $T_0$.
+        \item $G$ is $T_1$.
+        \item $G$ is $T_2$.
+        \item $\{0\}$ is closed in $G$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}$\:$
+    \par If $x\in\overline{\{0\}}$ then $x^{-1}\in\overline{\{0\}}$ by the continuity of inversion. Hence $1\in\overline{\{x\}}$ by continuity of $\mu(x,\cdot)$ hence $T_0$ is satisfied. For a)$\Rightarrow $d), let 
+    \begin{equation*}
+        \Delta = (\text{preimage of $\{u\}$ under $G\times G\stackrel{(g,h)\mapsto g^{-1}h}{\to} G$})
+    \end{equation*}
+    is closed thus $T_2$.
+\end{proof}
+\begin{proposition}
+    \label{fact_11_2}
+    Every open subgroup $H$ of a topological group $G$ is also closed, and every group $H\subseteq H'\subseteq G$ is also clopen.
+\end{proposition}
+\begin{proof}
+We have,
+\begin{equation*}
+    G\backslash H = \bigcup_{g\in G/H\backslash\{0\}}gH
+\end{equation*}
+is open therefore $H$ is closed. Every $H'$ subset is a union of right or left $H$-cosets in $G$ which is also open.
+\end{proof}
+\begin{definition}
+    \label{definition_11_2}
+    Let $R$ be a topological ring and $M$ be a topological $R$-module. A subset $X\subseteq M$ is bounded or $R$-bounded if for every neighborhood $U$ of $0$ in $M$, there is a neighborhood $V$ of $0$ in $R$ such that 
+    \begin{equation*}
+        V\cdot X = \{vx \sep v\in V,x\in X\}\subseteq U.
+    \end{equation*}
+\end{definition}
+\begin{example}
+    When $R$ has the discrete topology, every subset is bounded (take $V=\{0\}$).
+\end{example}
+\begin{example}
+    This defines a boundary on $X$. If $X_1,X_2$ are bounded then so is $X_1\cup X_2$. Every $\{m\}$ is bounded, $M\subseteq N$ and $N$ bounded then $M$ is also bounded.
+\end{example}
+\begin{example}
+    If $R=K$, equipped with an valuation $\ab{\cdot}$ and $M$ is an (valuative) $K$-vector space and $K$ is not discrete, then a subset $X$ of $M$ is bounded if and only if there is $B\in[0,\infty)_\R$ such that 
+    \begin{equation*}
+        \forall x\in X, \norm{x}\leq B.
+    \end{equation*}
+    For example, take $U = \{x\in X\sep \norm{x}\leq 1\}, B = \ab{x}^{-1}$ where $x\in V\backslash\{0\}$ and $V$ is as in the definition.
+\end{example}
+\begin{definition}
+    \label{definition_11_3}
+    For subsets $X_1,X_2\subseteq R$, we define,
+    \begin{equation*}
+        X_1X_2 = \{x_1x_2|x_1\in X_1,x_2\in X_2\}.
+    \end{equation*}
+    Let $X^0 = \{1\}$. We define recursively $X^n$ such that 
+    \begin{equation*}
+        X^{n+1} = X\cdot X^n.
+    \end{equation*}
+    We say that. a subset $X\subseteq R$ is power bounded if 
+    \begin{equation*}
+        \bigcup_{n\in\N}X^n
+    \end{equation*}
+    is bounded. It is topologically nilpotent if for every neighborhood $U$ of $0$ in $R$, there is $n\in\N$ such that 
+    \begin{equation*}
+        \bigcup_{m=n}^\infty X^m \subseteq U.
+    \end{equation*}
+    We call an element $r\in R$ topologically nilpotent / power bounded if $\{r\}$ satisfies these properties.
+\end{definition}
+\begin{proposition}
+    \label{fact_11_3}
+    Let $R$ be a topological ring and $M$ be a topological $R$-module. We have the following statements.
+    \begin{enumerate}[a).]
+        \item A finite union of bounded subsets of $M$ is bounded. 
+        \item Trivially, every finite subset of $M$ is bounded.
+        \item If $X_1,X_2\subseteq M$ are bounded then so is $X_1+X_2 = \{x_1+x_2\sep x_1\in X_1,x_2\in X_2\}$. 
+        \item If $X\subseteq R$ and $Y\subseteq M$ are bounded then so is $XY\subseteq M$. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}$\:$
+    \par c). Let $U$ be a neighborhood of $0$ in $M$, there are neighborhood $\tilde{U}$ of $M$ of $0$ such that $\tilde{U}+\tilde{U}\subseteq U$ and another neighborhoods $V_1,V_2$ of $0$ in $R$ such that $V_1X_1,V_2X_2\subseteq \tilde{U}$. Take $V = V_1\cap V_2$ in Definition \ref{definition_11_2}. Proofs for the other statements are also easy.
+\end{proof}
+\begin{proposition}
+    \label{fact_3_another}
+    If $X\subseteq M$ is $R$-bounded and $M\stackrel{f}{\to}N$ a continuous morphism of $R$-modules then $f(X)$ is bounded in $N$.
+\end{proposition}
+\begin{proof}
+    If $U\subseteq N$ is a neighborhood of $0$, let $\tilde{U} = f^{-1}(U)$ and $V$ a neighborhood of $0$ in $R$ such that $VX\subseteq\tilde{U}$. Then $Vf(X)\subseteq U$.
+\end{proof}
+It is not always true that the image of a bounded subset of a $R$ under. a morphism $R\to S$ of topological ring is bounded. (The image is $R$-bounded but not necessarily $S$-bounded) for example take $R=\Q_p,S=Q_q$. However, of the following conditions on $R$ asserts that this does not happen.
+\begin{align*}
+    &\text{$R$ has a topologically nilpotent unit}\tag{T}\label{T}\\
+    &\text{$R$ has a sequence of units converging to $0$}\tag{H}\label{H}\\
+    &\text{Every neighborhood of $0$ intersects $R^\times$}\tag{E}\label{E}
+\end{align*}
+\begin{proposition}
+    \label{fact_11_4}
+    Let $R\stackrel{f}{\to}S$ be a continuous morphism of topological ring. If $R$ has \eqref{T},\eqref{H},\eqref{E}, then so has $S$ and the image $f(X)$ of a bounded subset of $R$ is a bounded subset of $S$.
+\end{proposition}
+\begin{proof}
+    Rather easy. if $U$ is a neighbourhood o $0$ in $S$ and $R$ has \eqref{E}, put $\tilde{U}=f^{-1}(U)$ and $r\in R^\times\cap \tilde{U}$. $f(r)\in S^\times \cap U$. If 
+    \begin{equation*}
+        \lim_{j\to\infty} r_j = 0
+    \end{equation*}
+    in $R$ and all $r_j\in R^\times$ (where $r_j = r^j$ and $r\in R^\times$)
+    \begin{equation*}
+        \lim_{j\to\infty}f(r_j) = 0
+    \end{equation*}
+    in $S$ and all $f(r_j)\in S^\times$. (respectively $f(r_j) = s^j$ with $s = f(r)\in S^\times$) showing that \eqref{T} and \eqref{H} are likewise inheritted by $S$. If $R$ has \eqref{E} and $X\subseteq R$ bounded and $U$ is a neighborhoodof $0$ in $S$, there is $\tilde{U}$ a neighborhood $0$ in $S$ such that $\tilde{U}\tilde{U}\subseteq U$. Let $U' = f^{-1}(\tilde{U})\subseteq R$ a neighborhood of $0$. There is a neighbourhood $V'$ of $0$ in $R$ such that $V'X\subseteq U'$. As $R$ has \eqref{E}, we can take $\rho\in R^\times\cap f^{-1}(\tilde{U})$. Take $V = \rho V'$ then $Vf(X)\subseteq U$.  
+\end{proof}
+\begin{proposition}
+    \label{fact_11_5}
+    Let $R$ be a topological ring. 
+    \begin{enumerate}[a).]
+        \item Every power bounded subset is bounded.
+        \item A finite union of power bounded subsets is power bounded.
+        \item A subset $X\subseteq R$ which is both bounded and topologically nilpotent is power bounded.
+        \item A finite union of subsets which are both bounded and topologically nilpotent is topologically nilpotent.
+        \item If $X$ is power bounded or topologically nilpotent and $Y$ is topologically nilpotent, $XY$ is then topologically nilpotent.
+        \item The image of a topologically nilpotent $X\subseteq R$ under a morphism $R\to S$ of topological rings is topologically nilpotent.
+        \item If $R$ has \eqref{E}, $R\stackrel{f}{\to}S$ is a morphism of topological rings and $X\subseteq R$ is bounded in $R$. Then $f(X)$ is bounded in $S$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Mostly straightforward.
+\end{proof}
+\begin{definition}
+    \label{definition_11_4}
+    Let $R$ be a topological ring, we define the following subsets.
+    \begin{equation*}
+        R^\circ = \{r\in R\sep \text{$r$ is powewr bounded}\},R^{\circ\circ}=\{r\in R\sep \text{$r$ is topologically nilpotent}\}.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    Without further conditions, these may fail to be additionally closed. By Proposition \ref{fact_11_3} b), and Proposition \ref{fact_11_5} a), $R^\dcirc\subseteq R^\circ$ always holds.
+\end{remark}
+\begin{definition}
+    \label{definition_11_5_1}
+    Let $(m_n)_{n\in\N}$ be a sequence in $M$. It is Cauchy if for every neighbourhood $U$ of $0$ in $M$, there is $k$ such that $m_i-m_j\in U$ where $\min\{i,j\}\geq k$. $M$ is sequentially complete if every Cauchy sequence has a limit in $M$.
+\end{definition}
+\begin{definition}
+    \label{definition_11_5_2}
+    A filter $\mathcal{F}$ of $M$ is Cauchy if every neighborhood $U$ of $0$ in $M$, there is $X\in\mathcal{F}$ such that $x-y\in U$ where $x,y\in X$. $M$ is complete if every Cauchy filter has a limit.
+\end{definition}
+\begin{definition}
+    \label{definition_11_5_3}
+    The sequential completion of $M$ is a set of equivalence classes of Cauchy sequences in $M$ where two Cauchy sequences $(m_i),(n_i)$ are equivalent if for every neighborhood $U$ of $M$, there is $k\geq0$ such that $i\geq k$ then $m_i-n_i\in U$.
+\end{definition}
+\begin{remark}
+    If $G$ is a non-commutative topological group topological group, then it typically requires that both $g_ig_j^{-1}\in U$ and $g_i^{-1}g_j\in U$ where $\min\{i,j\}\geq k$. Respectively, $x^{-1}y\in U$ and $xy^{-1}\in U$ for $x,y\in X$ for filters.
+\end{remark}
+\begin{remark}
+    One can complete by taking equivalence classes of Cauchy filters. But how to continus multiplication in that completion of $R^2$. (Sequential completion does not have this problem).
+\end{remark}
+\begin{remark}
+    It is known that topological vector space over $\C$ or $\R$ is the quotient of a complete topological vector space $V$ over that field such that every bounded subset of $V$ is contained in a finite dimensional subspace.
+\end{remark}
+\begin{proposition}
+    \label{fact_11_7}
+    Every quotient of a complete topological group with a countable neighborhood base of $1$ by a closed normal divsor is complete.
+\end{proposition}
+\subsection{Continuous Valuations}
+For an ordered group $\Gamma$ equip $\Gamma\cup\{0\}$ with the topology where $U$ is open if and only if $0\not\in U$ or there is $\gamma\in\Gamma$ such that $(0,\gamma)_\Gamma\subseteq U$.
+% 6/5
+\par Consider a valuation $A\stackrel{v}{\to}\Gamma$ where $A$ is a topological ring. Recall that $\Gamma_v$ is the convex subgroup of $\Gamma$ such that
+\begin{equation*}
+    \Gamma_v = \langle\{v(a)\sep a\in A\cdot\supp v\}\rangle_\Gamma.
+\end{equation*}
+Also recall that for $a\in A$ and $\gamma\in \Gamma$,
+\begin{equation*}
+    K_{v<a} = \{\alpha\in A\sep v(\alpha)<v(a)\},K_{v<\gamma} = \{\alpha\in A\sep v(\alpha)<\gamma\}.
+\end{equation*}
+Similarly,
+\begin{equation*}
+    K_{v\leq a} = \{\alpha\in A\sep v(\alpha)\leq v(a)\},K_{v\leq\gamma} = \{\alpha\in A\sep v(\alpha)\leq\gamma\}.
+\end{equation*}
+They come with an exception such that 
+\begin{equation*}
+    K_{v<a}= \emptyset,
+\end{equation*}
+when $a\in\supp\gamma v$. They are subgroups of $(A,+)$. Note that a subgroup $H\subseteq G$ of a topological group $G$ is open if and only if it is a neighbourhood of $0$. Also recall that subgroups containing open subgroups are also open.
+\begin{proposition}
+    \label{fact_12_1}
+    The following conditions are equivalent.
+    \begin{enumerate}[a).]
+        \item $A\stackrel{v}{\to}\Gamma_v\cup\{0\}$ is continuous.
+        \item For all element $\gamma$ of the convex hull of $\Gamma_v$ in $\Gamma$, $K_{v<\gamma}$ is open.
+        \item For all $\gamma\in\Gamma_v$, $K_{r<\gamma}$ is open.
+        \item For all $a\in A\backslash\supp(v)$, $K_{r<a}$ is open.
+        \item For all $a\in A\backslash\supp(v)$, $K_{r<a}$ is a neighbourhood of $0$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    By the previous argument d) and e) are equivalent. d)$\Rightarrow$c) is trivial. For c)$\Rightarrow$a), consider $\gamma\in\Gamma_v\cup\{0\}$ and a neighbourhood $U$ of $\gamma$ in $\Gamma_v\cup\{0\}$. We must show that $v^{-1}(U)$ is a neighbourhood of $a$ in $A$. If $v(a)\not=0$, it is sufficient to consider 
+    \begin{equation*}
+        U = \{v(a)\}.
+    \end{equation*}
+    Then,
+    \begin{equation*}
+        v(b) = v(a)
+    \end{equation*}
+    where $b\in K_{r<a}+a$, and the set of such $b$ is a neighborhood of $a$ in $A$. If $v(a)=0$, we may assume $U=[0,\gamma)_{\Gamma_v\cup\{0\}}$ with $\gamma\in\Gamma_v$. Then $v^{-1}(U)=K_{v<\gamma}$ is open by the assumption c).
+    \par a)$\Rightarrow$d) is trivial by the definition of the topology on $\Gamma_v\cup\{0\}$, $K_{v<a}$ being $v^{-1}([0,v(a))_{\Gamma_v\cup\{0\}})$ where 
+    \begin{equation*}
+        [0,v(a))_{\Gamma_v\cup\{0\}}
+    \end{equation*}
+    is a neighbourhood of $0$ in $\Gamma_v\cup\{0\}$. 
+    \par d)$\Rightarrow$b), every $\gamma\in\Gamma_v$ has the form,
+    \begin{equation*}
+        \gamma  = {\frac {v(a)} {v(b)}},
+    \end{equation*}
+    with $a,b\in A\backslash\supp v$. Then $K_{v<\gamma}$ is the inverse image under the endomorphism $A\stackrel{\cdot b}{A}$ of the topological group $(A,+)$ of the open subgropu $K_{r<a}$. Hence it is also an open subgroup.
+\end{proof}
+\begin{definition}
+    \label{definition_12_1}
+    A valuation of $A$ is called continuous if the equivalent conditions in Proposition \ref{fact_12_1} hold.
+\end{definition}
+\begin{remark}
+    \begin{enumerate}
+        \item  This only depends on the equivalent class of $v$.
+        \item $\Gamma_v\cup\{0\}$ carries the topology induced from $\Gamma\cup\{0\}$ only if $\Gamma$ is the convex hull of $\Gamma_v$ in $\Gamma$. Hence $\Gamma$ can be replaced by $\Gamma_v$ in c) only if $\Gamma$ is equal to that convex hull (in which case the c) is b).
+    \end{enumerate}
+\end{remark}
+\begin{example}
+    \label{example_12_1}
+    \begin{enumerate}
+        \item $\Q_p\stackrel{\ab{\cdot}_p}{\to}[0,\infty)_\R$ is a continuous valuation.
+        \item The trvial valuation for $\p\in\Spec A$ is continuous if and only if $\p$ is open.
+        \item If $\p$ is an open prime ideal, then any valuation with support $\p$ is open.
+        \item For $r\in(0,1]_\R$, the valuation $N_r$ from 1.1(1) (need to look for the reference) is continuous.
+    \end{enumerate}
+\end{example}
+\begin{proposition}
+    \label{fact_12_2}
+    If $v$ is a continuous valuation. Then $\supp v$ is closed.
+\end{proposition}
+\begin{proof}
+    Indeed $\supp v = v^{-1}(\{0\})$ and $\{0\}$ is closed in $\Gamma_v\cup\{0\}$. 
+\end{proof}
+\begin{definition}
+    \label{definition_12_2}
+    We denote the subset equivalence classes of continuous valuations of $A$ to be $\Cont(A)\subseteq\Spv(A)$.
+    Let $A^+\subseteq A$ be a subset we then denote $\Spa(A,A^+)$ to be the set of equivalence classes of continuous valuations $v$ of $A$ such that $a\in A^+\Rightarrow v(a)\leq 1$.
+\end{definition}
+\begin{remark}$\:$
+    \begin{enumerate}
+        \item At this point, we do not yet introduce a topology on these sets.
+        \item If $A=\T_1$ as in 1.1.(1)(look at the first part and take the reference) and $A^+=A^\circ$. $N_r\in\Spa(A,A^+)$ if and only if $r\in (0,1)_\R$.
+    \end{enumerate}
+\end{remark}
+\begin{definition}
+    \label{definition_12_3}
+    A Oka system is a ring $A$ and a set $\mathfrak{M}$ of ideals in $A$ such that for any ideal $I$ in $A$, $a\in A$ and the ideal $I+aA$ and 
+    \begin{equation*}
+        (I:a) = \{\alpha\in A\sep a\alpha\in I\}
+    \end{equation*}
+    both belong to $\mathfrak{M}$ then $I\in\mathfrak{M}$.
+\end{definition}
+\begin{example}
+    \label{example_12_2}
+    The set of finitely generated ideals in $A$ in Oka topology in Proposition \ref{proposition_1} as this Oka system gives Eitoin-Nagata?. If all prime ideals of $A$ are finitely generated, $A$ is Noetherian.
+\end{example}
+\begin{proposition}
+    \label{proposition_12_1}
+    Let $\mathfrak{M}$ be an Oka system and $\p\not=A$ is a $\subseteq$-maximal element of the set of ideals of $A$ not belonging to $\mathfrak{M}$. Then $\p\in\Spec A$. 
+\end{proposition}
+\begin{proof}
+    Assume $ab\in\p$. Let $a\not\in \p,b\not\in\p$. 
+    \begin{equation*}
+        \p+aA\tand (\p:a)
+    \end{equation*}
+    contain $\p$ and not equal to $\p$ as $b\in(\p:a)$. By the maximality, both belong to $\mathfrak{M}$ thus $\p\in\mathfrak{M}$ which is a contradiction.
+\end{proof}
+\begin{proposition}
+    \label{fact_12_3}
+    Let $\mathfrak{M}$ be a set of ideals such that $I\subseteq J$ and $I\in\mathfrak{M}$ implies $J\in\mathfrak{M}$. Suppose further that $\mathfrak{M}$ is closed under products, that is $I,J\in\mathfrak{M}$ then $I\cdot J\in\mathfrak{M}$. Then $\mathfrak{M}$ is an Oka system.
+\end{proposition}
+\begin{proof}
+    Indeed $I\supseteq (I+aA)(I:a)$ holds. Therefore by definition, it is Oka.
+\end{proof}
+\begin{remark}
+    The Oka system from Example \ref{example_12_2} satisfies the assumptions if and only if $A$ is Noetherian.
+\end{remark}
+\begin{example}
+    \label{example_12_3}
+    The set $\mathfrak{M}_S$ of ideals not not disjoint form a multiplicative subset $S\subseteq A$ is an Oka system. Then every $\subseteq$-maximal non-element of $\mathfrak{M}_S$ is a prime ideal. (This could also be seen by assuming that all maximal ideals of $A_S$ are prime). By Zorn's lemma, ? $\mathcal{M}_S$ is equal to the set of all ideals (i.e. $0\not\in S$), there is a prime ideal $\p\in\mathfrak{M}_S\cap\Spec A$.
+\end{example}
+\begin{proposition}
+    \label{fact_12_4}
+    Let $v$ be a valuation of a topological ring $A$ such that $K_{r\leq 1}$ is a neighbourhood of $0$ in $A$ and such that for each $a\in A\backslash\supp v$, there is $b\in A$ such that $v(ab)>1$. Then $v$ is continuous.
+\end{proposition}
+\begin{proof} 
+    If $a\in A\backslash\supp v$, and $b$ is as above, then $K_{v<a}$ cotains the inverse image under the continuous endomorphism, $A\stackrel{\cdot b}{\to} A$ of $K_{r\leq 1}$ which is a neighbourhood of $0$. Then Proposition \ref{fact_12_1} e) is satisfied.
+\end{proof}
+The following conditions [Hub 93a, Lemma 3.26],[Hub 93b, Lemma 3.3.(i)] or Prop III.1.4(i)/III.4.4.(i) in Morel's text.
+\begin{proposition}
+    \label{proposition_12_2}
+    Let $A$ be a topological ring, $A^+$ be an open subring of $A$ which is integrally closed in $A$ and $\alpha\in A\backslash A^+$. Then there is $v\in\Spa(A,A^+)$ such that $v(\alpha)>1$.
+\end{proposition}
+\begin{proof}
+    By assumption, $\alpha$ is not integral over $A^+$ ,hence $S=\{p(\alpha)\sep p\in A^+[T]\text{ monic}\}$ is a multiplicative subset of $A$ not contaiing $0$. By Example \ref{example_12_3}, there is $\p\in\Spec A$ maximal among all ideals of $A$ disjoint from $S$, and this is a prime ideal. It follows from the maximality of $\p$, that for every $a\in A\backslash\p$, there is $b\in A$ and a monic polynomial $P\in A^+[T]$ such that $P(\alpha) -ab\in\p$. Since $\p$ is disjoint from $S$, the image $\alpha\mod\p$ of $\alpha$ in $k(\p)$ is not integral over the image $A^\#$ of $A^+$ in $k(\p)$. By Proposition 1.4.1, this is a valuation ring $R$ of $k(\p)$ such that $A^\#\subseteq R$ and $\alpha\not\in R$. Consider $v$, the compsition,
+    \begin{equation*}
+        A\to k(\p)\stackrel{\text{valuation defined by R Prop 1.4.1}}{\to}\Gamma.
+    \end{equation*}
+    Since $\alpha\mod\p\not\in R, v(\alpha)>1$. By the definition, $K_{v\leq1}$ contains $A^+$ as $A^+$ and $\p\subseteq A^\#\subseteq R$, hence $K_{v\leq1}$ is open. If $a\in A$ and $v(a)\not=0$< then $a\not\in \p$ and we have $b\in A$ and a monic $P\in A^+[T]$ such that $P(\alpha)-ab\in\p$. Since $P$ is monic and $v(A^+)\subseteq[0,1]_{\Gamma\cup\{0\}}$, $P(\alpha)>1$. Since $\supp v=\p$, $v(ab)=v(P(\alpha))>1$. By Proposition \ref{fact_12_4}, $v$ is continuous. 
+\end{proof}
+\begin{corollary}
+    \label{corollary_12_1}
+    For a subset $A^+$ of $A$, the following conditions are equivalent.
+    \begin{enumerate}[a).]
+        \item $A^+ = \{a\in A\sep \ab{a}_x\leq 1$ for all $x\in Spa(A,A^+)\}$
+        \item $A^+$ is the intersection o a set of open and integrally closed subrings of $A$.
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    For b)$\Rightarrow$a), note that $\subseteq $ in a) is trivial and $\supseteq$ is by Proposition \ref{proposition_12_2}. For a)$\Rightarrow$b), note that $K_{x\leq1}$ for $x\in\Spa(A,A^+)$ are integrally closed (by Fact 1.3.5) and open (by Proposition \ref{fact_12_1} a)) subrings of $A$.
+\end{proof}
+\begin{thebibliography}{9}
+\bibitem{Markus}
+Huber, R \emph{Continuous valuations}, Mathematische Zeitschrift
+\end{thebibliography}
 
 \end{document}

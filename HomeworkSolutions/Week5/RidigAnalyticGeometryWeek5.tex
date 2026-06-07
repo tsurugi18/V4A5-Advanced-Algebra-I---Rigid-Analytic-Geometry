@@ -1,0 +1,190 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Sper}{Sper}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Gal}{Gal}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Qc}[0]{\mathfrak{Q}_C}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\U}[0]{\mathfrak{U}}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry Week 5 Solution}
+\author{So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\par\textbf{Problem 1}\\
+If $x=0$ or $y=0$, then trivially the statement holds, thus we assume $x,y\in K^\times$. Then $xy^{-1}\in R$ or $yx^{-1}\in R$. This proves the statement.
+\par\textbf{Problem 2}\\
+$\m_R=R\backslash R^\times$ is true by definition. Let $x\in R,y\in\m_R$, if $xy\in R^\times$ then $y^{-1} = y^{-1}x^{-1}x \in R$ thus $xy\in\m_R$. 
+Note that $x^{-1}(x+y)\in\m_R$, then by the previous argument $x+y\in\m_R$. Thus without loss of generality, we assume $x|y$ in $R$. This is justified as $R$ is a valuation ring. Then $y=rx$ for some $r\in R$. If $x+y$ is invertible, then
+\begin{equation*}
+    x(r+1)
+\end{equation*}
+is invertible. This shows both $x,r+1$ are invertible as $x,r+1\in R$. We derived a contradiction and conclude $\m_R$ is closed under addition.
+\par\textbf{Problem 3}\\
+The direction $\Leftarrow$ is clear as any proper ideal is contained in $R\backslash R^\times$. The other direction follows from that any non-unital element is contained in some maximal ideal thus $R\backslash R^\times\subseteq\m$ where $\m$ is the unique maximal ideal. As $\m$ is proper, this is an equality.
+\par\textbf{Problem 4}\\
+Suppose for $x\in K$ be integral over $R$ and $x\not\in R$. Then $x^{-1}\in R$ and there are $a_1,\cdots,a_n\in R$ such that 
+\begin{equation*}
+    x^n+a_1x^{n-1}+\cdots+a_n = 0.
+\end{equation*}
+Then,
+\begin{equation*}
+    x = -(a_1+a_2x^{-1}+\cdots+a_nx^{n-1}).
+\end{equation*}
+All the elements in the right hand side are in $R$ thus $x\in R$. Thus $x\in R$.
+\par\textbf{Problem 5}\\
+Let $I,J$ be ideals of $R$. Suppose there are elements $a\in I,b\in J$ such that $a\not\in J,b\not\in I$. But either $a\in bR$ or $b\in aR$ thus this is not possible. $I,J$ are linearly ordered so is the set of whole ideals.
+\par\textbf{Problem 6}\\
+Let $\{a_1,\cdots,a_n\}\subseteq R$ then this is linearly ordered by inclusion $(a)\subseteq (b)$ for some $a_i,a_j=a,b$. Let $a$ be the maximal element, then,
+\begin{equation*}
+    (a_1,\cdots,a_n) = (a).
+\end{equation*}
+\par\textbf{Problem 7}\\
+Prime ideals are equal to their own radicals and do not contain $1$ as they are proper. If $I$ is a proper ideal, then $1\not\in I$ thus $1\not\in\sqrt{I}$ otherwise it contains an unit. Let $ab\in\sqrt{I}$. Without loss of generality, we assume $b=ra$ for some $r\in R$. This is justified by the linearlity of ordering in ideals. Then,
+\begin{equation*}
+    b^2 = b\cdot ra\in \sqrt{I}.
+\end{equation*}
+Thus $b\in\sqrt{I}$ as $\sqrt{I}$ is invariant under taking radical. 
+\par\textbf{Problem 8}\\
+As we have seen $\mathfrak{p}_\mathfrak{U}$ is a prime ideal, $R_\mathfrak{U}$ is a ring. Remains to show that this is a valuation ring of $\mathfrak{k}(\mathfrak{p})$. Let $z,n\in A \backslash \mathfrak{p}_\mathfrak{U}$ and $x = {\frac z n}$. Then we have,
+\begin{equation*}
+    V_A = \{(\p,R)\sep v_{R,\p}(x)\leq 1\}\cup \{(\p,R)\sep v_{R,\p}(x)\geq 1\}.
+\end{equation*}
+By the property of ultrafilters, one of the summands belongs to $\U$. In particular, $x$ or $x^{-1}$ belong to $R_\U$. Thus it is a valuation ring.
+\par Finally, to show that it is a generic limit, enough to consider basis open elements,
+\begin{equation*}
+    \tilde{\mathcal{R}}(f_0|f_1),
+\end{equation*}
+we have,
+\begin{equation*}
+    (\p_\U,R_\U) \in \tilde{\mathcal{R}}(f_0|f_1)\iff \tilde{\mathcal{R}}(f_0|f_1)\in\U.
+\end{equation*}
+$(\p_\U,R_\U)\in \tilde{\mathcal{R}}(f_0|f_1)$ if and only if 
+\begin{equation*}
+    f_0\not\in \p_\U,f_1\mod{\p_\U}\in f_0\mod{\p_\U}R_\U.
+\end{equation*}
+Thus $\tilde{\mathcal{R}}(f_0|f_1)\in\U$ as for any $(\p,R)\in\tilde{\mathcal{R}}(f_0|f_1)$, 
+\begin{equation*}
+    v_{R,\p}(f_1)\leq v_{R,\p}(f_0).
+\end{equation*}
+Thus $(\p_\U,R_\U)$ is a generic limit. They are closed under $\text{glim}$ as $\mathcal{R}(f_0|f_1,\cdots,f_n)$ are quasi-compact in $\text{Spv}A$.
+\end{document}

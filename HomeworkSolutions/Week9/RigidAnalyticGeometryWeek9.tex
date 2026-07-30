@@ -1,0 +1,190 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Sper}{Sper}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Gal}{Gal}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Qc}[0]{\mathfrak{Q}_C}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\U}[0]{\mathfrak{U}}
+\newcommand{\fB}[0]{\mathfrak{B}}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry Week 8 Solution}
+\author{So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\par\textbf{Problem 1}
+\par\textbf{Problem 2}\\
+Le $(x_n)_{\N}$ be a Cauchy sequence in $K$, then we have,
+\begin{equation*}
+    r_n = \sup_{m\geq n}\ab{x_m-x_n}
+\end{equation*}
+is converging to $0$. Let us define,
+\begin{equation*}
+    \mathfrak{L} = \{B_n = B(x_n,r_n)\sep n\in\N\}.
+\end{equation*}
+Then this is linearly ordered by inclusion. Thus by the assumption $x\in\bigcup_{\N}B_n$ exists.
+Thus $x_n\to x$ in $K$. $K$ is complete.
+\par\textbf{Problem 3}\\
+Let $\mathfrak{L}$ be a linearly ordered family of balls. Since the valuation is discrete, we assume that it takes values in $\Z_{\geq0}$. 
+Thus we can take a minimum radius in $\mathfrak{L}$. By the assumption, the ball with the minimum raidius is contained in the all the other balls. 
+\par\textbf{Problem 4}\\
+Let $D=\{d_1,\cdots,d_n,\cdots\}$ be a countable dense subset of $K$. 
+Let $B_1 = B(0,\ab{d_1})$ Then $d_1\not\in B_1$. We then inductively define $B_n$ by such that $B_{n+1}$ has a center in $B_n$ and with a smaller radius so it does not contain $d_{n+1}$. Since $\ab{K^\times}$ is dense, this construction is indeed possible.
+\par Let $x\in\bigcup_n B_n$, then by the openness of each $B_n$ and that we can take $d_m$ which is arbitrary close to $x$, $d_m\in B_m$ for some $m$. This is a contradiction, thus the intersection is empty.
+\subsection{Tutor's solution}
+\par\textbf{Problem 1}
+Check of definition.
+\par\textbf{Problem 5}
+Let $\mathcal{M}$ be a mock circle. By remark $f=gh$ where $g\in \T_1^\times$ and $h$ is a polynomial. In particular, $f$ has finitely many zeros $\alpha_1,\cdots,\alpha_n$. Since,
+\begin{equation*}
+    \bigcup_{B\in\mathcal{M}}=\emptyset,
+\end{equation*}
+there is $B\subseteq\mathcal{M}$ such that $\alpha_i\not\in B$ for all $1\leq i\leq n$. By Sheet 4 Problem 3, $\ab{f(x)}$ is constant on $B$.
+\par\textbf{Problem 6}
+If $\norm{f_0}_m\geq\norm{f_i}_m$ for all $1\leq i\leq n$, by the definition of $\Omega = \mathcal{R}(f_0|f_1,\cdots,f_n)$, pick $B\in\mathcal{M}$ such that $f_i$ are constant on $B$. Then $B\subseteq \Omega$.
+\par If $\norm{f_i}_\mathcal{M}>\norm{f_0}_{\mathcal{M}}$ for some $1\leq i\leq n$, take $B\in\mathcal{M}$ such that $f_i$ is constant on $B$. By definition $B\cap \Omega=\emptyset$. it remains to show taht $\xi_\mathcal{M}$ is a van der Put Point. Note that $K^\circ\in\xi_\mathcal{M}$. If $\Omega\subseteq\Theta$ are  rational open such that $\Omega\in\xi_\mathcal{M}$, then there is. $B\in\mathcal{M}$ such that $B\subseteq\Omega$. Thus $B\subseteq\Theta$.
+If $\Omega,\Theta\in\xi_\mathcal{M}$ then there is $B_1\subseteq\Omega,B_2\subseteq\Theta$. Therefore $\min(B_1,B_2)\subseteq\Omega\cap\Theta$. Thus $\Omega\cap\Theta\in\xi_{\mathcal{M}}$. if $\Omega = \Theta_1\cup\cdots\Theta_n$, then $\Omega\in\xi_\mathcal{M}$, need to prove that $\Theta_i\in\xi_\mathcal{M}$ for some $i$.
+If this is not the case then for each $1\leq i\leq n$, there are $B_i\subseteq\mathcal{M}$ and $B_i\cap\Theta_i=\emptyset$. Therefore,
+\begin{equation*}
+    \min(B_i)\cap(\Theta_1\cup\cdots\cup\Theta_n)=\emptyset.
+\end{equation*}
+This is a contradictino.
+\par\textbf{Problem 8}
+Let $j$ be the largest index with $\vert f_j\vert r^j = \max_{i}\vert f_i\vert r^i.$ Take $R_0\in(r,1)$. For $l>j$, since,
+\begin{equation*}
+    \ab{f_i}r^i \to 0.
+\end{equation*}
+So there are only finitely many relevant terms $l\leq N$. Thus we can choose $R>r$ close to $r$ enough such that 
+\begin{equation*}
+    \ab{f_l}\ab{x}^l<\ab{f_j}\ab{x}^j 
+\end{equation*}
+for $l\leq N,r<\ab{x}<R$. For $l<j$, $\ab{f_l}r^l\leq \ab{f_j}r^j\leq n$. Therefore,
+\begin{equation*}
+    \ab{f_l}\ab{x}^l\leq n\left({\frac {\ab{x}} {r}}\right)^l <n\left({\frac {\ab{x}} r}\right)^l.
+\end{equation*}
+\par\textbf{Problem 9}\\
+Let $A$ be a nat-ring and $X\subseteq A$ is a topologically nilpotent subset. The ideal generated by $X$ is 
+\begin{equation*}
+    X' = \left\{\sum n_\alpha x_\alpha\sep x_\alpha\in X\right\}.
+\end{equation*}
+For each open ideal $I$, there is $N\in\N$ such that $\forall n>N,X^n\subseteq I$. Note $(X')^n$ is a finite combination of $m_{\underline{\alpha}}x_{\underline{\alpha}}$ where $\underline{\alpha}$ is an index. Also $x_1,\cdots,x_l\in I$ so finite combination of them are also in $I$, hence $(X')^n\subseteq I$. By definition, $X'$ is topologically nilpotent.
+\end{document}

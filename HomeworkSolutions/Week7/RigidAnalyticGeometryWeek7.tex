@@ -1,0 +1,185 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Sper}{Sper}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Gal}{Gal}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Qc}[0]{\mathfrak{Q}_C}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\U}[0]{\mathfrak{U}}
+\newcommand{\fB}[0]{\mathfrak{B}}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry Week 6 Solution}
+\author{So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\par\textbf{Problem 1}\\
+Set 
+\begin{equation*}
+    \xi_R\defeq\{\mathcal{R}(f_0|f_1,\cdots,f_m)\sep N_R(f_j)\leq N_R(f_0)\forall j\}.
+\end{equation*}
+We first show that this is a vander Put point. Take,
+\begin{equation*}
+    \Omega = \mathcal{R}(f_0|f_1,\cdots,f_m),\Omega' = \mathcal{R}(g_0|g_1,\cdots,g_n)\in \xi_R.
+\end{equation*}
+Then by the multiplicativeness of $N_R$, we see that 
+\begin{equation*}
+    N_R(f_ig_j) = N_R(f_i)N_R(g_j)\leq N_R(f_0g_0).
+\end{equation*}
+
+Let $\Omega' $ be a rational open such that for some $\Omega\in\xi_R$, we have $\Omega\subseteq\Omega'$. Then write,
+\begin{equation*}
+    \Omega' = \mathcal{R}(g_0\sep g_1,\cdots,g_n).
+\end{equation*}
+Let $h_i = g_0/g_i$, then as $\Omega\subseteq\Omega'$, we have 
+Therefore $\xi_R$ is a van der Put point. This satisfies both conditions. Since the membership is explicitly given, clearly this is a unique van der Put point satisfying two given conditions.
+\par\textbf{Problem 2}\\
+By assumption, there is $a\in K^\times$ such that $\ab{a} = R$. Consider,
+\begin{equation*}
+    \Omega= \mathcal{R}(a|T_1-x).
+\end{equation*}
+Then for any $z\in\Omega$, we have 
+\begin{equation*}
+    \vert z-x\vert\leq R.
+\end{equation*}
+Therefore, $\Omega = B_R(x)$. 
+\par\textbf{Problem 3}\\
+Note that 
+\begin{equation*}
+    K_\rho(0)\in\xi_R\iff N_R(T)< N_R(\rho).
+\end{equation*}
+Let $\Omega = \mathcal{R}(f_0|f_1,\cdots,f_m)\in v,\Omega\not\in \xi_R$, then there is $j$ such that 
+\begin{equation*}
+    N_R(f_j)>N_R(f_0).
+\end{equation*}
+Let $g = {\frac {f_j} {f_0}}$, then there is a coefficient $a_n$ of $g$ of degree $n$, such that 
+\begin{equation*}
+    \vert a_n\vert R^n>1.
+\end{equation*}
+Using the assumption,
+\begin{equation*}
+    \vert a_n\vert \rho^n>1.
+\end{equation*}
+In particular $N_R(g)>1$. Therefore $K_\rho(0)\not\subseteq\Omega$. By the equivalent condition for $K_\rho(0)\in v$ and that it is a filter, we have 
+\begin{equation*}
+    \Omega\cap K_\rho(0)\in v.
+\end{equation*}
+\end{document}

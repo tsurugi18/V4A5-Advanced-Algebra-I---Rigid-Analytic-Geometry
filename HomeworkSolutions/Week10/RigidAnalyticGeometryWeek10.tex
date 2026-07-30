@@ -1,0 +1,298 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ mathrsfs }
+\usepackage{ mathtools}
+\usepackage{enumerate}
+\usepackage{bbm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{tikz-cd} 
+\usepackage{adjustbox} 
+\usetikzlibrary{arrows}
+\newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
+\tikzset{commutative diagrams/.cd,
+mysymbol/.style={start anchor=center,end anchor=center,draw=none}
+}
+\newcommand\comsymb[2][\circlearrowleft]{%
+  \arrow[mysymbol]{#2}[description]{#1}}
+
+\newtheorem{theorem}{Theorem} [section] 
+\newtheorem{proposition}{Proposition}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{notation}{Notation}[section] 
+\newtheorem{remark}{Remark}[section] 
+\newtheorem{corollary}{Corollary} [section] 
+\newtheorem{terminology}{Terminology}[section] 
+\newtheorem{fact}{Fact}[section] 
+\newtheorem{example}{Example}[section] 
+\newtheorem{claim}{Claim}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+\DeclareMathOperator{\tmod}{mod}
+\DeclareMathOperator{\triv}{triv}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\straw}{s.t.}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\esssup}{esssup}
+\DeclareMathOperator{\abs}{abs}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homk}{Hom_{k-alg}}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Image}{Im}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\divergence}{div}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\MaxSpec}{MaxSpec}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\PD}{PD}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\diverg}{div}
+\DeclareMathOperator{\curl}{curl}
+\DeclareMathOperator{\image}{im}
+\DeclareMathOperator{\dR}{dR}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mnfd}{Mnfd}
+\DeclareMathOperator{\OpEmb}{OpEmb}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Spa}{Spa}
+\DeclareMathOperator{\Sper}{Sper}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Gal}{Gal}
+%\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\Ouv}{\mathcal{O}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\opNorm}[2]{\norm{#1}_{#2\to#2}}
+\newcommand{\normL}[3]{\norm{#1}_{L^{#2}(#3)}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\m}[0]{\mathfrak{m}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\Qc}[0]{\mathfrak{Q}_C}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\G}[0]{\mathbb{G}}
+\newcommand{\A}[0]{\mathbb{A}}
+\newcommand{\T}[0]{\mathbb{T}}
+\newcommand{\Para}[0]{\mathbb{P}}
+\newcommand{\M}[0]{\mathcal{M}}
+\newcommand{\maniN}[0]{\mathcal{N}}
+\newcommand{\cinf}[0]{\mathcal{C}^\infty}
+\newcommand{\torus}[0]{\mathbb{T}}
+\newcommand{\sep}[0]{\:|\:}
+\newcommand{\pd}[2]{{\frac {\partial #1} {\partial #2}}}
+\newcommand{\compinc}[0]{\subset \subset}
+\newcommand{\sH}[0]{\mathscr{H}}
+\newcommand{\ab}[1]{\vert #1 \vert}
+\newcommand{\st}[0]{\:\straw\:}
+\newcommand{\g}[0]{\mathfrak{g}}
+\newcommand{\p}[0]{\mathfrak{p}}
+\newcommand{\U}[0]{\mathfrak{U}}
+\newcommand{\fB}[0]{\mathfrak{B}}
+\newcommand{\fib}[1]{%
+  \mathbin{\mathop{\times}\limits_{#1}}%
+}
+\newcommand{\tens}[1]{%
+  \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
+}
+
+\title{Rigid Analytic Geometry Week 8 Solution}
+\author{So Murata}
+\date{SoSe 26, University of Bonn}
+
+
+\begin{document}
+\maketitle
+
+\par\textbf{Problem 1}
+By Problem 8 of the previous sheet, there is $R\in (r,1]$ such that for $r<\ab{x}\leq R$, we have,
+\begin{equation*}
+    \ab{f_i(x)}=n_i\left({\frac {\ab{x}} {r}}\right)^{j_i}.
+\end{equation*}
+Since the ordering is lexicographic, we have two cases for each $i=1,\cdots,m$, such that
+\begin{enumerate}
+    \item $n_i<n_0$
+    \item $n_i=n_0$ and $j_i\leq j_0$.
+\end{enumerate}
+For the first case, 
+\begin{equation*}
+    n_i\left({\frac R r}\right)^{j_i}<n_0\left({\frac R r}\right)^{j_0}.
+\end{equation*}
+holds by taking suitably small $R$ and using the continuity of $\ab{\cdot}$, we obtain the inequality.
+\par For the second case, $j_i\leq j_0$ implies 
+\begin{equation*}
+    \left({\frac {\ab{x}} {r}}\right)^{j_i}<\left({\frac {\ab{x}} {r}}\right)^{j_0}.
+\end{equation*}
+This shows that 
+\begin{equation*}
+    r<\ab{x}\leq R\Rightarrow x\in\mathcal{R}(f_0|f_1,\cdots,f_m).
+\end{equation*}
+This proves the first part.
+\par For the second part, we again have two cases,
+\begin{enumerate}
+    \item $n_i>n_0$
+    \item $n_i=n_0,j_i>j_0$.
+\end{enumerate}
+For the first case, again by the continuity of $\ab{\cdot}$, we have,
+\begin{equation*}
+    n_i\left({\frac R r}\right)^{j_i}>n_0\left({\frac R r}\right)^{j_0}.
+\end{equation*}
+And similarly for the other case. Therefore,
+\begin{equation*}
+    \vert f_i(x)\vert>\ab{f_0(x)}
+\end{equation*}
+for all $r<\ab{x}\leq R$. Therefore,
+\begin{equation*}
+    \Omega\cap B_{\leq R}(0)\subseteq B_{\leq r}(0).
+\end{equation*}
+\par\textbf{Problem 5}\\
+By Problem 4, we can take $F=\{x_1,\cdots,x_r\}\subset \mathcal{S}(B)$ such that 
+\begin{equation*}
+    z\in\bigcap_{j=1}^r S_R(x_j)\ni Z\Rightarrow \ab{f_0(z)}=\norm{f_0}_B.
+\end{equation*}
+Then by the definition of norms and the assumption,
+\begin{equation*}
+    \ab{f_i(x)}\leq \norm{f_i}_B\leq \norm{f_0}_B=\ab{f_0(0)}, 1\leq i\leq m.
+\end{equation*}
+This shows that 
+\begin{equation*}
+    \bigcap_{S\in F}S\subseteq \Omega.
+\end{equation*}
+\par The second part is similarly shown by applying Problem 4 to $f_i$ such that 
+\begin{equation*}
+    \norm{f_0}_B<\norm{f_i}_B.
+\end{equation*}
+That is 
+\begin{equation*}
+    x\in\bigcap_{S\in F}S\Rightarrow \ab{f_0(x)}<\ab{f_i(x)}.
+\end{equation*}
+Therefore,
+\begin{equation*}
+    \Omega\cap\bigcap_{S\in F}S=\emptyset.
+\end{equation*}
+\par\textbf{Problem 7}\\
+Set,
+\begin{equation*}
+    \Phi:A\times M\to B\times M, (a,m)\mapsto(a\cdot1_B,m).
+\end{equation*}
+Since $a\mapsto f(a)$ is continuous $\Phi$ is continuous. By assumption $\rho:B\times M\to M, (b,m)\mapsto bm$ is continuous. Therefore 
+\begin{equation*}
+    \rho\circ\Phi:A\times M\to M
+\end{equation*}
+is continuous. This shows $M$ is an adic $A$-module.
+\par\textbf{Tutor's solutions}
+\par\textbf{Problem 1,2}
+Accorind to Sheet 9 Problem 8, one can replace there is $r_+,r_-,0<r_-<r<r_+$ in Sheet 7 Problem 1,3 by there is $R, r<R<1$ and the proof is the same.
+\par\textbf{Problem 3}
+We have,
+\begin{equation*}
+    B = \bigcap_{S\in\mathcal{S}}S \not=\emptyset,
+\end{equation*}
+where $B\in\xi$. if $S,S'$ are different elements of $B=K^\circ$, Take $S\not=S'\in\mathcal{S}(B)$ Say $S=S_1(x),S' = S_1(y)$. Then $\ab{x-y}=1$, else $S=S'$.
+For any $z\in B,\ab{z-x}<1$ and $\ab{z-y}<1$, cannot happen at the same time. Therefore $z\in S$ or $z\in S'$. Thus $S\cup S'=B$. $B\in\xi\Rightarrow$ one of $S,S'$ is in $\xi$. 
+\begin{remark}
+    Any finite intersection of elements in $\mathcal{S}(B)$ is non-empty.
+\end{remark}
+\begin{proof}
+    Assume $B=K^\circ$. Take$ x\in K^\circ$ Then $\ab{y-x}=1$ if and only if $y-x\not\in K^{\circ\circ}$. Take $x_1,\cdots,x_m\in K^\circ$. Then,
+    \begin{equation*}
+        \bigcap_{i}\mathcal{S}_1(x_i) = \{y\in K^\circ\sep \overline{y} \not=\overline{x}_1,\cdots,\overline{x}_m\text{ in }k = K^\circ/K^{\circ\circ}\}.
+    \end{equation*}
+    Note that $K$ is algebraically closed, so $\ab{k} = \infty$. Therefore $\bigcap_i S_1(x_i) \not=\emptyset$.
+\end{proof}
+\par\textbf{Problem 4}
+Assume $\norm{g|\T_1} = 1$. Then $\ab{g(x)}<\norm{g|\T_1}$ if and only if $g(x)\in K^{\circ\circ}$ if andon ly if $\overline{x}$ is a root of $\overline{g}$ in $k = K^\circ/K^{\circ\circ}$. Note that $\overline{g}$ is a polynomial in $k$, so we may take all of its roots $\alpha_1,\cdots,\alpha_n$. Choose $x_i$ to be a lift of $\alpha_i$, then 
+\begin{equation*}
+    \ab{g(x)}<\norm{g|\T_1}\iff x-x_i\in K^{\circ\circ}\iff x\in\bigcup_i(x_i+K^{\circ\circ}).
+\end{equation*}
+Take the complement.
+\par\textbf{Problem 5}
+Take a finite set $RF\subseteq\mathcal{S}(B)$ such that for $x\in\bigcap_{S\in F}S$,
+\begin{equation*}
+    \ab{f_i(x)}=\norm{f_i|\T_1}.
+\end{equation*}
+Then the conclusion is immediate.
+\par\textbf{Problem 6}
+For a rational open $\Omega$, $\Omega\in\xi_B\Rightarrow \exists F\subseteq \mathcal{S}(B)$ finite with 
+\begin{equation*}
+    \bigcap_{S\in F}F\subseteq\Omega.
+\end{equation*}
+Since each $S$ is in $\xi$, so does their finite intersection. Hence $\Omega\in\xi$. 
+\par $\Omega\not\in\xi_B$, then there is a finite set $F\subseteq\mathcal{S}(B)$ such tat 
+\begin{equation*}
+    \Omega\cap\bigcap_{S\in F}S = \emptyset. 
+\end{equation*}
+Note that $\bigcap_{S\in F}S\in\xi$ therefore $\Omega\not\in\xi$. Thus $\xi=\xi_B$.
+\par\textbf{Problem 7}
+\begin{lemma}
+    If $A$ is a Huber ring, $(A^\#,I)$ be a pair of definition, $C$ be an open subring of $A$, then 
+    \begin{equation*}
+        (C\cap A^\#,I^NA^\#)
+    \end{equation*}
+    is also a pair of definition.
+\end{lemma}
+\begin{proof}
+    Since $C\cap A^\#$ is open, there is $N$ such that $I^N A^\#\subseteq C\cap A^\#$. Then $I^NA^\#$ is finitely generated $C\cap A^\#$-ideal. First 
+    \begin{equation*}
+        (I^NA^\#)^n(C\cap A^\#)
+    \end{equation*}
+    is open.
+\end{proof}
+Moreover, $I^NA^\#$ is finitely generated, also $(I^NA^\#)^n(C\cap A^\#)$ gives $0$-neighbourhood of $A$.
+\par\textbf{Problem 7}
+\begin{lemma}
+    If $M$ is an adic $A$-module with respect to $(A^\#,I)$. Let $(A',J)$ be another pair of definition. Then $M$ is adic with respect to $(A',J)$.
+\end{lemma}
+\begin{proof}
+    By the assumtpion, there is an open submodule $M^\#\subseteq M$ such that $I^n M^\#$ is a basis of $0$-neighbourhood. Let $M'=A'M^\#$. Then $M'$ is an open sub-$A'$-module of $M$. Now since $(A^\#,I)$ and $(A',J)$ define the same topology. $\{I^n A^\#\},\{J^n A'\}$ are cofinal in the sense of covering $I^nM^\#$, there is $N$ such that 
+    \begin{equation*}
+        J^NA'\subseteq I^nA^\#.
+    \end{equation*} 
+    Therefore $J^nM' = J^NA'M^\#\subseteq I^nA^\#M^\#=I^nM^\#$. Given $I^nM'$ there is $N$ such that $I^nA^\#\subsetrq J^nA'$.
+    THerefore $I^NA^\#M^\#\subseteq J^nA'M^\#=J^nM'$. Thus $\{J^nM'\}$ is also a base for $0$-neighbourhood.
+\end{proof}
+\begin{theorem}
+    \begin{equation*}
+        (\Sp A)^\ast\leftrightarrow\Spa(A,A^\circ).
+    \end{equation*}
+    We now consider $A=\T_1$. 
+    \begin{enumerate}
+        \item A classical point $x_a$ consists of an element $a\in K^\circ$ and valuatio n$v_0(f) = \ab{f(a)}$.
+        \item Classical disk points $x_{a,r}$ consits of an element $a\in K^\circ$ and $0<r\leq 1$ and the valuation,
+        \begin{equation}
+            f=\sum_{i}f_i(T-a)^i\mapsto \max_{i}\ab{f_i}r^i.
+        \end{equation}
+    \end{enumerate}
+    This onlyl depends on $B_{\leq r}(a)$. 
+\end{theorem}
+\begin{proposition}
+    For any $f\in\T_1$, $\ab{f(x)}$ is a constant for sufficently small $B_{r}\in\mathcal{M}$. Valuation 
+\end{proposition}
+\end{document}

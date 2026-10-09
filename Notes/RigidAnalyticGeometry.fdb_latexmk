@@ -1,12 +1,13 @@
 # Fdb version 4
-["dvipdf"] 1785384902.14134 "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry.pdf" "RigidAnalyticGeometry" 1785384902.46194 0
-  "RigidAnalyticGeometry.dvi" 1785384902.11079 368896 d17e6986b1ae003f124b182035db013a "latex"
+["dvipdf"] 1791544424.0156 "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry.pdf" "RigidAnalyticGeometry" 1791544424.44728 0
+  "RigidAnalyticGeometry.dvi" 1791544423.98525 384736 1773a5013cbeafdd708c7001bc06d4a5 "latex"
   (generated)
   "RigidAnalyticGeometry.pdf"
   (rewritten before read)
-["latex"] 1785384901.23169 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry" 1785384902.46078 0
-  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" 1785384900.2075 238952 19783d2de4d70016b9700c5d918bbf02 ""
+["latex"] 1791544423.06333 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry" 1791544424.44581 0
+  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" 1791544422.83278 276325 c8050c1956513b24a260af9a7f996575 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcti0800.tfm" 1136768653 2048 34c41bea24cdfcd7151cd817799f6952 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm10.tfm" 1246382020 1040 b84415f97d114011685943ade933dc71 ""
@@ -162,8 +163,8 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/latex.fmt" 1760893821 3345650 f2179b917b551c7214098855962de784 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "RigidAnalyticGeometry.aux" 1785384902.10979 14444 c48e5f58112bbe2a00e0fee5cb599f5a "latex"
-  "RigidAnalyticGeometry.tex" 1785384900.2075 238952 19783d2de4d70016b9700c5d918bbf02 ""
+  "RigidAnalyticGeometry.aux" 1791544423.98417 14924 ba4474eb31217fe03e930fbe410da230 "latex"
+  "RigidAnalyticGeometry.tex" 1791544422.83278 276325 c8050c1956513b24a260af9a7f996575 ""
   (generated)
   "RigidAnalyticGeometry.aux"
   "RigidAnalyticGeometry.dvi"

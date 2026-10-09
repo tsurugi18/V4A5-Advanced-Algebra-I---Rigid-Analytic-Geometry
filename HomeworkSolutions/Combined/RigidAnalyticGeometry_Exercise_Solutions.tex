@@ -13,12 +13,18 @@
 \usepackage{tikz-cd} 
 \usepackage{adjustbox} 
 \usepackage{ stmaryrd }
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\filright}{Sheet\thesection. }
+  {0em}{}
 \numberwithin{equation}{section}
 \usetikzlibrary{arrows}
 \newcommand{\midarrow}{\tikz \draw[-triangle 90] (0,0) -- +(.1,0);}
 \tikzset{commutative diagrams/.cd,
 mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 }
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
 \newcommand\comsymb[2][\circlearrowleft]{%
   \arrow[mysymbol]{#2}[description]{#1}}
 
@@ -31,6 +37,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newtheorem{corollary}{Corollary} [section] 
 \newtheorem{terminology}{Terminology}[section] 
 \newtheorem{fact}{Fact}[section] 
+\newtheorem{problem}{Problem}[section] 
 \newtheorem{example}{Example}[section] 
 \newtheorem{claim}{Claim}
 \newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
@@ -63,6 +70,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \DeclareMathOperator{\divergence}{div}
 \DeclareMathOperator{\rk}{rk}
 \DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Sper}{Sper}
 \DeclareMathOperator{\mSpec}{mSpec}
 \DeclareMathOperator{\MaxSpec}{MaxSpec}
 \DeclareMathOperator{\interior}{int}
@@ -92,6 +100,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \DeclareMathOperator{\tat}{at}
 \DeclareMathOperator{\Sheaf}{Sheaf}
 \DeclareMathOperator{\Cont}{Cont}
+\DeclareMathOperator{\Gal}{Gal}
 %\newcommand*{\name}[\num_arguments][default values]{{\color{#1}\Large #2}}
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\Ouv}{\mathscr{O}}
@@ -135,6 +144,8 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\cB}[0]{\mathcal{B}}
 \newcommand{\cA}[0]{\mathcal{A}}
 \newcommand{\cC}[0]{\mathcal{C}}
+\newcommand{\cT}[0]{\mathcal{T}}
+\newcommand{\sT}[0]{\mathscr{T}}
 \newcommand{\nat}[0]{\mathrm{nat}}
 \newcommand{\tand}[0]{\text{ and }}
 \newcommand{\tor}[0]{\text{ or }}
@@ -157,21 +168,1654 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 
 \begin{document}
 \maketitle
-\par\textbf{Sheet 1}
-\par\textbf{Problem 1}\\
-If $\ab{\cdot}_K$ is ultrametric, then $K^\dcirc$ is a unique maximal ideal. By the property of DVR, we have $x,y\in K^\circ$, $x\mid y$ or $y\mid x$. We can choose a minimal $\pi$ among these ordering as $\ab{\cdot}_K$ is discrete.
-\par\textbf{Problem 2}\\
-Recall that the norm $\norm{\cdot|\T_m}$ is defined as,
+\section{Banach Spaces over an Ultrametric Field}
+\begin{definition}
+  Let $K$ be a field together with an absolute value $\ab{\cdot}_K$ such that for each $x,y\in K$,
+  \begin{enumerate}[i.]
+    \item $\ab{x+y}_K\leq\max\{\ab{x}_K,\ab{y}_K\}$
+    \item $\ab{xy}_K = \ab{x}_K\ab{y}_K$
+    \item $\ab{0}_K = 0,\ab{1}_K = 1$
+    \item $(K,d)$ where $d(x,y) = \ab{x-y}_K$ is a complete non-discrete metric space.
+  \end{enumerate}
+  We further denote,
+  \begin{align*}
+    K^\circ = \{x\in K\sep \ab{x}_K\leq 1\},\\
+    K^\dcirc = \{x\in K\sep \ab{x}_K<1\}.
+  \end{align*}
+\end{definition}
+\begin{problem}
+Show that $\Spec(K^\circ) = \{(0),K^\dcirc\}$. 
+\end{problem}
+\begin{solution}
+Let $x\in K$ be such that $x\not\in K^\circ$, then $\ab{x}_K>1$. Then we have,
 \begin{equation*}
-    f = \sum_{\alpha\in\N^m}f_\alpha X^\alpha\Rightarrow \norm{f|\T_m} = \max_{\alpha\in\N^m}\ab{f_\alpha}_K.
+  \ab{x^{-1}}_K = 1/\ab{x}_K <1.
 \end{equation*}
-Let $f,g\in\T_m$. Then there are $\alpha,\beta\in\N^m$ such that 
+Therefore $x^{-1}\in K^\circ$. Thus $K^\circ$ is a valuation ring of $K$. Therefore $\Spec(K^\circ)$ consists of two points.
+\end{solution}
+\begin{definition}
+  Let $K$ be as above. A $K$-Banach space $E$ is a ultrametric complete $K$-vector space. A subset $X$ of $E$ is bounded if $\norm{X|E}$ is bounded in $\R$.
+\end{definition}
+\begin{definition}
+  A $K$-Banach algebra is a $K$-algebra $A$ equipped with $K$-Banach structure together with 
+  \begin{equation*}
+    \norm{ab|A}\leq\norm{a|A}\norm{b|A},\norm{1|A} \leq 1
+  \end{equation*}
+  It is called multiplicative if $\norm{ab|A} = \norm{a|A}\norm{b|A}$. It is power-multiplicative if $\norm{a^n|A} = \norm{a|A}^n$.
+\end{definition}
+\begin{definition}
+  A Tate algebra with $n$-variables is 
+  \begin{equation*}
+    \T_n = \left\{ f=\sum_{\alpha\in\Z_{\geq0}^n}f_\alpha X^\alpha\in K\llbracket X_1,\cdots,X_n\rrbracket\bigg{|}\forall \varepsilon>_\R0, \vert \{f_\alpha|\ab{f_\alpha}_K>\varepsilon\}\vert<\infty\right\}.
+  \end{equation*}
+  Let us define the norm on $\T_n$ by 
+  \begin{equation*}
+    \norm{f|\T_n} = \max_{\alpha\in\Z_{\geq0}}\ab{f_\alpha}_K.
+  \end{equation*}
+\end{definition}
+\begin{problem}
+  Show that $\T_n$ is multiplicative.
+\end{problem}
+\begin{solution}
+Let $f,g\in\T_n$ and $\alpha_0,\beta_0\in\Z_{0\geq}^n$ such that 
 \begin{equation*}
-    \norm{f|\T_m} = \ab{f_\alpha}_K,\norm{g|\T_m} = \ab{g_\beta}_K.
+  \norm{f|\T_n} = \ab{f_{\alpha_0}}_K,\norm{g|\T_n} = \ab{g_{\beta_0}}_K,
 \end{equation*}
-Then in the Taylor expansion of $fg$, $f_\alpha g_\beta$ arises as a part of the coefficient of $\gamma = \alpha+\beta$. By the ultrametric property of the absolute value, we see,
+and they are minimum among these indices. By using the ultrametricity, 
 \begin{equation*}
-    \norm{fg|\T_m}\leq \ab{f_\alpha}_K\ab{g_\beta}_K = \norm{f|\T_m}\norm{g|\T_m}.
+  \left\vert \sum_{\gamma = \alpha+\beta}f_\alpha g_\beta\right\vert \leq \max_{\gamma=\alpha+\beta}\ab{f_\alpha g_\beta}_K\leq \ab{f_{\alpha_0}g_{\beta_0}}.
 \end{equation*}
-Obviously $\norm{1|\T_m} = 1$. 
+By the minimality, we have,
+\begin{equation*}
+  \forall (\alpha,\beta), \alpha+\beta=\alpha_0+\beta_0\Rightarrow \ab{f_{\alpha}g_{\beta}}_K\leq \ab{f_{\alpha_0}}\ab{g_{\beta_0}}_K.
+\end{equation*}
+Observe that 
+\begin{align*}
+  \ab{f_{\alpha_0}g_{\beta_0}} &= \left\vert (fg)_{\alpha_0+\beta_0}-\sum_{\alpha+\beta=\alpha_0+\beta_0}f_\alpha g_\beta\right\vert,\\
+  &\leq \max\left\{\vert (fg)_{\alpha_0+\beta_0}\vert,\left\vert\sum_{\alpha+\beta=\alpha_0+\beta_0}f_\alpha g_\beta\right\vert\right\},\\
+  & \ab{f_{\alpha_0}g_{\beta_0}}.\\
+  \Rightarrow &\ab{f_{\alpha_0}g_{\beta_0}} = \vert (fg)_{\alpha_0+\beta_0}\vert.
+\end{align*}
+\end{solution}
+% \par\textbf{Problem 2}\\
+% Recall that the norm $\norm{\cdot|\T_m}$ is defined as,
+% \begin{equation*}
+%     f = \sum_{\alpha\in\N^m}f_\alpha X^\alpha\Rightarrow \norm{f|\T_m} = \max_{\alpha\in\N^m}\ab{f_\alpha}_K.
+% \end{equation*}
+% Let $f,g\in\T_m$. Then there are $\alpha,\beta\in\N^m$ such that 
+% \begin{equation*}
+%     \norm{f|\T_m} = \ab{f_\alpha}_K,\norm{g|\T_m} = \ab{g_\beta}_K.
+% \end{equation*}
+% Then in the Taylor expansion of $fg$, $f_\alpha g_\beta$ arises as a part of the coefficient of $\gamma = \alpha+\beta$. By the ultrametric property of the absolute value, we see,
+% \begin{equation*}
+%     \norm{fg|\T_m}\leq \ab{f_\alpha}_K\ab{g_\beta}_K = \norm{f|\T_m}\norm{g|\T_m}.
+% \end{equation*}
+% Obviously $\norm{1|\T_m} = 1$. 
+\begin{definition}
+  Let $A$ be a $K$-Banach algebra. Define,
+  \begin{align*}
+    A^\circ &= \{a\in A\sep \{a^n|n\in\N\}\text{ is bounded in $A$}\},\\
+    A^\dcirc &= \{a\in A\sep \lim_{k\to\infty}a^k=0\}.
+  \end{align*}
+\end{definition}
+\begin{problem}
+  Show that $A^\circ$ is a subring and $A^\dcirc$ is an ideal satisfying $\sqrt{A^\dcirc} = A^\dcirc$.
+\end{problem}
+\begin{solution}
+  Let $a,b\in A^\circ$ and $M_a,M_b$ be such that 
+  \begin{equation*}
+    \{\norm{a^n|A}|n\in\N\}\subseteq[0,M_a],\{\norm{b^n|A}|n\in\N\}\subseteq[0,M_b].
+  \end{equation*}
+  Then,
+  \begin{equation*}
+    \norm{ab|A}\leq \norm{a|A}\norm{b|A}\Rightarrow \norm{(ab)^n|A}\leq\norm{a|A}^n\norm{b|A}^n\leq M_aM_b.
+  \end{equation*}
+  Similarly, by the ultrametricity, we have $A^\circ$ is closed under addition and multiplication. As it contains $1,0$, it is a subring.
+  \par For the latter part, let $x\in A^\dcirc$, then,
+  \begin{equation*}
+    \norm{(ax)^k|A}\stackrel{k\to\infty}{\to}0.
+  \end{equation*}
+  We then know that the sequence $((ax)^k)_{k\in\N}$ is a Cauchy sequence thus has a limit which has norm $0$ thus converges to $0$. To show that this is closed under addition, note that $\{(x+y)^k\}_{k\in\N}$ is Cauchy and the limit of the norm is $0$. 
+  \par Finally, $(a^k)^l\stackrel{l\to\infty}{\to}0$ then again using the completeness we finish the solution.
+\end{solution}
+\begin{problem}
+  If $A$ is power-multiplicative then,
+  \begin{align*}
+    A^\circ & = \{a\in A\sep \norm{a|A}\leq 1\},\\
+    A^\dcirc & = \{a\in A\sep \norm{a|A}<1\}.
+  \end{align*}
+\end{problem}
+\begin{solution}
+  The definitions of these sets are now,
+  \begin{align*}
+    A^\circ & = \{a\in A\sep \{\norm{a|A}^n|n\in\N\}\text{ is bounded.}\},\\
+    A^\dcirc & = \{a\in A\sep \norm{a|A}^n\stackrel{n\to\infty}{\to}0\}.
+  \end{align*}
+  And the suggested forms are the paraphrases of these.
+\end{solution}
+\begin{problem}
+  A $K$-Banach algebra $A$ admits no proper open ideal.
+\end{problem}
+\begin{solution}
+  Let $I\subseteq A$ be an open ideal. Then $I$ is a neighborhood of $0$. Let $a\in K^\dcirc$, then $a\cdot 1_A\in A^\dcirc$, thus for large enough $k$, $(a\cdot 1_A)^k\in I$. But $a^{-1}1_A$ is an inverse to it thus $I$ is not proper. 
+\end{solution}
+\begin{problem}
+  The group of unit of a $K$-Banach algebra $A$ is a neighborhood of $1$.
+\end{problem}
+\begin{solution}
+  Let $U = \norm^{-1}([0,1))$, then this is open. Note that $1+U$ is contained in the group of units as every element of $U$ is topologically nilpotent. By the opennes of addition map, we conclude $1+U$ is a open neighborhood of $1$ contained in such group.
+\end{solution}
+\begin{problem}
+  Show $K$-Banach algebra has no proper dense ideal.
+\end{problem}
+\begin{proof}
+  Suppose $I$ is dense, then $I$ intersects with the group of units thus $I$ is the whole.
+\end{proof}
+\section{Basics of Spectral Spaces}
+\begin{definition}
+  Let $V$ be a $K$-Banach space and $\norm{\cdot}_1,\norm{\cdot}_2$ be norms. These two are said to be equivalent if there exists a constant $C\geq 1$ such that 
+  \begin{equation*}
+    \forall v\in V, \norm{v}_1\leq C\norm{v}_2\leq C^2\norm{v}_2.
+  \end{equation*}
+\end{definition}
+\begin{definition}
+  The $n$-dimensional $K$-vector space $K^n$ will have the structure of a $K$-Banach space under the following norm,
+  \begin{equation*}
+    \norm{(x_i)_{i=1}^n|K^n} = \max_{1\leq i\leq n}\ab{x_i}_K.
+  \end{equation*}
+\end{definition}
+\begin{problem}
+  Show that for any $K$-norm $\norm{\cdot}_1$ on $K^n$, there is $C\geq 1$ such that
+  \begin{equation*}
+    \forall x\in K^n, \norm{x}_1\leq C\norm{x}.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  Let $e_1,\cdots,e_n\in K^n$ be the standard basis elements. Then for any $x=\sum_{i=1}^n x_ie_i$<
+  \begin{equation*}
+    \norm{x}_1\leq \max_{1\leq i\leq n}\ab{x_i}_K\norm_1{e_i}\leq \max_{1\leq i\leq n}\norm{e_i}\norm{x}.
+  \end{equation*}
+  Thus take $ \max_{1\leq i\leq n}\norm{e_i}=C$.
+\end{solution}
+\begin{problem}
+  Show that there is $C\geq 0$ such that for any $x\in K^n$,
+  \begin{equation*}
+    \norm{x}\leq \norm{x}_1.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  Suppose such $C$ does not exists. Then we can take a sequence $(x_n)\in K^n$ such that 
+  \begin{equation*}
+    \norm{x_n}> n\norm{x_n}_1.
+  \end{equation*}
+  Now set $y_n = {\frac {x_n} {\norm{x_n}}}$. Then we have,
+  \begin{equation*}
+    \norm{y_n}_1 = {\frac {\norm{x_n}_1} {\norm{x_n}}} < {\frac 1 n}\stackrel{n\to\infty}{\to}0.
+  \end{equation*}
+  This shows a contradiction as $\norm{y_n} = 1$, that is, there is an entry whose absolute value is $1$.
+\end{solution}
+\begin{problem}
+  Show that the previous inequality fails if $K$ is not complete with respect to the induced metric from $\ab{\cdot}_K$.
+\end{problem}
+\begin{solution}
+  Let $\widehat{K}$ be a completion of $K$ with respect to the metric and take $\alpha\in \widehat{K}\backslash K$. 
+  Define a norm on $K^2$ by,
+  \begin{equation*}
+    \norm{(a,b)}_1 = \ab{a+b\alpha}_{\widehat{K}}.
+  \end{equation*}
+  This indeed defines a norm. Let $(x_n)_{n\in\N}$ be a seuqence of $K$ converging to $-\alpha$. Furthermore, take,
+  \begin{equation*}
+    v_n = (x_n,1).
+  \end{equation*} 
+  Then $\norm{v_n}\geq 1$. But $\norm{v_n}_1\to0$ as $n\to\infty$. 
+\end{solution}
+\begin{problem}
+  Let $L/K$ be a finite field extension then there is $C>0$ such that
+  \begin{equation*}
+    \forall x,y\in L, \norm{xy}\leq C\norm{x}\norm{y}.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  Let $m_x\in\Hom(L,L)$ be such that 
+  \begin{equation*}
+    m_x(y) = xy.
+  \end{equation*}
+  This is a linear operator in a finite dimensional vectorspace. Therefore the operator norm is bounded. Furthermore the assignment,
+  \begin{equation*}
+    L\ni x\mapsto m_x\in\Hom(L,L),
+  \end{equation*}
+  is also a linear operator of finite dimensional vectorspaces. Thus there is $C>0$ such that 
+  \begin{equation*}
+    \norm{m_x}_{\mathrm{Op}}\leq C\norm{x}.
+  \end{equation*}
+  Therefore, we obtain,
+  \begin{equation*}
+    \norm{xy}\leq \norm{m_x}_\mathrm{Op}\norm{y}\leq C\norm{x}\norm{y}.
+  \end{equation*}
+\end{solution}
+\begin{problem}
+Let $A$ be a ring and $\mathcal{U}$ be an ultrafilter on $\Spec(A)$. Show that 
+\begin{equation*}
+  \mathfrak{g}_{\mathcal{U}} = \{x\in A\sep V(x)\in\mathcal{U}\},
+\end{equation*}
+for any $x\in\mathfrak{g}_{\mathcal{U}}$ and $a\in A$, $ax\in\mathfrak{g}_{\mathcal{U}}$.
+\end{problem}
+\begin{solution}
+  $V(ax)=V(a)\cup V(x)\supseteq V(x)$, thus $V(ax)\in\U$.
+\end{solution}
+\begin{definition}
+  Let $A$ be a ring. A cone $C$ of $A$ is a subset such that 
+  \begin{enumerate}[i.]
+    \item $A^2\subseteq C$,
+    \item $x,y\in C\Rightarrow x+y\in C,xy\in C$.
+  \end{enumerate}
+  $C$ is called proper if $-1\not\in C$. It is prime if 
+  \begin{equation*}
+    \forall a,b\in A, ab\in C,a\not\in C\Rightarrow -b\in C.
+  \end{equation*}
+\end{definition}
+\begin{definition}
+  We denote the set of all prime cones of $A$ to be $\Sper(A)$. For $a\in A$, we denote,
+  \begin{equation*}
+    \mathcal{P}(a) = \{P\in\Sper(A)\sep -a\not\in P\}.
+  \end{equation*}
+  Furthermore, we set,
+  \begin{align*}
+    \mathcal{P}(a_1,\cdots,a_n) &= \bigcap_{i=1}^n\mathcal{P}(a_i).
+  \end{align*}
+  We conventionally set $\mathcal{P}(\emptyset) = \Sper(A)$.
+  \par We further denote,
+  \begin{equation*}
+    \mathcal{B}_{\Sper(A)} = \{\mathcal{P}(a_1,\cdots,a_n)\sep a_1,\cdots,a_n\in A\}.
+  \end{equation*}
+\end{definition}
+\begin{lemma}
+    \label{lemma_1}
+    Let $\mathcal{B}$ be a topology base of the topological space $X$.
+    \begin{enumerate}[a)]
+        \item Let $\U$ be an ultrafilter on $X$ and $g\in X$ such that for all $\Omega\in\mathcal{B}$, $g\in\Omega \Leftrightarrow\Omega\in\U$. Then $g$ is a generic limit of $\U$.
+        \item If $X$ is $T_0$ and for every ultrafilter $\U$ on $X$, there is $g\in X$ as in a, then $X$ is spectral and the elements of $\B$ are quasi-compact.
+    \end{enumerate}
+\end{lemma}
+\begin{problem}
+  Show that $\Sper(A)$ is spectral and elements of $\mathcal{B}_{\Sper(A)}$ are quasi-compact.
+\end{problem}
+\begin{solution}
+  Denote $X=\Sper(A)$. For $x,y\in X$, if $x\not=y$, then there is $a\in A$ such that $a\in x$ but $a\not\in y$. Therefore, $\mathcal{P}(-a)$ will sepaarte them.
+  \par In order to use Lemma \ref{lemma_1}, we show that for an ultrafilter $\U$ on $X$,
+  \begin{equation*}
+    \g_\U = \{a\in A\sep \{P\in X\sep x\in P\}\in\U\}
+  \end{equation*}
+  is the $g$ in Lemma \ref{lemma_1}. First we need to show that this is a prime cone.For $a\in A$, let us denote,
+  \begin{equation*}
+  F(a) = \{P\in X\sep a\in P\}.
+  \end{equation*}
+  With this, we can rewrite,
+  \begin{equation*}
+    \g_\U = \{a\in A\sep F(a)\in\U\}.
+  \end{equation*}
+  Since $\U$ is a filter and 
+  \begin{equation*}
+    F(-1) = \emptyset.
+  \end{equation*}
+  Thus $-1\not\in \g_\U$. If $x,y\in\g_\U$, then 
+  \begin{align*}
+  F(x+y) \supseteq F(x)\cap F(y),F(xy)\supseteq F(x)\cap F(y).
+  \end{align*}
+  Thus by the filter property, this is closed under addition and multiplication. Finally, if $xy\in\g_\U$ and $x\not\in\g_\U$, then 
+  \begin{equation*}
+  F(-y) \supset F(xy)\cap (X\backslash F(x)).
+  \end{equation*}
+  Using the ultrafilter property and $F(x)\not\in \U$, we have $X\backslash F(x)\in\U$. Thus $-y\in\g_\U$. 
+  \par To show that $\g_\U$ is the generic limit, first observe that 
+  \begin{equation*}
+  F(-a)\cup \mathcal{P}(a) = X.
+  \end{equation*}
+  Therefore, 
+  \begin{align*}
+    \g_\U\in\Omega &\iff \g_\U\in\bigcap_{i=1}^n (X\backslash F(-a_i)),\\
+    & \iff F(-a_1),\cdots,F(a_n)\not\in \U,\\
+    & \iff \mathcal{P}(a_1),\cdots,\mathcal{P}(a_n)\in\U.
+  \end{align*}
+  The last equivalence is due to the ultrafilterness of $\U$. By Lemma \ref{lemma_1}, $X$ is spectral and $\B_X$ consists of quasi-compact elements.
+\end{solution}
+\begin{problem}
+  Let $X$ be a set and $\eta\in X$. We give a structure of a topological space to $X$ such that open sets $U$ are either emptyset or $\eta\in U$ and $X\backslash U$ is finite. Show that $X$ is spectral.
+\end{problem}
+\begin{solution}
+  Let $x,y\in X$ be distinct points such that $y\not=\eta$. Then $X\backslash y$ will separate $x$ and $y$ thus it is $T_0$.
+  \par Observe that every closed subsets are finite set of points. Therefore, every irreducible closed subset is a single point. Thus the sobriety is now shown. 
+  \par Let $U$ be an open set and $(U_n)_{n\in \N}$ be an open cover. Then, $\bigcup_{n\in\N}U_n$ is again open therefore exists a finite set $F$ such that 
+  \begin{equation*}
+    U\subseteq\bigcup_{n=1}^\infty U_n =X\backslash F.
+  \end{equation*}
+  Clearly, we can pick finite subcollection such that each element does not contain $F$. Thus $U$ is quasi-compact.
+\end{solution}
+\begin{problem}
+  Inherit $X$ from the problem above. Describe $X_{\con}$ by giving neighborhood basis for each $x\in X$.
+\end{problem}
+\begin{solution}
+  Suppose $x\not=\eta$. Since $X\backslash\{x\}$ is open, $\{x\}$ is open in $X_{\con}$. For $\eta$, if $X\backslash U\ni \eta$, then $U=\emptyset$. Therefore the neighborhood basis of $\eta$ is the set of all non-empty open sets.
+\end{solution}
+\section{Introduction to Valuations}
+\begin{problem}
+  Let $L/K$ be a finite field extension. Then show that there is a $K$-norm $\norm{\cdot|L}$ on $L$ such that 
+  \begin{equation*}
+    \forall x,y\in L,\norm{xy|L}\leq \norm{x|L}\norm{y|L}.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  By Problem 2.4, there is a constant $C>0$ for every norm $\norm{\cdot}$ on $L$ such that 
+  \begin{equation*}
+    \norm{xy}\leq C\norm{x}\norm{y}.
+  \end{equation*}
+  Set $\norm{\cdot|L} = C\norm{\cdot}$. Then,
+  \begin{equation*}
+    \norm{xy|L} = C\norm{xy}\leq C^2\norm{x}\norm{y} = \norm{x|L}\norm{y|L}.
+  \end{equation*}
+\end{solution}
+\begin{definition}
+  A sequence $(a_n)_{n\in\N}\subseteq\R$ is said to be subadditive if 
+  \begin{equation*}
+    \forall m,n\in\N, a_{m+n}\leq a_m+a_n.
+  \end{equation*}
+\end{definition}
+\begin{theorem}[Fekete's Lemma]
+  Let $(a_n)_{n\in\N}$ be a subadditive sequence. Then we have,
+  \begin{equation*}
+    \lim_{n\to\infty}{\frac {a_n} n} = \inf_{n\in\N}{\frac {a_n} n},
+  \end{equation*}
+  possibly the infimum being $-\infty$.
+\end{theorem}
+\begin{problem}
+  For every norm $\norm{\cdot|L}$ on the $K$-vector space $L$, show that 
+  \begin{equation*}
+    \ab{l}_L = \lim_{n\to\infty}\sqrt[n]{\norm{l|L}}
+  \end{equation*}
+  is well-defined and independent of the choice of the norm.
+\end{problem}
+\begin{solution}
+  We have seen that every norm is equivalent to $\norm{\cdot}_\infty$ on $L$. Thus independence follows from that 
+  \begin{equation*}
+    c\norm{l}_\infty\leq \norm{l|L}\leq C\norm{l}_\infty,
+  \end{equation*}
+  then,
+  \begin{equation*}
+    \sqrt[n]{c}\norm{l^n}_\infty\leq \norm{l^n|L}\leq \sqrt[n]{C}\norm{l^n}_\infty.
+  \end{equation*}
+  By the sandwich theorem, the independence follows. For the well-definedness, by the property of norms, recall we have,
+  \begin{equation*}
+    \norm{ab}_\infty\leq\norm{a}_\infty\norm{b}_\infty.
+  \end{equation*}
+  Thus set $a_n = \log\norm{l^n}_\infty$. Then this is subadditive and ${\frac {a_n} n}$ converges as $n\to\infty$. It remains to show that for any $k\in K, l\in L$, $\ab{kl}_L = \ab{k}_K\ab{l}_L$.
+\end{solution}
+\begin{problem}
+  Show that for any $a,b\in L$, $\ab{ab}_L\leq\ab{a}_L\ab{b}_L$ holds.
+\end{problem}
+\begin{solution}
+  Follows immediately from the property of limit.
+\end{solution}
+\begin{problem}
+  Show that for such $\ab{\cdot}_L$, we have for any $k\in K\subseteq L$,
+  \begin{equation*}
+    \ab{k}_L=\ab{k}_K.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  \begin{equation*}
+    \ab{k}_L = \lim_{n\to\infty}\sqrt[n]{\norm{k^n}_\infty} = \lim_{n\to\infty}\sqrt[n]{\ab{k}^n_K} = \ab{k}_K.
+  \end{equation*}
+\end{solution}
+\begin{problem}
+  
+\end{problem}
+\begin{problem}
+  
+\end{problem}
+\begin{definition}
+  Let $X$ be a spectral space and $x\in X$. We set,
+  \begin{equation*}
+    S_x = \{y\in X\sep y\rightsquigarrow x\}.
+  \end{equation*}
+\end{definition}
+\begin{problem}
+  Show that for $x,y\in X$ for a spectral space $X$, we have,
+  \begin{equation*}
+    S_x\cap S_y = \bigcap_{\substack{\Omega\in\QC(X)\\x\in\Omega}}\bigcap_{\substack{\Theta\in\QC(X)\\y\in\Theta}}\Omega\cap \Theta.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  Since $X$ is spectral $\QC(X)$ is a topology base of $X$. Therefore, for $z\in X$, 
+  \begin{equation*}
+    z\rightsquigarrow x\iff [\forall \Omega\in\QC(X), z\in \Omega\Rightarrow x].
+  \end{equation*}
+  Therefore, we obtain,
+  \begin{equation*}
+    S_x = \bigcap_{x\in\Omega}\Omega.
+  \end{equation*}
+\end{solution}
+\begin{corollary}
+    \label{corollary_6}
+    For a spectral space $X$, the following statements are equivalent.
+    \begin{enumerate}
+        \item $X$ is $T_0$.
+        \item $X=X_{\con}$ as topological space.
+        \item Every quasi-compact subset of $X$ is closed.
+        \item $X$ is Hausdorff.
+        \item $X$ is $T_4$.
+    \end{enumerate}
+\end{corollary}
+\begin{problem}
+  Show that for a spectral space $X$, $x,y\in X$ admit disjoint neighborhoods if and only if $S_x\cap S_y =\emptyset$.
+\end{problem}
+\begin{solution}
+  $\Rightarrow$ is immediate from the previous problem. For the other direction, observe that $X_{\con}$ is compact and
+  \begin{equation*}
+    X = \bigcup_{\substack{x\in\Omega\\ y\in\Theta}}(X\backslash (\Omega\cap\Theta)).
+  \end{equation*}
+  By Corollary \ref{corollary_6}, $X_{\con}$ is Hausdorff, in particular, it is compact. Therefore, we obtain,
+  \begin{equation*}
+    X = \bigcap_{i=1}^n (X\backslash(\Omega_i\cap \Theta_i)).
+  \end{equation*}
+  As $\QC(X)$ is closed under finite intersection, we have shown the statement.
+\end{solution}
+\begin{problem}
+  Let $v:A\to\Gamma\cup\{0\}$ be a valuation and $H$ be a convex subgroup of $\Gamma$ containing all $v(a)\geq 1$ for $a\in A$. Show that 
+  \begin{equation*}
+    w(a) = \begin{cases}
+      v(a),\quad(w(a)\in H),\\
+      0,\quad(\otherwise)
+    \end{cases}
+  \end{equation*}
+  is a valuation of $A$.
+\end{problem}
+\begin{solution}
+  Clearly $w(1) = 1,w(0) = 0$. Let $a,b\in A$ then there are four cases that $v(a),v(b)$ belong to $H$ or not. If at least one of them belong to $H$, then we have the desired form by the cancellation law. Suppose neither belong to $\Gamma$. If $v(ab)\in H$, then there is $c\in A$ such that $v(c^{-1})\leq v(ab)\leq v(c)$. 
+\end{solution}
+\section{Tate Algebra}
+\begin{proposition}
+  \label{max_ideal_tate_algebra}
+  Let $L/K$ be a finite extension of fields and $\T_m$ be the Tate algebra in $m$ variables $x_1,\cdots,x_m$. For any $\m\subseteq \T_m$ a maximal ideal there is $(x_1,\cdots,x_m)\in (L^\circ)^m$ such that 
+  \begin{equation*}
+    \m = \m_x\defeq \{f(x_1,\cdots,x_m)\sep f\in\T_m\}.
+  \end{equation*}
+\end{proposition}
+\begin{problem}
+  Recall that there is a unique absolute value on $L$ extended from $K$. Show that for any $f\in\T_m$,
+  \begin{equation*}
+    \forall x\in(L^\circ)^m, \ab{f(x)}\leq\norm{f|\T_m}.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  Follows immediately from the fact that $\ab{x_i}\leq 1$.
+\end{solution}
+\begin{problem}
+  Let $f\in\T_m$. Show that the following are equivalent.
+  \begin{enumerate}[(i).]
+    \item For any finite extension $L/K$ and $x\in (L^\circ)^m$, $f(x)\not=0$.
+    \item $f\in\T_m^\times$
+    \item For any finite extension $L/K$ and $x\in (L^\circ)^m$, $f(x)\not=0$ and $\ab{f(x)}=\norm{f|\T_m}$.
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  (i)$\Rightarrow$(ii). Suppose $f\not\in\T_m^\times$, then there is a maximal ideal $\m$ containing $f$. By Proposition \ref{max_ideal_tate_algebra}, there is a finite extension $L/K$ and $x\in (L^\circ)^m$ such that $f(x) = 0$. 
+  \par (ii)$\Rightarrow$(iii). The first part is obvious. Remains to show the latter. Let $g=f^{-1}\in\T_m^\times$. Then 
+  \begin{equation*}
+    \norm{f|\T_m}^{-1}\leq \ab{g(x)}\leq \norm{g|\T_m} = \norm{f|\T_m}^{-1}.
+  \end{equation*}
+  (iii)$\Rightarrow$(i) is trivial.
+\end{solution}
+\begin{problem}
+  Let $K$ be algebraically closed, $x\in K^\circ$ and $f\in\T_1$. Suppose there is $R\in(0,1]$ such that $f$ takes no zeros on,
+  \begin{equation*}
+    B=K_{\leq R}(x) = \{y\in K\sep \ab{x-y}<R\}.
+  \end{equation*}
+  Show that $y\mapsto \ab{f(y)}$ is constant on $B$.
+\end{problem}
+\begin{solution}
+  By setting $f(x)\mapsto f\left({\frac x R}\right)$, we may assume that $R=1$. Also by shifting, we also assume that $x=0$. Then by the previous problem $\ab{f(y)} = \norm{f|\T_1}$.
+\end{solution}
+\begin{problem}
+  Let $L/K$ be an algebraic extension which is perfect. Then the completion $\mathbb{L}$ of $L$ with respect to the absolute value $\ab{\cdot}_L$ is perfect.
+\end{problem}
+\begin{solution}
+  Suppose $K$ is of characteristic $p$. Let $x\in\mathbb{L}$. Then there is a sequence $(x_i)_{i\in\N}$ in $L$ converging to $x$. Since $L$ is perfect, there is $(y_i)_{i\in\N}$ such that $y_i^p=x_i$. Then 
+  \begin{equation*}
+    x_i-x_j = y^p_i-y^p_j = (y_i-y_j)^p.
+  \end{equation*}
+  Therefore 
+  \begin{equation*}
+    \vert y_i-y_j\vert = \vert x_i-x_j\vert^{{\frac 1 p}}.
+  \end{equation*}
+  Thus $(x_i)$ is Cauchy then so is $(y_i)$. Thus this has a limit $y$ in $\mathbb{L}$ satisfying $y^p=x$.
+\end{solution}
+
+
+\begin{remark}
+  By the uniqueness of the induced absolute value $\ab{\cdot}$ on $L$ from $\ab{\cdot}_K$ in $K$, if $\sigma:L\to L$ is an automorphism, we have $\ab{\cdot} = \ab{\sigma(\cdot)}$.
+\end{remark}
+\begin{problem}
+  Let $L/K$ be Galois and $\alpha,\beta\in L$. Suppose for any $\tilde{\alpha}$ which is a conjugate of $\alpha$ not equal to it, 
+  \begin{equation*}
+    \ab{\beta-\alpha}<\ab{\beta-\tilde{\alpha}}.
+  \end{equation*}
+  Show that $\alpha\in K(\beta)$.
+\end{problem}
+\begin{solution}
+  We first show that in this setting $\sigma\in\Gal(L/K)$ fixes $\beta$ then $\sigma$ fixes $\alpha$ too.
+  \begin{equation*}
+    \ab{\beta-\sigma(\alpha)} =\ab{\sigma(\beta)-\sigma(\alpha)} = \ab{\beta-\alpha}. 
+  \end{equation*}
+  Therefore $\sigma(\alpha) = \alpha$. By Galois theory, we have,
+  \begin{equation*}
+    K(\beta) = L^{\Gal(L/K(\beta))}.
+  \end{equation*}
+  Therefore $\alpha\in K(\beta)$.
+\end{solution}
+\begin{problem}
+  Let $(\alpha_i)_{1\leq i\leq d}\in K^d$ and define $(p_i)_{0\leq i\leq d}$ to be such that
+  \begin{equation*}
+    f(T) = \prod_{i=1}^d (T-\alpha_i) = \sum_{i=0}^d p_i T^i.
+  \end{equation*}
+  Show that 
+  \begin{equation*}
+    \max\{\ab{\alpha_i}\}_{i=1,\cdots,d} =\max\{\sqrt[d-i]{\ab{p_i}_K}\sep i=0,\cdots,d-1\}.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  Let $R = \max\{\ab{\alpha_i}\}_{i=1,\cdots,d}$. Since we have,
+  \begin{equation*}
+    p_i = (-1)^{d-i}\left(\sum_{\vert I\vert = d-i}\prod_{i\in I}\alpha^i\right).
+  \end{equation*}
+  Therefore by the ultrametricity, we have,
+  \begin{equation*}
+    \max\{\sqrt[d-i]{\ab{p_i}_K}\sep i=0,\cdots,d-1\}\leq R.
+  \end{equation*}
+  On the other hand, suppose that the strict inequality holds in the above. Then there is $k$ such that 
+  \begin{equation*}
+    \max\{\sqrt[d-i]{\ab{p_i}_K}\sep i=0,\cdots,d-1\}< \ab{\alpha_k}_K.
+  \end{equation*}
+  Let $S = \max\{\sqrt[d-i]{\ab{p_i}_K}\sep i=0,\cdots,d-1\}$, then,
+  \begin{equation*}
+    \ab{f(\alpha_k)}_K = \left\vert \alpha_k^d+\sum_{i=0}^{d-1} S^{d-i}\alpha_K^i\right\vert = \ab{\alpha_k}^d\not=0.
+  \end{equation*}
+Thus a contradiction.
+\end{solution}
+\section{Grothendieck Topology}
+\begin{problem}
+  Let $R\subseteq K$ be a valuation ring. Then show that for $x,y\in K$, either $x\in yR$ or $y\in xR$.
+\end{problem}
+\begin{solution}
+  Suppose $x\not\in yR$, then ${\frac x y}\not\in R$, thus ${\frac y x}\in R$ thus $y\in xR$.
+\end{solution}
+\begin{notation}
+Let 
+\begin{equation*}
+  \m_R = \{0\}\cup\{x\in K^\times\sep x^{-1}\not\in R\}.
+\end{equation*}
+\end{notation}
+\begin{problem}
+  Show that $(R,\m_R)$ is a local ring.
+\end{problem}
+\begin{solution}
+  Suppose $x,y\in\m_R$, then $x^{-1}(x+y)\in\m_R$ $R\backslash R^\times = \m_R$ is clear by definition.
+
+\end{solution}
+\begin{problem}
+  A ring is local if and only if $R\backslash R^\times$ is an ideal.
+\end{problem}
+\begin{solution}
+  
+\end{solution}
+\begin{problem}
+  Let $R\subseteq K$ be a valuation ring then $R$ is integrally closed.
+\end{problem}
+\begin{solution}
+  Suppose $x\in K$ is integral over $R$, then,
+  \begin{equation*}
+    x^n+a_{n-1}x^{n-1}+\cdots+a_0=0
+  \end{equation*}
+  for some $a_{n-1},\cdots,a_0\in R$. If $x\not\in R$, then $x^{-1}\in R$. Therefore,
+  \begin{equation*}
+    x = -(a_{n-1}+a_{n-2}x^{-1}+\cdots+a_0x^{n-1})\in R.
+  \end{equation*}
+  This is a contradiction.
+\end{solution}
+\begin{problem}
+  Ideals of a valuation ring $R$ are linearly ordered by inclusion.
+\end{problem}
+\begin{solution}
+  Let $I,J\subseteq R$ be ideals such that $I\subsetneq J$. Let $x\in I\backslash J$. Then for any $y\in J$, either $x\in yR$ or $y\in xR$. But $x\not\in J$ means $y\in xR$. Therefore $J\subseteq I$.
+\end{solution}
+\begin{problem}
+  Every finitely generated ideal in a valuation ring is principal.
+\end{problem}
+\begin{solution}
+  Trivial from the previous problem.
+\end{solution}
+\begin{problem}
+  An ideal of a valuation ring is prime if and only if it is non-trivial and radical.
+\end{problem}
+\begin{solution}
+  One direction is clear. Suppose $\p\subseteq R$ is non-trivial and radical. Suppose $xy\in\p$ and assume $y\in xR$ or equivalently $y = rx,r\in R$. Then $r\cdot xy\in\p$ thus $y^2\in\p$ and using that it is radical $y\in\p$.
+\end{solution}
+
+\begin{proposition}
+  Let $A$ be a ring and $A\stackrel{v}{\to}\Gamma\cup\{0\}$ be a valuation. Then 
+  \begin{equation*}
+    A/\p\ni a+\p\mapsto v(a)\in\Gamma\cup\{0\}
+  \end{equation*}
+  defines a valuation. Furthermore, 
+  \begin{equation*}
+    \mathrm{Frac}(A/\p)\ni {\frac a b}\mapsto {\frac {v(a)} {v(b)}}\in\Gamma\cup\{0\}
+  \end{equation*}
+  also defines a valution.
+\end{proposition}
+
+\begin{definition}
+  Let $A$ be a ring we denote,
+  \begin{equation*}
+    V_A = \{(\p,R)\sep \p\in\Spec(A),\text{ $R$ is a valuation ring of $\mathrm{Quot}(A/\p)$}\}.
+  \end{equation*}
+\end{definition}
+
+\begin{definition}
+  Let $v:K\to \Gamma\cup\{0\}$ be a valuation, we define,
+  \begin{equation*}
+    R_v\defeq\{x\in K\sep v(x)\leq 1\}.
+  \end{equation*}
+\end{definition}
+
+\begin{proposition}
+  We have a following correspondence.
+  \begin{center}
+\begin{tikzcd}
+\mathrm{Spv}(A) \arrow[rr, "{(v/\sim)\mapsto (\mathrm{supp}(v),R_v)}", shift left=2] &  & V_A \arrow[ll, "{(v:A\to (\mathrm{Frac}(A/\mathfrak{p})^\times/R^\times)\cup\{0\}/\sim)\mapsfrom (\mathfrak{p},R)}", shift left=2]
+\end{tikzcd}
+  \end{center}
+\end{proposition}
+
+\begin{definition}
+  \begin{equation*}
+    v_{\p,R}:A\mapsto (\mathrm{Frac}(A/\p)^\times/R^\times)\cup\{0\}.
+  \end{equation*}
+\end{definition}
+
+\begin{corollary}
+  In the correspondence above, we have,
+  \begin{align*}
+    \cR(f_0|f_1,\cdots,f_m)& \mapsto \widetilde{\cR}(f_0|f_1,\cdots,f_m),\\
+    &\defeq\{(\p,R)\sep f_0\not\in\p, \forall i=1,\cdots,m, f_i\tmod\p\in (f_0\tmod\p)_{A/\p}\}.
+  \end{align*}
+\end{corollary}
+
+\begin{problem}
+  Let $\U$ be an ultrafilter on $\Spv(A)$. Put,
+  \begin{equation*}
+    \p_\U\defeq\{a\in A\sep \{(\p,R)\in V_A\sep a\in\p\}\in\U\}.
+  \end{equation*}
+  Recall from the lecture note that this is a generic limit of the ultrafilter $\U$ under the direct image given by,
+  \begin{equation*}
+    V_A\ni (\p,R)\mapsto \p\in\Spec(A).
+  \end{equation*}
+  Now put,
+  \begin{equation*}
+    R_\U \defeq \{x\in A_{\p_\U}\sep \{(\p,R)\sep v_{\p,R}(x)\leq 1\}\in\U\}.
+  \end{equation*}
+  Show that $(\p_\U,R_\U)$ is a generic limit of $\U$ in $V_A$. Further show that $\widetilde{\cR}(f_0|f_1,\cdots,f_m)$ is closed under generic limits.
+\end{problem}
+\begin{solution}
+  Let $\Omega = \widetilde{\cR}(f_0|f_1,\cdots,f_m)$. In order to apply Lemma 1.3.2, we will prove that 
+  \begin{equation*}
+    g \defeq (\p_\U,R_{\U})\in \Omega\iff\Omega\in\U.
+  \end{equation*}
+  For $\Rightarrow$, let us first examine what $g\in\Omega$ means. Unpacking the definition and under the correspondence, we get
+  \begin{equation*}
+   v\left({\frac {f_i} {f_0}}\right)\leq 1\Rightarrow {\frac {f_i} {f_0}}\in\R_v,
+  \end{equation*}
+  thus 
+  \begin{equation*}
+    g\in\Omega\iff f_0\in\p_\U, \forall i=1,\cdots,m, {\frac {f_i} {f_0}}\in R_\U.
+  \end{equation*}
+  Thus we have $D(f_0)\in\U$, and by the construction,
+  \begin{equation*}
+    E_i \defeq \{(\p,R)\sep v_{\p,R}(f_i)\leq v_{\p,R}(f_0)\}\in\U, (i=1,\cdots,m).
+  \end{equation*}
+  Since $\U$ is closed under intersection, we obtain 
+  \begin{equation*}
+    \widetilde{\cR}(f_0|f_1,\cdots,f_m)=D(f_0)\cap E_1\cap\cdots\cap E_m\in\U.
+  \end{equation*}
+  $\Leftarrow$, inheritting the above notions, we see that 
+  \begin{equation*}
+    \Omega\subseteq D(f_0),E_1,\cdots,E_m.
+  \end{equation*}
+  Therefore $D(f_0),E_1,\cdots,E_m\in\U$.  %later.
+\end{solution}
+
+\begin{definition}
+  Let $(X,\Ouv_X)$ be a topological space and $U\in\Ouv_X$. A $U$-sieve is a subset $\sS\subseteq\Ouv_U$ such that 
+  \begin{equation*}
+    V\in\sS\Rightarrow \Ouv_V\subseteq\sS.
+  \end{equation*}
+  We set $\sS|_V \defeq \sS\cap\Ouv_V$.
+\end{definition}
+\begin{definition}
+  A collection of sieves $\mathcal{T}$ is a Grothendieck topology on $X$ if 
+\begin{enumerate}[]
+  \item GT-Triv : $\forall U\in\Ouv_X,\Ouv_U\in\mathcal{T}$
+  \item GT-Trans : $\forall U\in\Ouv_X$ and $V\in\Ouv_U, \sS\in\mathcal{T}_U\rightarrow \sS|_V\in\mathcal{T}_V$
+  \item GT-Loc : Let $\sS\in\mathcal{T}_U$ and $\mathscr{T}$ be a $U$-sieve such that for all $V\in\sS$, $\mathscr{T}|_V\in\mathcal{T}_V$. Then $\mathscr{T}\in\mathcal{T}_U$.
+\end{enumerate}
+\end{definition}
+
+\begin{problem}
+Let $\cB$ be a topology base for $X$ such that for any $\Omega,\Theta\in\cB$, $\Omega\cap\Theta$ is a finite union of elements from $\cB$. Set,
+\begin{equation*}
+  \cB_U = \cB\cap\Ouv_U.
+\end{equation*}
+Let $\mathcal{T}$ be a collection of sieves such that for $U\in\Ouv_X$, $\sS\in\mathcal{T}_U$ is a $U$-sieve such that 
+\begin{equation*}
+  \forall \Omega\in\cB_U,\exists \Theta_1,\cdots,\Theta_n\in\sS\cap\cB_U, \Omega=\bigcup_{i=1}^n\Theta_i.
+\end{equation*}
+Show that $\cT$ is a Grothendieck topology. Furthermore, show that 
+\begin{equation*}
+  \forall U\in\Ouv_X, \sS\in\cT_U, U = \bigcup_{V\in\sS}V.
+\end{equation*}
+It seems that finite union assumption is not needed.
+\end{problem}
+\begin{solution}
+  GT-Triv is obvious. For GT-Trans, note that 
+  \begin{equation*}
+    \Omega\subseteq V\subseteq U\Rightarrow \sS|_V\cap \cB_\Omega = \sS\cap \cB_\Omega.
+  \end{equation*}
+  Thus it remains to show that it satisfies GT-Loc. Let $\sS,\sT$ be $U$-sieves such that $\sS\in\cT_U$. Suppose for any $V\in\sS$, we have $\sT|_V\in\cT_V$. 
+  Then for $\Omega\in \cB_U$, there are $\Omega_1,\cdots,\Omega_n\in\sS\cap\cB_\Omega$ such that 
+  \begin{equation*}
+    \Omega = \bigcup_{i=1}^n \Omega_i.
+  \end{equation*}
+  For each $\Omega_i$, there are $\Theta^i_1,\cdots,\Theta^i_{k_i}\in\sS\cap\cB_{\Omega_i}$ such that 
+  \begin{equation*}
+    \Omega_i = \bigcup_{j=1}^{k_i} \Theta^i_j.
+  \end{equation*}
+  Taking union of these, we conclude $\sT\in\cT_U$.
+  \par It is clear that by construction,
+  \begin{equation*}
+    U\supseteq\bigcup_{V\in\sS}V
+  \end{equation*}
+  for $U$-sieve $\sS$. Let $x\in U$ then there is $x\in\Omega\in\cB_U$. By the assumption,
+  \begin{equation*}
+    \Omega = \bigcup\Theta_i
+  \end{equation*}
+  for some $\Theta_1,\cdots,\Theta_n\in \sS\cap\cB_\Omega$.
+\end{solution}
+
+\begin{proposition}
+  \label{proposition_primitive_element}
+  Let $L/K$ be a finite separable extension of fields. Then there is $\alpha\in L$ such that $L = K(\alpha)$.
+\end{proposition}
+
+\begin{problem}
+  Let $K$ be a field equipped with an ultrametric absolute value $\ab{\cdot}_K$. Let $\mathbb{K}$ be a completion of $K$ with respect to $d(x,y) = \ab{x-y}_K$.
+  Show that any finite Galois extension $\mathbb{L}/\mathbb{K}$, there is a dense subfield $L$ such that $L/K$ is finite Galois.
+\end{problem}
+\begin{solution}
+  By Proposition \ref{proposition_primitive_element}, there is $\alpha\in\mathbb{L}$ such that $\mathbb{L} = \mathbb{K}(\alpha)$ Let $f(T)\in \mathbb{K}[T]$ be the minimal polynomial of $\alpha$. Let $\alpha=\alpha_1,\cdots,\alpha_n$ be the roots of $f$. Set,
+  \begin{equation*}
+    \varepsilon = \min_{i<j}\ab{\alpha_i-\alpha_j}_K.
+  \end{equation*}
+  Then by the density of $K[T]$ in $\mathbb{K}[T]$, there is $g$ sufficiently close to $f$ of degree $n$ so that its roots $\beta_1,\cdots,\beta_n$ we have,
+  \begin{equation*}
+    \vert\beta_i-\alpha_i\vert_K<\varepsilon.
+  \end{equation*}
+  For $\beta\defeq\beta_1$, we may apply Problem 4.5 that $\alpha\in \mathbb{K}(\beta)$. Consider 
+  \begin{equation*}
+    L = K(\beta_1,\cdots,\beta_n).
+  \end{equation*}
+  This is Galois and furthermore, if we denote $\widehat{L}$ to be its completion, we get,
+  \begin{equation*}
+    \mathbb{L}\subseteq\mathbb{K}(\beta)\subseteq \hat{L}.
+  \end{equation*}
+  Therefore $L$ is dense.
+\end{solution}
+\begin{problem}
+  Let $X$ be a topological space and $A=C^0(X,K)$ be a ring of continuous functions. Then the map,
+  \begin{equation*}
+    \Phi \defeq = [X\ni x\mapsto v_x(f) = [A\ni f\mapsto \ab{f(x)}_K]\in \Spv(A)]
+  \end{equation*}
+  is continuous.
+\end{problem}
+\begin{solution}
+  Let $\Omega = \cR(f_0|f_1,\cdots,f_m)\subseteq\Spv(A)$ be a rational open
+  \begin{equation*}
+    D(f_0) = X\backslash f^{-1}(\{0\}).
+  \end{equation*}
+   Then we have,
+  \begin{equation*}
+    \Phi^{-1}(\Omega) = D(f_0)\bigcap_{i=1}^m \{x\in D(f_0)\sep \ab{f_i(x)}_K\leq \ab{f_0(x)}_K\}.
+  \end{equation*}
+  Since $K^\circ$ is open in $K$, we have 
+  \begin{equation*}
+    \left\vert{\frac {f_i} {f_0}}\right\vert_K^{-1}(K^\circ) = \{x\in D(f_0)\sep \ab{f_i(x)}_K\leq \ab{f_0(x)}_K\}
+  \end{equation*}
+  is open. Therefore $\Phi$ is continuous.
+\end{solution}
+\begin{definition}
+  \begin{equation*}
+    \Sp(A) \defeq\{\m\in\Spec(A)\sep \text{$\m$ is maximal}\}.
+  \end{equation*}
+\end{definition}
+\begin{proposition}
+  For $\m\in\Sp(\T_n)$, there is a unique extension of $\ab{\cdot}_K$ to $\mathfrak{k}(\m)$ denoted by $\ab{\cdot}_\m$.
+\end{proposition}
+\begin{definition}
+  For $f\in \T_n$, denote $f(\m) = f\tmod\m$. Note that 
+  \begin{equation*}
+    K\hookrightarrow \T_n\to \T_n/\m.
+  \end{equation*}
+  Thus it is indeed a field extension. Consider,
+  \begin{equation*}
+    \Sp(\T_n)\ni \m\mapsto ([\T_n\ni f\mapsto \ab{f(\m)}_\m]/\sim)\in\Spv(\T_n).
+  \end{equation*}
+  We will equip $\Sp(\T_n)$ with the coarsest topology making the above map continuous. That is the topology generated by the basis elements,
+  \begin{equation*}
+    \cR_{\Sp(\T_n)}(f_0|f_1,\cdots,f_m) \defeq\{\m\in\Sp(\T_n)\sep f_0(\m)\not=0,\forall i=1,\cdots,m, \ab{f_i(\m)}_\m\leq\ab{f_0(\m)}_\m\}
+  \end{equation*}
+  The basis consists of these open sets is denoted by $\Rat_{\Sp(\T_n)}$.
+\end{definition}
+
+\begin{proposition}
+  $\mathfrak{k}(\m)= \mathrm{Frac}(\T_n/\m)=\T_n/\m$ is a finite field extension of $K$. 
+\end{proposition}
+\begin{proof}
+  We now that $\m$ is given by $\image\ev_\alpha$ for some $\alpha\in (L^\circ)^m$ where $L/K$ is a finite field extension. Thus,
+  \begin{equation*}
+    \T_n/\m = K\llbracket \alpha_1,\cdots,\alpha\rrbracket.
+  \end{equation*}
+  But $\alpha_1,\cdots,\alpha_n$ are of finite order as $L/K$ is finite. We conclude,
+  \begin{equation*}
+    \T_n/\m = K[\alpha_1,\cdots,\alpha_n]
+  \end{equation*}
+  which is a finite extension of $K$.
+\end{proof}
+\begin{problem}
+  Show that indeed $\Rat_{\Sp(\T_n)}$ is the topology base for $\Sp(\T_n)$ making the map continuous.
+\end{problem}
+\begin{solution}
+  Consider $\cR(f_0|f_1,\cdots,f_m)\subseteq \Spv(\T_n)$. Then the preimage is clearly,
+  \begin{equation*}
+    \cR_{\Sp(\T_n)}(f_0|f_1,\cdots,f_m).
+  \end{equation*}
+  Therefore, these sets muset be open in $\Sp(\T_n)$. Remains to show that taking a subset of ones that $(f_0,\cdots,f_m)=\T_n$ gives a topology basis.
+  \par To do so consider,
+  \begin{equation*}
+    U = \cR_{\Sp(\T_n)}(f_0|f_1,\cdots,f_m).
+  \end{equation*}
+  For $x\in U$, we have $f_0(x)\not=0$, therefore using $\ab{\cdot}_K$ is discrete, we find $a\in K$ such that 
+  \begin{equation*}
+    \ab{a}_K<\ab{f_0(a)}_K.
+  \end{equation*}
+  We can take $a$ to be a unit, then the ideal will be the whole and 
+  \begin{equation*}
+    x\in\cR_{\Sp(\T_n)}(f_0|f_1,\cdots,f_m,a)\subseteq \cR_{\Sp(\T_n)}(f_0|f_1,\cdots,f_m).
+  \end{equation*}
+\end{solution}
+\begin{problem}
+  Show that $\Rat_{\T_n}$ is closed under finite intersection in $\Sp(\T_n)$.
+\end{problem}
+\begin{solution}
+  Clearly,
+  \begin{equation*}
+    \cR_{\Sp(\T_n)}(f_0|f_1,\cdots,f_m)\cap \cR_{\Sp(\T_n)}(g_0|g_1,\cdots,g_k)=\cR_{\Sp(\T_n)}(f_0g_0|f_ig_j)_{\substack{0\leq i\leq m\\ 0\leq j\leq k}}.
+  \end{equation*}
+  As $IJ = (f_ig_j)$ but this is independent of the choice of generators thus it is the whole.
+\end{solution}
+\begin{problem}
+  If $K$ is algebraically closed then we have a bijection,
+  \begin{equation*}
+    {K^\circ}^n\ni x\mapsto \m_x \defeq\{f\in\T_n\sep f(x)=0\}.
+  \end{equation*}
+  Show that we have a homeomorphism between ${K^\circ}^n$ with topology given by the metric induced by the norm
+  \begin{equation*}
+    \norm{(x_i)_{i=1,\cdots,n}|K^n} = \max_{i=1,\cdots,n}\ab{x_i}_K,
+  \end{equation*}
+  and $\Sp(\T_n)$ where the topology is given in the previous problem.
+\end{problem}
+\begin{solution}
+  We first check that the bijection is continuous. Let us denote the bijection by $\phi$, take
+  \begin{equation*}
+    x\in \phi^{-1}(\cR_{\Sp(\T_n)}(f_0|f_1,\cdots,f_m)).
+  \end{equation*}
+  Then the condition $\ab{f_0(x)}\not=0$ and $\ab{f_i(x)}\leq \ab{f_0(x)}$ is preserved under pertubations (small changes) in $x$ since $f_0,\cdots,f_m$ are all continuous. Thus $\phi$ is continuous.
+  \par Let $B=B(x,\varepsilon)$ where $\varepsilon = \ab{a}_K$ for some $a\in K^\times$. Then 
+  \begin{equation*}
+    \Omega = \cR_{\Sp(\T_n)}(f_0|f_1,\cdots,f_n)
+  \end{equation*}
+  where $f_0 = 1$ and
+  \begin{equation*}
+    f_i = {\frac {T_i-x_i} a}.
+  \end{equation*}
+  Then clearly $\phi(B)=\Omega$. Thus $\phi$ is open.
+\end{solution}
+\section{$G_+$-space}
+\begin{definition}
+  Let $\{U_i\}_{i\in I}$ be a collection of open basis subsets of a space $X$, we define,
+  \begin{equation*}
+    [\{U_i\}_{i\in I}]\defeq \{V\in\Ouv_X\sep \exists i\in I, V\subseteq U_i\}.
+  \end{equation*}
+\end{definition}
+\begin{definition}
+  A $T_0$-space $X$ with a Grothendieck topology $\cT$ is $G_+$ if every admissible sieve is a covering. A $G_+$-base is a topology base $\cB$ such that $[\cB_U]\vdash U$ for any $U\in\Ouv_X$.
+\end{definition}
+\begin{problem}
+  Let $X$ be a $T_0$-space and $\cB$ be a topology base for $X$ such that $\Omega,\Theta\in\cB$, $\Omega\cap\Theta$ is a finite union of elements from $\cB$. Let $\mathcal{T}$ be such that for each $U\in\Ouv_X$,
+  \begin{equation*}
+    \cT_U\defeq\left\{\sS\text{ $U$-sieve}\bigg{|} \forall \Omega\in\cB_U\exists \Theta_1,\cdots,\Theta_n\in\cB_\Omega\cap\sS, \Omega = \bigcup_{i=1}^n \Theta_i\right\}.
+  \end{equation*}
+  Show that with this Grothendieck topology, $X$ becomes $G_+$-space, elements of $\cB$ are quasi-compact, and it is a $G_+$-base.
+\end{problem}
+\begin{problem}
+  Let $X$ be a $T_0$ space and $\cB$ be a topology base from Problem 9 from the previous sheet. Show that the Grothendieck topology in that problem, $X$ is $G_+$-space and $\cB$ is a $G_+$-base consisting of $G_+$-quasi-compact sets.
+\end{problem}
+\begin{solution}
+  From previous problem, $X$ being $G_+$-space is immediate under the assumption that $X$ is $T_0$.
+  \par To show that $\cB$ is a $G_+$ base, we must verify that $[\cB_U]\vDash U$. Let $\Omega\in\cB_U$, then as $\Omega\in\cB_\Omega$ and $\Omega\subseteq U$, $\Omega\in\cB_\Omega\cap[\cB_U]$, thus $\Theta_1= \Omega$ can be taken.
+  \par Recall that for $\sS\in\cT_\Omega$, we have finitely many $\Theta_1,\cdots,\Theta_n\in\sS\cap\cB_\Omega$ such that 
+  \begin{equation*}
+    \Omega = \bigcup_{i=1}^n\Theta_i.
+  \end{equation*}
+  Therefore, $[\Theta_1,\cdots,\Theta_n]\vDash \Omega$. Indeed, for any $\Xi\in\cB_\Omega$, we have 
+  \begin{equation*}
+    \Xi\cap\Theta_i = \bigcup\Xi_j^i.
+  \end{equation*}
+\end{solution}
+\begin{problem}
+  Let $X$ be a $G_+$-space and $\cB$ be a $G_+$-base containing $X$. Recall that a van der Put point is a subset $\xi\subseteq\cB$ such that 
+  \begin{enumerate}[(V1)]
+    \item $X\in\xi$,
+    \item $\Omega,\Theta\in\xi\Rightarrow\Omega\cap\Theta\in\xi$,
+    \item $\Omega\subseteq\Theta$ and $\Omega\in\xi$ then $\Theta\in \xi$,
+    \item for any covering sieve $\sS\subseteq\Ouv_\Omega$, $\sS\cap\xi\not=\emptyset$.
+  \end{enumerate}
+  The set of these subsets is denoted by $X^*_{\cB}$ and in particular, we write $X^*_{\Ouv_X}=X^*$.
+  \par Show that we have a bijection,
+  \begin{equation*}
+    X^*\ni\xi\mapsto \xi\cap\cB\in X^*_\cB.
+  \end{equation*}
+  The inverse is given by 
+  \begin{equation*}
+    \xi_\cB\mapsto \{U\in\Ouv_X\sep \exists\Omega\in\xi_\cB,\Omega\subseteq U\}.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  The map $X^*\to X^*_\cB$ is well-defined. Since, $X\in\xi\cap\cB$ and $\cB\subseteq\Ouv_X$. Thus first three conditions are immediate.
+  For the fourth, note that for each $\Omega\in\cB$, and $\Omega$-sieve, $\sS$ we have $ U\in\sS\cap\xi\not=\emptyset$. Using $G_+$-base property, we have $V\in[\cB_U]\cap \xi\not=\emptyset$. Thus for some $\Theta\in\cB_U$, we have 
+  \begin{equation*}
+    V\subseteq\Theta\subseteq U.
+  \end{equation*}
+  As $V\in\xi, \Theta\in\xi$. And as $\sS$ is a sieve and $U\in\sS, \Theta\in\sS$. We conclude $\Theta\in\sS\cap\xi_\cB$.
+  \par For the other direction, let $\xi_\cB\in X^*_\cB$ and $\xi$ be the image. We have, $X\in\xi$ and for $\Omega\subseteq U,\Theta\subseteq V\in\xi$, we have $\Omega\cap\Theta\subseteq U\cap V\in\xi$. If $\Omega\subseteq V\subseteq U$ then $\Omega\subseteq U\in\xi$. The fourth is clear as $\xi_\cB\subseteq\xi$.
+  \par To prove these are mutual inverses, $X^*_\cB\to X^*\to X^*_\cB$ is clear. For the other direction, use the property of topology basis.
+\end{solution}
+\begin{problem}
+  In the setting of Problem 6.1, the condition (V4) can be rephrased as,
+  \begin{equation*}
+    \forall \Omega\in\xi_\cB, [\exists \Theta_1,\cdots,\Theta_n\in\cB\st \Omega = \bigcup_{i=1}^n\Theta_i\Rightarrow \exists i=1,\cdots,n,\Theta_i\in\xi_\cB]
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  If $\Omega = \bigcup_{i=1}^n\Theta_i$, then $\mathcal{S}:=[\Theta_1,\cdots,\Theta_n]\vDash \Omega$, therefore $\mathcal{S}\cap\xi_{\mathcal{B}}\not=\emptyset$. Thus $\Theta_i\in\xi_\mathcal{B}$ for some $i$.
+  \par For the other direction, note that $\cB$ consits of $G_+$-quasi-compact elements under the Grothendieck topology forcing quasi-compactness. Therefore, for $\sS$ an $\Omega$-sieve, we obtain a subsieve,
+  \begin{equation*}
+    [\Theta_1,\cdots,\Theta_n]\vDash \Omega.
+  \end{equation*}
+  Therefore $\Theta_i\in\xi_\cB$ and $\Theta_i\in\sS$.
+\end{solution}
+\begin{problem}
+  For $R\in (0,1]_\R$, show that 
+  \begin{equation*}
+    \T_1\ni f=\sum_{i=0}^\infty f_iT^i \stackrel{N_R}{\mapsto}\max_{i\in\Z_{\geq0}}\{R^i\ab{f_i}_K\}
+  \end{equation*}
+  defines a multiplicative norm.
+\end{problem}
+\begin{solution}
+  We have,
+  \begin{equation*}
+    fg = \sum_{i=0}^\infty \left(\sum_{j=0}^i f_jg_{i-j} \right)T^i.
+  \end{equation*}
+  Therefore,
+  \begin{equation*}
+    R^{i}\left\vert\sum_{j=0}^i f_jg_{i-j}\right\vert = R^i\ab{f_{j_0}g_{i-j_0}}\leq R^{j_0}\ab{f_{j_0}}R^{i-j_0}\ab{g_{i-j_0}}\leq N_R(f)N_R(g).
+  \end{equation*}
+  This is attainable.
+\end{solution}
+An important observation is when $K$ is algebraically closed, we have $(0,\infty)/\ab{K^\times}$ is a torsion free group with identity $1$. Since if $R$ is a torsion, this is a solution for the equation $X^m=0$. 
+This leads to the notion that for $R\in(0,1)_\R\backslash\ab{K^\times}$, we define,
+\begin{equation*}
+  \T_1\backslash\{0\}\ni f\mapsto N_R(f) = \nu\in \ab{K^\times}R^\Z.
+\end{equation*}
+We denote the $R$-power part of $\nu$ by $j_\nu$.
+\begin{problem}
+  Let $K$ be algebraically closed and $R\in(0,1)_\R\backslash\ab{K^\times}$. Denote $\nu=N_R(f)$ and $j=j_\nu$. Show that there are $r_-\in(0,R)_\R$ and $r_+\in(R,\infty)_\R$ such that for all $z\in K$ 
+  \begin{equation*}
+    z\in[r_-,r_+]_\R\Rightarrow\ab{f(z)} = \nu\left({\frac {\ab{z}} R}\right)^j.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  We have,
+  \begin{equation*}
+    N_R(f) = \nu = R^j\ab{f_j}_K.
+  \end{equation*}
+  We can also write,
+  \begin{equation*}
+    \ab{f(z)} = \max_{i\in\Z_{\geq0}}\ab{f_i}\ab{z}^i.
+  \end{equation*}
+  So what we want is 
+  \begin{equation*}
+    \ab{f_i}\ab{z}^i <\ab{f_j}\ab{z}^j = {\frac {\nu} {R^j}}\ab{z}^j\iff \ab{f_i}\ab{z}^{i-j} <{\frac {\nu} {R^j}}.
+  \end{equation*}
+  \par For $i<j$, we take,
+  \begin{equation*}
+    \vert z\vert^{j-i}>{\frac {R^j}\nu}\ab{f_i}.
+  \end{equation*}
+  Thus take $z_- = \max_{0\leq i<j}\sqrt[j-i]{{\frac {R^j}\nu}\ab{f_i}}$. On the other hand, for $i>j$, 
+  \begin{equation*}
+    \ab{f_i}\ab{z}^{i-j} <{\frac {\nu} {R^j}}\iff \ab{z}^{i-j} <{\frac {\nu} {R^j}}{\frac 1 {\ab{f_i}}}.
+  \end{equation*}
+  Since $(f_n)_{n\in\N}$ is bounded, we can take an infimum $r_+$.
+\end{solution}
+\begin{problem}
+  Suppose $K$ is algebraically closed thus we identify $K^\circ$ with $\Sp(\T_1)$. Take $R\in(0,1)_\R\backslash\ab{K^\times}$ and a rational open 
+  \begin{equation*}
+    \Omega = \cR_{\Sp(\T_1)}(f_0|f_1,\cdots,f_m).
+  \end{equation*}
+  Show the following statements.
+  \begin{enumerate}
+    \item If for each $i=1,\cdots,m$, we have $N_R(f_i)\leq N_R(f_0)$ then there are $r_-\in (0,R),r_+\in (R,1)$ such that $D(0,r_+)\subseteq\Omega\cup D(0,r_-)$.
+    \item If there is $1\leq i\leq m$ such that $N_R(f_i)>N_R(f_0)$, then there are $r_-\in (0,R),r_+\in (R,1)$ such that $\Omega\cap D(0,r_+)=D(0,r_-)$.
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  For each $i=0,\cdots,m$, take $r^i_-,r_+^i$ as in Problem 5 and denote the power of $R$ by $j_i$. Then,
+  \begin{equation*}
+    {\frac {\ab{f_i(z)}} {\ab{f_0(z)}}}\leq {\frac {\nu_i} {\nu_0}}\left({\frac {\ab{z}} R}\right)^{j_i-j_0}\leq 1.
+  \end{equation*}
+  This holds in,
+  \begin{equation*}
+    I = \bigcap_{i=0}^n (r_-^i,r_+^i).
+  \end{equation*}
+  Thus take $(r_-,r_+)\subseteq I$ this is possible as all interval contains $R$ as an internal point. Therefore, we have,
+  \begin{equation*}
+    r_-\leq \ab{z}\leq r_+\Rightarrow z\in \Omega.
+  \end{equation*}
+  In particular $D(0,r_+)\subseteq\Omega\cup D(0,r_-)$.
+  \par Suppose there is $j$ such that $N_R(f_j)>N_R(f_0)$. Then for some $\ab{z}\in[r_-,r_+]$ we have,
+  \begin{equation*}
+    \ab{f_j(z)} = N_R(f_j)>N_R(f_0)=\ab{f_0(z)}.
+  \end{equation*}
+Thus we get,
+\begin{equation*}
+  D(0,r_+)\backslash D(0,r_-)\cap\Omega = \emptyset.
+\end{equation*}
+By taking a union with $D(0,r_-)$ both sides, we get the desired equality.
+\end{solution}
+\section{Topological Modules}
+\begin{problem}
+  Suppose $K$ is algebraically closed thus we identify $K^\circ$ with $\Sp(\T_1)$. Take $R\in(0,1)_\R\backslash\ab{K^\times}$ and a rational open 
+  Show that there is a van der Put point $\xi$ of $\Sp({\T_1})$ such that a rational open set $\Omega = \cR(f_0|f_1,\cdots,f_m)$ belongs to $\xi$ if and only if one of the first statement of the following holds.
+  \begin{enumerate}
+    \item $N_R(f_j)\leq N_R(f_0)$ for $1\leq j\leq n$ or equivalently there are $r_-\in(0,R)$ and $r_+\in (R,1)$ such that $D(0,r_+)\subseteq\Omega\cup D(0,r_-)$.
+    \item There is $j$ such that $N_R(f_j)>N_R(f_0)$ or equivalently there are $r_-\in(0,R)$ and $r_+\in (R,1)$ such that $\Omega\cap D(0,r_+)\subseteq D(0,r_-)$.
+  \end{enumerate}
+\end{problem}
+\begin{solution}
+  Let $\xi_{\Rat}\subseteq\Rat_{\T_n}$ be the subset of rational opens satisfying the first condition. Then as $X=\cR(1|)$ satisfies it we have $X\in\xi_\Rat$. 
+  For the intersection $\Omega\cap\Theta$, we can take smaller $r_+$ and bigger $r_-$ from corresponding values for $\Omega,\Theta$ to satisfy the inclusion.
+  For the upward closure, $D(0,r_+)\subseteq\Omega\cup D(0,r_-)$ and $\Omega\subseteq\Theta$ then $D(0,r_+)\subseteq\Theta\cup D(0,r_-)$.
+  For the fourth condition, recall that we equipped $\Sp(\T_n)$ with a Grothendieck topology enforcing quasi-compactness to $\Rat_{\T_n}$. Thus we need to show if 
+  \begin{equation*}
+    \Omega = \bigcup_{i=1}^n\Theta_i,
+  \end{equation*}
+  and $\Omega\in\xi_\Rat$, then there is $j$ such that $\Theta_j\in \xi_\Rat$. Suppose not, thus all $\Theta_i$ satisfy the second condition. Then $\Omega$ must also satisfy it which is a contradiction.
+  \par By the bijection of van der Put points, we obtain that there is a unique $\xi\subseteq\Ouv_{\Sp(\T_n)}$ such that $\xi_\Rat = \xi\cap\Rat_{\T_n}$.
+\end{solution}
+\begin{problem}
+  Show that for $x\in K^\circ$ and $R\in(0,1]\cap K^\times$, $B(x,R)\in\Rat_{\T_1}$.
+\end{problem}
+\begin{solution}
+  By the assumption, there is $r\in K^\times$ such that $\ab{r}_K=R$. Then,
+  \begin{equation*}
+    D(x,r) = \cR\left(1\bigg{\vert} {\frac {T_1-x_1} {r}},\cdots,{\frac {T_n-x_n} {r}}\right)
+  \end{equation*}
+\end{solution}
+\begin{problem}
+  Let $v$ be a van der Put point for $\Sp(\T_1)$. Suppose for any $\rho\in(0,1]\cap\ab{K^\times}$, we have,
+  \begin{equation*}
+    D(0,\rho)\in v\iff \rho > R.
+  \end{equation*}
+  Then we have $v=\xi$. 
+\end{problem}
+\begin{solution}
+  Suppose we have $\Omega\in\xi$, by the non-discreteness of the absolute value, we may pick $\rho_-\in (0,R),\rho_+\in (R,1)$ such that
+  \begin{equation*}
+    D(0,\rho_+)\subseteq\Omega\cup D(0,\rho_-).
+  \end{equation*}
+  Since $\rho_+>R$ and by the upward closure, $\Omega\cup D(0,\rho_-)\in v$. Using the alternative characteristic of van der Put points, we have $\Omega\in v$.
+  \par On the other hand, if $\Omega\not\in \xi$, then 
+  \begin{equation*}
+    \Omega\cap D(0,\rho_+)\subseteq D(0,\rho_-).
+  \end{equation*}
+  Since $\Rat_{\T_n}$ is closed under finite intersections and thus $\Omega\in v$ would imply $D(0,\rho_-)\in v$ which is a contradiction.
+  \par By the bijection of van der Put points between topology bases, we obtain the claim.
+\end{solution}
+\begin{definition}
+  Let $v\in\Spv(A)$ be a valuation, we define,
+  \begin{equation*}
+    K_{\leq r}(v) \defeq \{a\in A\sep v(a)\leq r\}, K_{< r}(v) \defeq \{a\in A\sep v(a)< r\}.
+  \end{equation*}
+\end{definition}
+\begin{problem}
+  Set,
+  \begin{equation*}
+    \mathfrak{B}_{\leq R}\defeq\{D(x,R)\sep x\in K^\circ\},\mathfrak{B}_{< R}\defeq\{B(x,R)\sep x\in K^\circ\}.
+  \end{equation*}
+  Furthermore, we set,
+  \begin{equation*}
+    \mathfrak{B}_{\leq}\defeq \bigcup_{R\in (0,1]_\R}\mathfrak{B}_{\leq R},\mathfrak{B}_{<}\defeq \bigcup_{R\in (0,1]_\R}\mathfrak{B}_{< R}.
+  \end{equation*}
+  With these, we denot $\mathfrak{B} = \mathfrak{B}_\leq\cup\mathfrak{B}_<$.
+  \par Show that for $B_1,B_2\in\mathfrak{B}$, either one contains the other or they are disjoint.
+\end{problem}
+\begin{solution}
+  Suppose $B_1 = D(x_1,r_1),B_2 = D(x_2,r_2)$ and $r_1\leq r_2$. Suppose $B_1\cap B_2\not=\emptyset$ and take $x\in B_1\cap B_2$. Then for any $y\in B_1$,
+  \begin{equation*}
+    \ab{y-x_2} = \ab{y-x+x-x_2} = \ab{y-x_1+x_1-x+x-x_2}\leq \max{r_1,r_2}=r_2.
+  \end{equation*}
+\end{solution}
+Let $A$ be a topological ring and $M$ be a topological $A$-module. Take $K$ to be as usual but drop the algebraically closedness.
+\begin{problem}
+  If $X\subseteq A,Y\subseteq M$ are both bounded then so is $XY$.
+\end{problem}
+\begin{solution}
+  Let $U\subseteq M$ be a neighborhood of $0$. Then there is a neighborhood $V$ of $0$ in $A$ such that $VY\subseteq U$. 
+  Since $X$ is bounded, there is another neighborhood $W$ of $0$ such that $WX\subseteq V$. Thus $W XY\subseteq U$.
+\end{solution}
+\begin{problem}
+  Let $R=K\oplus K\varepsilon$ where $\varepsilon^2=0$. Show that $X=K\varepsilon$ is topologically nilpotent but not powerbounded.
+\end{problem}
+\begin{solution}
+  
+\end{solution}
+\begin{problem}
+  Suppose $X,Y\subseteq A$ are topologically nilpotent then so is $X\cup Y$.
+\end{problem}
+\begin{solution}
+  Let $U\subseteq A$ be a neighborhood of $0$. Then we can take a neighborhood $\tilde{U}$ such that $\tilde{U}\tilde{U}\subseteq U$ by the continuity of multiplication.
+  Then there are $m,n\in\N$ such that 
+  \begin{equation*}
+    \bigcup_{k\geq m}X^k,\bigcup_{l\geq n}Y^l\subseteq \tilde{U}.
+  \end{equation*}
+  Take a bigger $m$ or $n$, then 
+\end{solution}
+\section{Topological Rings}
+\begin{problem}
+  Let $f:A\to B$ be a morphism of topological rings which is open. Then if $M\subseteq A$ is bounded then so is $f(M)$ in $B$.
+\end{problem}
+\begin{solution}
+  Let $U\subseteq B$ be a neighborhood of $0$, then $f^{-1}(U)$ is open, thus there is $V\subseteq A$ such that $VM\subseteq f^{-1}(U)$. Since $f(V)$ is open, 
+  \begin{equation*}
+    f(V)f(M)\subseteq U
+  \end{equation*}
+  will do.
+\end{solution}
+\begin{problem}
+  Let $I\subseteq A$ be an ideal and equip $A/I$ with the quotient topology. Then the image any bounded set $M\subseteq A$ under the quotinet map is bounded.
+\end{problem}
+\begin{solution}
+  We aim to use the previous problem. That is we want to show that $\pi$ is open. Let $U\subseteq A$ be open then,
+  \begin{equation*}
+    \pi^{-1}(\pi(U)) = \bigcup_{a\in I}U+a.
+  \end{equation*}
+  This is open as $U+a$ is open by the continuity of addition thus it is a union of open sets. Therefore, $\pi(U)$ is open by the definition of quotinet topology.
+\end{solution}
+\begin{problem}
+  Let $K$ be a field as usual and $A = K\oplus K\varepsilon$ where $\varepsilon^2 = 0$. Equip the topology of $K^2$ to $A$ as norm space. Set,
+  \begin{align*}
+    X = K\varepsilon, Y = \{t\cdot x\sep t\in K,\ab{t}\leq r\}
+  \end{align*}
+  for some $r\in(0,1)$. Show that $Y$ is topologically nilpotent but $X\cup Y$ is not.
+\end{problem}
+\begin{solution}
+  Clearly $Y$ is topologically nilpotent as any neighborhood of $0$ contains $B(0,r^m)$ for some $m$. But clearly $X\subseteq (X\cup Y)^m$ for any $m$. No open set of the form $B(0,t)$ for $t\in(0,1)$ contains $X$.
+\end{solution}
+\begin{definition}
+  Let $A$ be a ring and $A^+\subseteq$, we set,
+  \begin{equation*}
+    \Spa(A,A^+) = \{v\in\Cont(A)\sep \forall a\in A^+,v(a)\leq 1\}.
+  \end{equation*}
+\end{definition}
+\begin{problem}
+  Let $s\in\Spa(A,A^+)$. Then a horizontal specialization of $s$ in $\Spv(A)$ is also in $\Spa(A,A^+)$.
+\end{problem}
+\begin{solution}
+  We can rephrase the statement that 
+  \begin{equation*}
+    \forall a\in A^+, v(a)\leq 1.
+  \end{equation*}
+  to the following,
+  \begin{equation*}
+    \forall a\in A^+, v\in\cR(1|a).
+  \end{equation*}
+  Since $\Spa(A,A^+)$ has the strong topology and $\Omega=\cR(1|a)$ is a basis open element, we have,
+  \begin{equation*}
+    s\in \Omega\iff \eta\in\Omega,
+  \end{equation*}
+  where $\eta$ is the specialization. Therefore $\eta\in\Spa(A,A^+)$.
+\end{solution}
+\begin{problem}
+  Let $A$ be a topological ring and $X$ be either $\Cont(A)$ or $\Spa(A,A^+)$. Show that $x\in X$ is a closed point if and only if $\Gamma_x = \cGamma_x$.
+\end{problem}
+\begin{solution}
+  Suppose $\Gamma_x\not=\cGamma_x$. Then $x|_{\cGamma_x}$ is a proper specialization and belongs to $X$, thus contradicts to that $\{x\}$ is closed.
+\end{solution}
+\begin{problem}
+  Suppose $A$ is a topological ring and $X$ as same in the previous problem. Show that if $A$ admits a topologically nilpotent unit then every point in $X$ is closed.
+\end{problem}
+\begin{solution}
+  Let $v\in X$ and $a\in A$ be a topologically nilpotent unit. Then $v(a)<1$. Then we also have $v(a^{-1})>1$. Note that for any $\gamma\in\Gamma_v$, there is $n\in\N$ such that 
+  \begin{equation*}
+    v(a^n)<\gamma<v(a^{-n}).
+  \end{equation*}
+  Thus $\gamma\in\cGamma_v$.
+\end{solution}
+\begin{problem}
+  Suppose $X$ is either $\Cont(A)$ or $\Spa(A,A^+)$. Let $\eta\in X$. Set $s$ be a specialization of $\eta$ in $\Spv(A)$ and $x$ be a specialization of $\eta$ in $X$ such that $s$ is a specialization of $x$ in $\Spv(A)$.
+  Show that in this case, we have, $x\in X$ and 
+  \begin{equation*}
+    \eta\rightsquigarrow x\rightsquigarrow s
+  \end{equation*}
+  hodsl in $X$.
+\end{problem}
+\begin{solution}
+  Since we have this specialization relation in $\Spv(A)$, we obtain,
+  \begin{equation*}
+    \supp(\eta)\subseteq\supp(x)\subseteq\supp(s).
+  \end{equation*}
+  Therefore, combined with usual conditions of specialization, we have for $a\in A\backslash \supp(x)$, 
+   \begin{equation*}
+    K_{s<a}\subseteq K_{x<a}\subseteq K_{\eta<a}.
+  \end{equation*}
+  Therefore $x$ is continuous. Since we consider the strong topology, the relation holds in $X$.
+\end{solution}
+From the rest of the problems of this sheet, we assume $K$ to be algebraically closed and $X=\Sp\T_1$. 
+\begin{problem}
+  Let $\xi\in X^*$. For $R\in(0,1]$, show that $\xi\cap\mathfrak{B}_{<R},\xi\cap\mathfrak{B}_{\leq R}$ have at most one element.
+\end{problem}
+\begin{solution}
+  Let $B_1=B(x_1,R),B_2 = B(x_2,R)$ and $B_1,B_2\in\xi\cap\mathfrak{B}_{<R}$. From the previous problem we know that either $B_1=B_2$ or $B_1\cap B_2=\emptyset$. Suppose $B_1\cap B_2=\emptyset$. By the forth condition of van der Put points, and that $\emptyset$ covers $\emptyset$ in $G_+$-space, this would contradict as $\xi\cap\emptyset = \emptyset$.
+  Therefore only $B_1=B_2$ is possible. Others can be shown similarly.
+\end{solution}
+This leads us to the notion of $D(\xi,R),B(\xi,R)$ if they exist.
+\begin{equation*}
+  M_\xi \defeq\{R\in (0,1]\sep \xi\cap\mathfrak{B}_{\leq R}\not=\emptyset\}.
+\end{equation*}
+\begin{problem}
+Show that $1\in M_\xi$ and $D(\xi,1)=K^\circ$.
+\end{problem}
+\begin{solution}
+  We have $K^\circ = D(0,1)$ which is identified with the whole space as $K$ is algebraically closed. Therefore $1\in M_\xi$ and in particular $D(\xi,1) = D(0,1) = K^\circ$.
+\end{solution}
+\begin{notation}
+  $R_\xi = \inf M_\xi$.
+\end{notation}
+\begin{problem}
+  Let $\Omega = \cR(f_0|f_1,\cdots,f_m)\in\Rat_X$. Show that there is $\varepsilon\in(0,\infty)$ such that $\forall x\in \Omega, \ab{f_0(x)}\geq\varepsilon$.
+\end{problem}
+\begin{solution}
+  Since $(f_0,f_1,\cdots,f_m) = \T_1$, and $\ab{f_0(x)}\geq \ab{f_i(0)}$ for $x\in\Omega$, we have $f_0(x)\not=0$. More explicitly, there are $g_0,\cdots,g_m\in\T_1$ such that 
+  \begin{equation*}
+    1 = \sum_{i=0}^n g_if_i.
+  \end{equation*}
+  By using the ultrametric property, we have,
+  \begin{align*}
+    1&\leq \max_{i=0,\cdots,m}\ab{g_i(x)f_i(x)},\\
+    &\leq \ab{f_0(x)}\max_{i=0,\cdots,m}\ab{g_i(x)}.
+  \end{align*}
+  Therefore, set $C = \max_{i=0,\cdots,m}\ab{g_i(x)}$. Then we obtain,
+  \begin{equation*}
+    \forall x\in \Omega,C^{-1}\leq \ab{f_0(x)}.
+  \end{equation*}
+\end{solution}
+\begin{problem}
+  Show that in the above problem, we have $\Omega$ is clopen in an ordinary topology in $X$.
+\end{problem}
+\begin{solution}
+  For each $i=1,\cdots,m$, we set,
+  \begin{equation*}
+    F_i(x) = \ab{f_i(x)}-\ab{f_0(x)}.
+  \end{equation*}
+  This function takes only positive values on $X\backslash \Omega$. We then see immediately that 
+  \begin{equation*}
+    X\backslash \Omega = \bigcup_{i=1}^m F_i^{-1}((0,\infty)).
+  \end{equation*}
+\end{solution}
+\begin{problem}
+  If $R_\xi = 0$, then there is $x\in X$ such that 
+  \begin{equation*}
+    \xi = \{U\in\Ouv_X\sep x\in U\}.
+  \end{equation*}
+\end{problem}
+\begin{solution}
+  By the bijection of van der Put points, we only need to check that 
+  \begin{equation*}
+    \xi\cap\Rat_X = \{\Omega\in\Rat_X\sep x\in \Omega\}.
+  \end{equation*}
+  Let $(R_n)_{n\in\N}$ be a sequence in $M_\xi$ converging to $0$. We may further assume that this is monotonically decreasing. Hence
+  \begin{equation*}
+    D(\xi,R_n)\subseteq D(\xi,R_{n+1}).
+  \end{equation*}
+  We then pick $(x_n)_{n\in\N}$ such that $x_n\in D(\xi,R_n)$. Then 
+  \begin{equation*}
+    \ab{x_n-x_m} \leq R_{\min{m,n}}\to0.
+  \end{equation*}
+  Thus this is Cauchy. By the completeness, we obtain the limit $x$. Since $K^\circ =B_1(\xi)\in\xi$, we may construct the sequence so that $x\in K^\circ$.
+  \par Suppose $\Omega\in\xi\cap_{\Rat_X}$. Suppose further that $x\not\in \Omega$, then as it is clopen, we find $\Theta\in\Rat_X$ such that $x\in\Theta$. Using the continuity of polynomials, we may pick $R_n$ such that $D(\xi,R_n)\subseteq\Theta$.
+  However, $B(\xi,R_n)\in\xi$ therefore $B(\xi,R_n)\cap \Omega\not=\emptyset$. This is a contradiction.
+  \par Suppose $x\in\Omega$, then we can pick $B(\xi,R_n)\subseteq\Omega$. But $B(\xi,R_n)\in\xi$ and using the upward closure $\Omega\in\xi$.
+\end{solution}
+\section{Van der Put points}
+Throughout the sheet, we assume $K$ is algebraically closed, non-discrete and complete with respect to an ultrametric absolute value $\ab{\cdot}_K$. Set $X=\Sp(\T_1)$.
+\begin{lemma}
+  $D(0,r)$ is open. Therefore $D(x,r)$ is open for any $x\in K^\circ$.
+\end{lemma}
+\begin{proof}
+  Let $x\in D(0,r)$ and if $\ab{x-y}<r$, then
+  \begin{equation*}
+    \ab{y} = \ab{y-x+x} \leq \max\{r,\ab{x}\} = r.
+  \end{equation*}
+  Therefore $B(x,r)\subseteq D(0,r)$.
+\end{proof}
+\begin{problem}
+  Let $\xi\in X^*$ be such that and $R_\xi\in(0,1)\backslash\ab{K^\times}$ and for any $r\in (R_\xi,1]$, $D(0,r)\in\xi$.
+\end{problem}
+\begin{solution}
+  By the lemma, we have,
+  \begin{equation*}
+    r>R_\xi\Rightarrow D(0,r)\in\xi.
+  \end{equation*}
+  Therefore, we have,
+  \begin{equation*}
+    D(0,\rho)\in \xi\iff \rho\in(0,1]\cap K^\times.
+  \end{equation*}
+\end{solution}
+\begin{definition}
+  Let $F$ be a field with an absoltue value. $F$ is said to be spherically complete if given any set $\mathcal{L}$ of balls in $K$ which is linearly ordered by inclusion admits a non-empty intersection.
+\end{definition}
+\begin{problem}
+  If $F$ is spherically complete then it is complete.
+\end{problem}
+\begin{solution}
+  Let $(x_n)_{n\in\N}$ be a Cauchy sequence in $F$ such that $\ab{x_n-x_m}\leq r_m$ for $m\leq n$. Set $D_n = D(x_n,r_n)$. Then $\{D_n\}_{n\in\N}$ is linearly ordered by inclusions. Therefore,
+  \begin{equation*}
+    x\in\bigcap_{n\in\N}D_n.
+  \end{equation*}
+  Clearly $x_n\to x$.
+\end{solution}
+\begin{problem}
+  Suppose $\ab{K^\times}$ is a discrete set, then spherically completeness coincides with completeness.
+\end{problem}
+\begin{solution}
+  Remains to show that completeness implies spherical completeness. Let $\mathcal{L}$ be a linearly ordered set of balls. Set $R$ be the infimum of radii in $\mathcal{L}$.
+  \par If $R=0$, then for $B_1\supseteq B_2\supseteq\cdots$ in $\mathcal{L}$ such that the radii go to $0$. Set $(x_n)_{n\in\N}$ be such that $x_n\in B_n$. Then by the completeness of $F$, we find a limit of it which is contained in the intersection.
+  \par If $R\not=0$, then $R = \ab{a}$ for some $a\in K^\times $ by the discreteness. In particular, $B_1\supseteq B_2\supseteq\cdots$ stabilizes at some points. Thus the intersection will be the ball after the stabilization which is non-empty.
+\end{solution}
+\begin{problem}
+  If $\ab{F^\times}\subseteq(0,1)$ is dense and $F$ admits a countable dense subset. Then $K$ is not spherically complete.
+\end{problem}
+\begin{proof}
+  Let $D = \{d_1,d_2,\cdots\}$ be the countable dense set and $r>0$. As $\ab{K^\times}$ is dense, we find a sequence $(r_n)_{n\in \N}$ in $\ab{K^\times}$ such that $r_n\to r$. Set $B_1 = D(d_1,r_1)$. Suppose $B_n$ is constructed. We aim to construct $B_{n+1}$ such that $d_{n+1}\not\in B_{n+1}$.
+  If $d_{n+1}\not\in B_{n+1}$, then simply take a smaller ball in $B_{n}$ with radius $r_{n+1}$. If $d_{n+1}\in B_{n}$, then pick $y\in B_n$ such that $\ab{y-d_{n+1}}>r_{n+1}$ and set $B_n = D(y,r_{n+1})$.
+  Then consider,
+  \begin{equation*}
+    x\in \bigcap_{n\in\N}B_n.
+  \end{equation*}
+  Then as $D$ is dense, there is $d_N$ such that $\ab{x-d_N}<r$. Hence $d_N\in B_n$ for any $n$ but this is a contradiction.
+\end{proof}
+\begin{definition}
+  Let $F$ be a field with an absolute value such that $\ab{F^\times}$ is dense in $(0,1)$. A mock circle of radius $r$ is a linearly ordered set $\mathfrak{M}$ of disks in $F$ satisfying the following.
+  \begin{enumerate}
+    \item For all $R\in (r,\infty)$, $\mathfrak{M}\cap\mathfrak{K}_{\leq R}\not=\emptyset$.
+    \item The intersection of all elements in $\mathfrak{M}$ is empty.
+  \end{enumerate}
+\end{definition}
+\begin{definition}
+  An element $f\in \T_1$ is multiplicatively equivalent to a polynomial $p$ if there is $u\in\T_1^\times$ such that $f = up$.
+\end{definition}
+
+\begin{problem}
+  Let $f\in \T_1$ and $\mathfrak{M}$ be a mock circle in $K$ such that $K^\circ\in\mathfrak{M}$. Then there is $B\in\mathfrak{M}$ such that $B\ni x\mapsto\ab{f(x)}$ is constant.
+\end{problem}
+\begin{solution}
+  As $K$ is algebraically closed and every $f\in \T_1$ is multiplicatively equivalent to a polynomial, $f$ admits fnitely many zeros $a_1,\cdots,a_n$. For each $i$, pick $B_i\in\mathfrak{M}$ such that $a_i\not\in B_i$. As $\mathfrak{M}$ is linearly ordered, pick the smallest $B$. Therefore $B$ has no zeros of $f$. 
+  Therefore $f$ is constant on $B$ by Problem 9.3.
+\end{solution}
+Since $\mathfrak{M}$ is linearly ordered this leads us to the following definition.
+\begin{definition}
+  For a mock circle $\mathfrak{M}$ and $f\in \T_1$. We define,
+  \begin{equation*}
+    \norm{f}_\mathfrak{M} = \ab{f(x)}
+  \end{equation*}
+  where $x\in B$ and $f$ takes a constant value on $B$.
+\end{definition}
+\begin{problem}
+  Let $\Omega = \cR_{X}(f_0|f_1,\cdots,f_m)\subseteq K^\circ$ be rational open. Show the following.
+  \begin{enumerate}
+    \item If for all $i=1,\cdots,m$, $\norm{f_i}_\mathfrak{M}\leq \norm{f_0}_\mathfrak{M}$, then there is $B\in\mathfrak{M}$ such that $B\subseteq\Omega$.
+    \item If there is $i=1,\cdots,m$ such that $\norm{f_i}_\mathfrak{M}>\norm{f_0}_\mathfrak{M}$, then there is $B\in\mathfrak{M}$ such that $B\cap\Omega=\emptyset$.
+  \end{enumerate}
+  Furthermore, there is a van der Put point $\xi_\mathfrak{M}\in X^*$ such that $\xi_\mathfrak{M}\cap\Rat_X$ consists of rational opens satisfying the first alternative.
+\end{problem}
+\begin{solution}
+  If for all $i=1,\cdots,m$, $\norm{f_i}_\mathfrak{M}\leq \norm{f_0}_\mathfrak{M}$, then take a smallest $B$ in $\mathfrak{M}$ such that all $f_i$ are constant on it. Then clearly $B\subseteq\Omega$. Suppose other wise, then again taking the smallest $B$, we conclude $B\cap\Omega=\emptyset$.
+  \par The last statement is to show that such collection defines a van der Put point. Set $\xi = \xi_\mathfrak{M}\cap\Rat_X$, then $X\in \xi$. By the linearly order on $\mathfrak{M}$, it is closed under finite intersection. For the upward closure, clearly $B\subseteq\Omega\subseteq\Theta$ then $B\subseteq\Theta$.
+  \par Finally, for the finite covering condition, suppose there is $\Omega$ and $\Theta_1,\cdots,\Theta_k$ with $\Omega = \Theta_1\cup\cdots\cup\Theta_k$.
+  Suppose none of $\Theta_i$ satisfies the condition. Then there is $B_i$ for each $i$ from $\mathfrak{M}$ such that $B_i\cap \Theta_i=\emptyset$. Then by choosing the smallest, we obtain there is $B_{i_0}$ with $B_{i_0}\cap \Omega$ a contradiction.
+\end{solution}
+\begin{problem}
+  Let $\xi\in X^*$ be such that $R_\xi\in(0,1)$. Suppose $\bigcap_{r\in (R_\xi,1]}D(\xi,R)=\emptyset$. Set a mock circle $\mathfrak{M}$ to be the set of disks such that $D(\xi,r)$ for $r\in (R_\xi,1]$ or $D(0,r)$ for $r\in (0,\infty)$. Show that $\xi = \xi_\mathfrak{M}$.
+\end{problem}
+\begin{solution}
+  $\mathfrak{M}$ is indeed a mock circle. The intersection being emptyset is clear. For linearly orderedness, it is obvious if two disks are the same kind. And it remains to show that for $D(\xi,r)$ and $D(0,s)$ for some $s<1$. 
+  Since $D(0,1)\subseteq D(0,R)$ for all $R\geq1$, we may assume $R\in(0,1)$. Suppose 
+  %later
+\end{solution}
+\begin{definition}
+  Let $r\in (0,1)\cap K^\times$. For $f\in\T_1$. As before, we define,
+  \begin{equation*}
+    \nu_r(f) = \max_{j\in\Z_{\geq0}}r^j\ab{f_j}.
+  \end{equation*}
+  We define $j_r(f)$ to be such that 
+  \begin{equation*}
+    r^{j_r(f)}\ab{f_{j_r(f)}} = \nu_r(f),
+  \end{equation*}
+  and it is maximum among them. With these, we define,
+  \begin{equation*}
+    N_r(f) = \begin{cases}
+      0,\quad(f=0),\\
+      (\nu_r(f),j_r(f)),\quad(f\not=0).
+    \end{cases}
+  \end{equation*}
+  The order in $(0,\infty)\times\Z$ is given by the lexicographic order.
+\end{definition}
+\begin{problem}
+  Let $f\in\T_1\backslash\{0\}$ and $N_r(f) = (\nu,j)$. Show that there is $r<R<1$ such that 
+  \begin{equation*}
+    \forall x\in K^\circ, r<\ab{x}<R\Rightarrow\ab{f(x)}=\nu\times\left({\frac {\ab{x}} {r}}\right)^j.
+  \end{equation*} 
+\end{problem}
+\begin{solution}
+  Recall that inside the absolute value, the largest term is dominant. For all $i<j$, we have,
+  \begin{equation*}
+    r^i\ab{f_i}\leq r^j\ab{f_j}\Rightarrow {\frac {\ab{f_i}} {\ab{f_j}}}\leq r^{j-i}.
+  \end{equation*}
+  For $r<\ab{x}$, we have,
+  \begin{equation*}
+    {\frac {\ab{f_i}\ab{x^i}} {\ab{f_j}\ab{x^j}}} = {\frac {\ab{f_i}} {\ab{f_j}}}\ab{x}^{i-j}\leq \left({\frac {r} {x}}\right)^{j-i}<1.
+  \end{equation*}
+  Therefore, we obtain,
+  \begin{equation*}
+    \ab{f_ix^i}<\ab{f_jx^j}.
+  \end{equation*}
+  By definition, we have,
+  \begin{equation*}
+    M = \max\{\ab{f_j}+1,\ab{f_{j+1}},\cdots\}.
+  \end{equation*}
+  For $j<i$, we have,
+  \begin{equation*}
+    r^i\ab{f_i}<r^j\ab{f_j}
+  \end{equation*} 
+  by the maximality of $j$. Therefore the inequality holds for any $x\in K^\circ$ sufficiently close to $r$. As $f_i$-s are bounded, we can take $R>r$.
+\end{solution}
+\begin{problem}
+  Let $A$ be a nat-ring and $X\subseteq A$ be a topologically nilpotent set. Show that the subgroup $X'$ generated by $X$ in $A$ is also topologically nilpotent.
+\end{problem}
+\begin{solution}
+  Let $U\subseteq A$ be a neighborhood of $0$ which is also a subgroup. This is possible as $A$ is a nat-ring. Then there is $N\in\N$ such that $\bigcup_{n\geq N}X^n\in U$. As elements of $X^n$ are product of $n$-many elements from $X$ and as $U$ is a subgroup, we have ${X'}^n\subseteq U$ for any $n\geq N$.
+\end{solution}
+\section{Classifying Valuations}
+Denote $X=\Sp\T_1$.
+\begin{problem}
+  Let $r\in(0,1)\cap\ab{K^\times}$ and consider,
+  \begin{equation*}
+    \Omega = \cR_{\Sp\T_1}(f_0|f_1,\cdots,f_m)\in\Rat_{\Sp\T_1}.
+  \end{equation*}
+  \begin{enumerate}
+    \item If for all $i=1,\cdots,m$, $N_r(f_i)\leq N_r(f_0)$, then there is $R\in(r,1]$ such that $D(0,R)\subseteq \Omega\cup D(0,r)$.
+    \item If there is $i=1,\cdots,m$ with $N_r(f_i)>N_r(f_0)$, then there is $R\in(r,1]$, such that $\Omega\cap D(0,R)\subseteq D(0,r)$.
+  \end{enumerate}
+  Furthermore, show that there is a van der Put point $\xi$ such that $\xi\cap\Rat_{\Sp\T_1}$ only consisting of rational opens satisfying the first condition.
+\end{problem}
+\begin{solution}
+  Let $r_i,R_i$ for $i=0,\cdots,m$ be the corresponding constants in Problem 9.8. Pick the smallest $R_i$ as $R$.
+  If $\nu_r(f_i) = \nu_r(f_0)$ for any $i$, then as ${\frac {\ab{x}} r}\geq 1$ and $j_r(f_i)\leq j_r(f_0)$, the inequality holds. 
+  If $\nu_r(f_i) < \nu_r(f_0)$, then we can take a small enough $\rho$ such that 
+  \begin{equation*}
+    \forall x\in K^\circ, r<\ab{x}<\rho, \nu_r(f_i)\left\vert{\frac {x} {f_i}}\right\vert^{j_r(f_i)}\leq \nu_r(f_0)\left\vert{\frac {x} {f_0}}\right\vert^{j_r(f_0)}.
+  \end{equation*}
+  Therefore, we may take smaller one from $R,\rho$, we obtain the first part.
+  \par Suppose there is $N_r(f_i)>N_r(f_0)$. Then there is $R\in(r,1]$ such that 
+  \begin{equation*}
+    \forall x\in K^\circ, r<\ab{x}<R\Rightarrow \ab{f_i(x)}>\ab{f_0(x)}.
+  \end{equation*}
+  Therefore,
+  \begin{equation*}
+    \Omega\cap (D(0,R)\backslash D(0,r))=\emptyset. 
+  \end{equation*}
+  Therefore, we obtain the statement. For $\xi$ being a van der Put point. Clearly $X= \cR(1|0)\in\xi$. Upward closure is clear from the condition.
+  By the dichotomy of two conditions, taking smaller $R$, we obtain the closure under finite intersection. For the finite covering condition, is also clear from the dichotomy.
+\end{solution}
+\begin{problem}
+  Let $\xi\in X^*$ and suppose $r\defeq R_\xi\in(0,1)\cap\ab{K^\times}$ satisfying the following. For all $R\in(r,1]$,
+  \begin{enumerate}
+    \item $0\in D(\xi,R)$,\\
+    \item $D(\xi,r)\not\in\xi$.
+  \end{enumerate}
+  Then $\xi$ coincides with the one in Problem 10.1.
+\end{problem}
+\begin{solution}
+  Suppose $0\in D(\xi,R)$, then for any $y\in D(\xi,R)$, 
+  \begin{equation*}
+    \ab{y}=\ab{x-0+y-x}\leq R.
+  \end{equation*}
+  Therefore, $D(\xi,R) = D(0,R)$.
+  \par Note that it is enough to show that at the level of $\Rat_X$. Let,
+  \begin{equation*}
+    \Omega = \cR_X(f_0|f_1,\cdots,f_m)\in\Rat_X.
+  \end{equation*}
+  If the first condition in Problem 10.1 holds then there is $R\in(r,1]$ such that 
+  \begin{equation*}
+    D(0,R)\subseteq\Omega\cup D(0,r).
+  \end{equation*}
+  By Problem 7.2 and that $r\in(0,1)\cap\ab{K^\times}$, we see $D(0,r)\in \Rat_X$. Therefore by the finite covering condition, $\Omega\in\xi$.
+  \par Suppose $\Omega\cap D(0,R)\subseteq D(0,r)$. Then if $\Omega\in\Rat_X$, then $D(0,r)\in\xi$ which is a contradiction. 
+\end{solution}
+\begin{definition}
+  Let $D\in\mathfrak{B}_{\leq R}$ and $x_0\in K$. Then set,
+  \begin{align*}
+    S(x_0,R) \defeq\{y\in K\sep \ab{x_0-y}=R\},\\
+    \mathfrak{S}(D) = \{S(s,R)\sep x\in D\}.
+  \end{align*}
+\end{definition}
+\begin{proposition}
+  There is a bijection 
+  \begin{equation*}
+    \{B(y,R)\sep y\in D\}\stackrel{B(y,R)\mapsto D\backslash B(y,R)}{\longleftrightarrow} \mathfrak{S}(D).
+  \end{equation*}
+\end{proposition}
+\begin{proof}
+  Set $D= D(x,R)$. The map is well-defined as,
+  \begin{equation*}
+    D\backslash B(y,R) = \{z\in D\sep \ab{z-y}<R\}.
+  \end{equation*}
+Then we have for $z\in D\backslash B(y,R)$,
+\begin{equation*}
+  R = \ab{x-z} = \ab{x-y+y-z} \leq \max\{\ab{x-y},\ab{y-z}\}.
+\end{equation*}
+Therefore $\ab{x-y} = R$. 
+\end{proof}
+\begin{problem}
+  Let $D\in\mathfrak{B}_{\leq R}$ and $\xi\in X^*$ be such that $D\in\xi$. Show that there exists at most one $S\in\mathfrak{S}(D)$ such that $S\not\in \xi$.
+\end{problem}
+\begin{solution}
+  Let $B_1=B(y_1,R),B_2=B(y_2,R)$ be distinct open balls such that corresponding spheres $S_1,S_2$, respectively, fail to belongto $\xi$. If there is $z\in B_1\cap B_2$, then
+  \begin{equation*}
+    \ab{y_1-y_2} = \ab{y_1-z+z-y_2} <R.
+  \end{equation*}
+  Therefore, $B_1=B_2$. Thus $B_1\cap B_2=\emptyset$. Since $\xi\subseteq\Ouv_X$, and that $D=B_i\cup S_i\in \xi$, $S_i\not\in xi$, implies $B_i\in\xi$. But the $\emptyset\in\xi$ which is a contradiction.
+\end{solution}
+\begin{problem}
+  Suppose $K$ is algebraically closed.
+  Let $g\in\T_1$, show that the set,
+  \begin{equation*}
+    B(g) \defeq K^\circ\backslash\{x\in K^\circ\sep \ab{g(x)}<\norm{g|\T_1}\}
+  \end{equation*}
+  is an intersection of finitely many elements from $\mathfrak{S}(K^\circ)$. 
+\end{problem}
+\begin{solution}
+  If $g=0$, then $B(g)=K^\circ$ is the empty intersection. So we assume $g\not=0$. Set,
+  \begin{equation*}
+    g = \sum g_iT^i
+  \end{equation*}
+  and pick $i_0$ be the maximal index such that 
+  \begin{equation*}
+    \ab{g_{i_0}}=\norm{g|\T_1}.
+  \end{equation*}
+  Take $h = \ab{g_{i_0}}^{-1}g$, then 
+  \begin{equation*}
+    \ab{g(x)}<\norm{g|\T_1}\iff \ab{h(x)}<1.
+  \end{equation*}
+  We then consider $k = K^\circ/K^\dcirc$. Then as finitely many of coefficients $h_i$ has absolute value $1$ and others less than $1$, we have
+  \begin{equation*}
+    \overline{h} \in k[T].
+  \end{equation*}
+  Since $K$ is algebraically closed, then so is $k$, thus,
+  \begin{equation*}
+    h(T) = \prod (T-a_i).
+  \end{equation*}
+  Observe that 
+  \begin{equation*}
+    B(h) = \{x\in K^\circ\sep \overline{h(x)} = 0\}.
+  \end{equation*}
+  That is for any $x\in B(h)$, there is $a_i$ such that $\ab{x-a_i}<1$. Therefore, we obtain,
+  \begin{equation*}
+    B(h) = \bigcup B(a_i,1).
+  \end{equation*} 
+  Therefore,
+  \begin{equation*}
+    K^\circ\backslash B(h) = \bigcap (D(0,1)\backslash B(a_i,1)) = \bigcap S(a_i,1).
+  \end{equation*}
+\end{solution}
+\begin{problem}
+  
+\end{problem}
+\section{}
 \end{document}

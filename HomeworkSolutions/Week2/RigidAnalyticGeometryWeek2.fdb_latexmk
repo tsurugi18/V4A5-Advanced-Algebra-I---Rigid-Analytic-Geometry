@@ -1,11 +1,11 @@
 # Fdb version 4
-["dvipdf"] 1780299874.24812 "RigidAnalyticGeometryWeek2.dvi" "RigidAnalyticGeometryWeek2.pdf" "RigidAnalyticGeometryWeek2" 1780299874.41816 0
-  "RigidAnalyticGeometryWeek2.dvi" 1780299874.22403 21140 7b4ce6112425aadcbfcbae38eff20c24 "latex"
+["dvipdf"] 1789490271.9172 "RigidAnalyticGeometryWeek2.dvi" "RigidAnalyticGeometryWeek2.pdf" "RigidAnalyticGeometryWeek2" 1789490272.11757 0
+  "RigidAnalyticGeometryWeek2.dvi" 1789490271.89105 23160 27638167b24c6b49e0272a685a150112 "latex"
   (generated)
   "RigidAnalyticGeometryWeek2.pdf"
   (rewritten before read)
-["latex"] 1780299873.92121 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/HomeworkSolutions/Week2/RigidAnalyticGeometryWeek2.tex" "RigidAnalyticGeometryWeek2.dvi" "RigidAnalyticGeometryWeek2" 1780299874.4171 0
-  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/HomeworkSolutions/Week2/RigidAnalyticGeometryWeek2.tex" 1780299873.27694 10453 5c7e592b261dff029f463d6b2896588f ""
+["latex"] 1789490271.46903 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/HomeworkSolutions/Week2/RigidAnalyticGeometryWeek2.tex" "RigidAnalyticGeometryWeek2.dvi" "RigidAnalyticGeometryWeek2" 1789490272.11644 0
+  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/HomeworkSolutions/Week2/RigidAnalyticGeometryWeek2.tex" 1789490271.13398 11835 40a170b25e714e69192f63dd33cb373b ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -30,6 +30,7 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/rsfs/rsfs10.tfm" 1229303445 688 37338d6ab346c2f1466b29e195316aa4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/rsfs/rsfs5.tfm" 1229303445 684 3a51bd4fd9600428d5264cf25f04bb9a ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/rsfs/rsfs7.tfm" 1229303445 692 1b6510779f0f05e9cbf03e0f6c8361e6 ""
@@ -150,8 +151,8 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/latex.fmt" 1760893821 3345650 f2179b917b551c7214098855962de784 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "RigidAnalyticGeometryWeek2.aux" 1780299874.2237 69 b9f8f0f77263b2cf22cffb831398601e "latex"
-  "RigidAnalyticGeometryWeek2.tex" 1780299873.27694 10453 5c7e592b261dff029f463d6b2896588f ""
+  "RigidAnalyticGeometryWeek2.aux" 1789490271.89051 69 b9f8f0f77263b2cf22cffb831398601e "latex"
+  "RigidAnalyticGeometryWeek2.tex" 1789490271.13398 11835 40a170b25e714e69192f63dd33cb373b ""
   (generated)
   "RigidAnalyticGeometryWeek2.aux"
   "RigidAnalyticGeometryWeek2.dvi"

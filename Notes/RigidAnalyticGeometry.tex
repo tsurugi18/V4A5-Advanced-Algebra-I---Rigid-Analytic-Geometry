@@ -156,6 +156,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\tens}[1]{%
   \mathbin{\mathop{\otimes}\displaylimits_{#1}}%
 }
+\newcommand{\comppol}[1]{\langle X_1,\cdots, X_{#1}\rangle}
 
 \title{Rigid Analytic Geometry}
 \author{Based on Lectures given by\\\\Prof. Dr. Jens Franke}
@@ -2990,7 +2991,7 @@ By the continuity and the previous part, $b^{-1}K_{v\leq s^{n+1}}$ is a neighbor
     \begin{equation*}
         b_i =\sum_{j=1}^m c_{ij}a_j.
     \end{equation*}
-    Then we have the commutative diagram,
+    Then we have a commutative diagram,
     \begin{center}
         \begin{tikzcd}
 M^n \arrow[d, "(c_{ij})_{ij}"'] \arrow[rd, "\vec{b}"] &   \\
@@ -3284,6 +3285,7 @@ Then such open map cocincides to $M^n\stackrel{f(\vec{a})}{\to} M$ thus this is 
 \end{definition}
 
 \begin{proposition}
+    \label{fact_17_10}
     Every Huber ring has a countable neighborhood base of $0$, the completion of a Huber ring is a Huber ring (If $(B,I)$ is a pair of definition, then $\widehat{B}$ is an open subring of $\widehat{A}$ and the topology of $\widehat{B}$ is $\widehat{I}$-adic with $\widehat{I}=\langle f_1,\cdots,f_n\rangle_{\widehat{B}}$ where $I= \langle f_1,\cdots,f_m\rangle_B$).
 \end{proposition}
 
@@ -3597,13 +3599,12 @@ If $A\stackrel{\tau}{\to}T$ is a morphism of topological rings and $\tau(f)\in T
         \begin{equation*}
             \Hom_{(A-\mathrm{alg})^{\mathrm{top}}}(A[X_1,\cdots,X_n],B)\ni\varphi\stackrel{\cong}{\mapsto}(\varphi(X_i))_{i=1}^n\in(B^\circ)^n.
         \end{equation*}
-        (use d. for the surjectivity and well-definedness follows from Remark \ref{remark_18_5}).%Fact 3.3.6).
         \item Suppose $\langle f_0,\cdots,f_n\rangle_A$ is open. Set $I=\langle f_0X_1-f_1,\cdots,f_0X_n-f_n\rangle_{A[X_1,\cdots,X_n]}$ then $A[X_1,\cdots,X_n]/I\stackrel{f_0}{\to}A[X_1,\cdots,X_n]/I$ is an open map.
         \item If $M$ is an adic $A$-module, then so is $M[X_1,\cdots,X_n]$. In particular, $A$ being $\id$-adic implies $A\to A[X_1,\cdots,X_n]$ is adic.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    For b, clearly $(C[X_1,\cdots,X_n],+)$ is a topological group. Being open follows from the definition and $C$ itself is open.
+    For \textbf{b}, clearly $(C[X_1,\cdots,X_n],+)$ is a topological group. Being open follows from the definition and $C$ itself is open.
     That $(A,+)$ is indeed a nat-group follows from the fact that the $U$ in Definition \ref{definition_19_1} can be taken to be open subgroups of $(A,+)$. Therefore we obtain an open subgroup $(U[X_1,\cdots,X_n],+)$ of $A[X_1,\cdots,X_n]$.
     \par If $P,Q\in A[X_1,\cdots,X_n]$ and $U$ is an open subgroup of $(A,+)$, then by the continuity of multiplication in $A$, we have a neighborhood $V$ of $0$, such that 
     \begin{equation*}
@@ -3614,24 +3615,33 @@ If $A\stackrel{\tau}{\to}T$ is a morphism of topological rings and $\tau(f)\in T
         (P+V[X_1,\cdots,X_n])(Q+V[X_1,\cdots,X_n])\subseteq (PQ)+U[X_1,\cdots,X_n].
     \end{equation*}
     Thus, multiplication is continuous.
-    \par For the powerboundedness assertion, we need to show that 
+    \par For \textbf{a}, we need to show that 
     \begin{equation*}
         \Theta = \{X^\alpha\sep \alpha\in\N^n\}
     \end{equation*}
     is bounded. %For every neighborhood $U'$ of $0$, we must find a neighborhood $V'$ of $0$ such that $\Theta V'\subseteq U'$. 
     By Definition \ref{definition_19_1}, it suffices to consider $U'=U[X_1,\cdots,X_n]$ in which case, obviously $\Theta U'\subseteq U'$.
-    \par f). Consider $A[X_1,\cdots,X_n]\stackrel{\varphi}{\rightarrow}B$ such that $\varphi(P) = P(b_1,\cdots,b_n)$. This is a ring homomorphism. To show its continuity, consider a neighborhood $\Omega$ of $0$ in $B$. We must find a neighborhood $V'$ of $0$ in $A[X_1,\cdots,X_n]$ such that $\varphi(U')\subseteq\Omega$. Without loss of generality, we may take $\Omega$ to be a subgroup of $(B,+)$.
+    \par \textbf{f}. Consider $A[X_1,\cdots,X_n]\stackrel{\varphi}{\rightarrow}B$ such that $\varphi(P) = P(b_1,\cdots,b_n)$. This is a ring homomorphism. To show its continuity, consider a neighborhood $\Omega$ of $0$ in $B$. We must find a neighborhood $V'$ of $0$ in $A[X_1,\cdots,X_n]$ such that $\varphi(U')\subseteq\Omega$. Without loss of generality, we may take $\Omega$ to be a subgroup of $(B,+)$.
     By the powerboundedness of $\{b_1,\cdots,b_n\}$, there is a neighborhood $V$ of $0$ in $B$ such that $b^\alpha V\subseteq\Omega$. Let $U$ be the preimage of $V$ in $A$. If $P\in U[X_1,\cdots,X_n]$, then all $ b^\alpha P_\alpha\in b^\alpha V\subseteq\Omega$ hence $\varphi(U[X_1,\cdots,X_n])\subseteq\Omega$ as $\Omega$ is a subgroup of $(B,+)$. 
-    %current Current
-    \par f). Let $U$ be an open subgroup of $(A,+)$ and $V\subseteq A$ the image of $U^{n+1}$ under $A^{n+1}\stackrel{\vec{f}}{\to}A$. if $B=A[X_1,\cdots,X_n]/I$ then the image of $U[X_1,\cdots,X_n]$ in $B$ under $(f_0\tmod{I})$, contains the image of $V[X_1,\cdots,X_n]$ in $B$, which is an open subgroup of $(B,+)$. This will prove f) as the image of $V[X_1,\cdots,X_n]$, $U$ running over open subgroups of $A$, form a neighborhood base of $0$ in $B$.
-    \par For the proof of our claim, let $P = \sum_{\alpha\in\N^n}P_\alpha X^\alpha\in V[T]$. There are $(q_{\alpha,j})_{j=0}^n\in U^{n+1}$ for each $\alpha\in\N^{n+1}$ such that $p_\alpha = \sum_{j=0}^nf_\alpha q_{\alpha,j}$, where we assume $q_{\alpha,j}=0$ when $p_\alpha=0$. Then,
-    \begin{align*}
-        Q_0 & = \sum_{\alpha\in\N^n}\left(q_{\alpha,j}+\sum_{j=1}^n q_{\alpha-d_j,j}\right)X^\alpha,\\
-        Q_j & = \sum_{\alpha\in\N^n} q_{\alpha,j}X^\alpha
-    \end{align*}
-    where $d_j = (\delta_{ij})_{i=0}^n$, are elements of $U[X_0,\cdots,X_m]$ and $P=f_0 Q_0+\sum_{j=1}^n(f_j-f_0X_j)Q_j$, hence $(P\tmod{I})=f_0(Q_0\tmod{I})$ as needed.
+    \par\textbf{g}. The surjectivity follows from \textbf{d} and the well-definedness follows from Remark \ref{remark_18_5}.%Fact 3.3.6).
+    \par \textbf{h}. Let $U$ be an open subgroup of $(A,+)$ and $V\subseteq A$ the image of $U^{n+1}$ under $A^{n+1}\stackrel{\vec{f}}{\to}A$. Observe that by Proposition \ref{fact_16_17}, $\vec{f}$ is an open map hence $V$ is open.
+    Since $U[X_1,\cdots,X_n]$ is a basis element of the topology of $A[X_1,\cdots,X_n]$. Need to show that $f_0U[X_1,\cdots,X_n]/I$ is open. Recall that for any $v\in V$, there are $u_0,\cdots,u_n\in U$ such that
+    \begin{equation*}
+    v = \sum_{i=0}^n f_iu_i.
+    \end{equation*}
+    Observe that 
+    \begin{equation*}
+    v + I = f_0(u_0+u_1X_1+\cdots+u_nX_n) + I.
+    \end{equation*}
+    Hence $V[X_0,\cdots,X_n]\subseteq U[X_0,\cdots,X_n]$ and this proves that $f_0\tmod{I}$ is open as $U,V$ were taken topological groups.% contains the image of $V[X_1,\cdots,X_n]$ in $B$, which is an open subgroup of $(B,+)$. This will prove f) as the image of $V[X_1,\cdots,X_n]$, $U$ running over open subgroups of $A$, form a neighborhood base of $0$ in $B$.
+    % \par For the proof of our claim, let $P = \sum_{\alpha\in\N^n}P_\alpha X^\alpha\in V[T]$. There are $(q_{\alpha,j})_{j=0}^n\in U^{n+1}$ for each $\alpha\in\N^{n+1}$ such that $p_\alpha = \sum_{j=0}^nf_\alpha q_{\alpha,j}$, where we assume $q_{\alpha,j}=0$ when $p_\alpha=0$. Then,
+    % \begin{align*}
+    %     Q_0 & = \sum_{\alpha\in\N^n}\left(q_{\alpha,j}+\sum_{j=1}^n q_{\alpha-d_j,j}\right)X^\alpha,\\
+    %     Q_j & = \sum_{\alpha\in\N^n} q_{\alpha,j}X^\alpha
+    % \end{align*}
+    % where $d_j = (\delta_{ij})_{i=0}^n$, are elements of $U[X_0,\cdots,X_m]$ and $P=f_0 Q_0+\sum_{j=1}^n(f_j-f_0X_j)Q_j$, hence $(P\tmod{I})=f_0(Q_0\tmod{I})$ as needed.
     %7/3
-   \par If $\Omega$ is a neighborhood of $0$ in $A$, then by the assumption, there are $(\omega_i)_{i=1}^n\in\Omega$ such that $M^m\stackrel{\vec{\omega}}{\to}M$ is an open map. We claim that $M[X_1,\cdots,X_n]^m\stackrel{\vec{\omega}}{\to}M[X_1,\cdots,X_n]$ is also open which shows g). But this is obvious. If $U$ is an open subgroup of $M$ then so is the image $V$ of $U^m$ under $\vec{\omega}$, and the $\vec{\omega}$ maps $U[X_1,\cdots,X_n]^n$ onto $V[X_1,\cdots,X_n]$ which is an open subgroup of $M[X_1,\cdots,X_n]$ by Definition \ref{definition_19_1}.
+   \par \textbf{i}. If $U$ is a neighborhood of $0$ in $A$, then by the assumption, there are $(\omega_i)_{i=1}^m\in U$ such that $M^m\stackrel{\vec{\omega}}{\to}M$ is an open map. Taking $U$ to be a subgroup and $V = \vec{\omega}(U^m)$, we see that $M[X_1,\cdots,X_n]^m\stackrel{\vec{\omega}}{\to}M[X_1,\cdots,X_n]$ is also open. %But this is obvious. If $U$ is an open subgroup of $M$ then so is the image $V$ of $U^m$ under $\vec{\omega}$, and the $\vec{\omega}$ maps $U[X_1,\cdots,X_n]^n$ onto $V[X_1,\cdots,X_n]$ which is an open subgroup of $M[X_1,\cdots,X_n]$ by Definition \ref{definition_19_1}.
 \end{proof}
 \begin{proposition}
     \label{fact_20_2}
@@ -3647,41 +3657,63 @@ If $A\stackrel{\tau}{\to}T$ is a morphism of topological rings and $\tau(f)\in T
     \begin{equation*}
     Y_1\supseteq Y_2\supseteq\cdots 
     \end{equation*}
-    of $Y$ such that $Y_i\subseteq f(X_i)$ is an open subgroup of $Y$. It sufices to show that $\widehat{f}(\widehat{X}_i)$ is an open subgroup of $\widehat{Y}$ and for this, it suffices to show that $\widehat{Y}_i\subseteq \widehat{f}(\widehat{X}_i)$. An element $y$ of $\widehat{Y}_i$ is represented as an equivalence class of Cauchy sequence $(y_j)_{j=1}^\infty$ with elements $y_i\in Y_i$. Without loss of generality (taking subsequences), we assume $y_{j+i}-y_j\in Y_{i+j}$ for all $j\geq 1$. By assumption, there is $x_1\in X_1$ such that $f(x_1) = y_1$ and there are $(\xi_j)_{j=1}^\infty$ such that $\xi_j\in X_{i+j}$ such that 
+    of $Y$ satisfying $Y_i\subseteq f(X_i)$ where $Y_i$ is an open subgroup of $Y$ for each $i$. Thus we aim to prove the statement by showing %$\widehat{f}(\widehat{X}_i)$ is an open subgroup of $\widehat{Y}$ and for this, it suffices to show 
+    that $\widehat{Y}_i\subseteq \widehat{f}(\widehat{X}_i)$ for each $i$. An element $y$ of $\widehat{Y}_i$ is represented as an equivalence class of Cauchy sequence $(y_j)_{j=1}^\infty$ with elements $y_i\in Y_i$. Without loss of generality by taking subsequences, we assume $y_{j+1}-y_j\in Y_j$ %Y_{i+j}$ 
+    for all $j\geq 1$. By assumption, there is $x_1\in X_1$ with $f(x_1) = y_1$ and there are $(\xi_j)_{j=1}^\infty$ where $\xi_j\in X_{j}$ such that 
     \begin{equation*}
-        f(\xi_j) = y_j+iy_j.
+        f(\xi_j) = y_{j+1}-y_j.
     \end{equation*} 
     Let 
     \begin{equation*}
     x_j = x_1+\sum_{l=1}^{j-1}\xi_l.
     \end{equation*}
     Then 
-    \begin{equation}
-        x_{j+1}-x_j = \xi_j\in X_{i+j}.
-    \end{equation}
-    Therefore $(x_j)_{j=1}^\infty$ is Cauchy and $f(x_j)=y_j$. The equivalence class $x$ of $(x_i)_{i=1}^\infty$ is al element $\widehat{X}_i$ such that $f(x) = y$. 
+    \begin{equation*}
+        x_{j+1}-x_j = \xi_j\in X_j.%X_{i+j}.
+    \end{equation*}
+    Therefore $(x_j)_{j=1}^\infty$ is Cauchy and $f(x_j)=y_j$. Thus $\widehat{Y}_1\subseteq f(\widehat{X}_1)$. The argument generalizes directly to $\widehat{X}_i$ and proves our statement.%The equivalence class $x$ of $(x_i)_{i=1}^\infty$ is an element $\widehat{X}_i$ such that $f(x) = y$. 
 \end{proof}
 \begin{proposition}
     \label{proposition_20_3}
     Let $A$ be a nat-ring with a countable neighborhood base of $0$ and $B$ be a complete nat-$A$-algebra.
     \begin{enumerate}[a.]
-        \item $A\langle X_1,\cdots,X_n\rangle$ is a nat ring in which $\{X_1,\cdots,X_n\}$ is powerbounded. (use $U\langle \cdots\rangle = \widehat{U[\cdots]}$ are $X_i\cdot$-invariant)
+        \item $A\langle X_1,\cdots,X_n\rangle$ is a nat ring in which $\{X_1,\cdots,X_n\}$ is powerbounded. %(use $U\langle \cdots\rangle = \widehat{U[\cdots]}$ are $X_i\cdot$-invariant)
         \item If $C$ is an open subring of $A$ then $C\langle X_1,\cdots,X_n\rangle$ is an open subring of $A\langle X_1,\cdots,X_n\rangle$ in which $C[X_1,\cdots,X_n]$ is dense.
-        \item If $A$ is Huber (Tate, analytic) then so is $A\langle X_1,\cdots,X_n\rangle$ (For Huber if $C$ in b) is $\langle c_1,\cdots,c_n\rangle_C$-adic, then $C\langle\cdots\rangle$ is $\langle c_1,\cdots,c_n\rangle$-adic.
-        \item If $(b_i)_{i=1}^n\in B^{\circ n}$, then there is a unique continuous $A\langle X_1,\cdots,X_n\rangle\to B$ sending $X_i$ to $b_i$ (Lemma \ref{lemma_19_1} + Completeness).
-        \item If $B$ is adic overr $A$ (e.g. $A$ is Tate or analytic or ? 3.1(E)), then we have a bijection,
+        \item If $A$ is Huber (Tate, analytic) then so is $A\langle X_1,\cdots,X_n\rangle$. For example, in \textbf{b}, if $C$ is Huber and $\langle c_1,\cdots,c_n\rangle_C$-adic, then $C\comppol{n}$ is $\langle c_1,\cdots,c_n\rangle$-adic.
+        \item For each $(b_i)_{i=1}^n\in (B^{\circ})^n$, there is a unique continuous $A\comppol{n}\to B$ sending $X_i$ to $b_i$. %(Lemma \ref{lemma_19_1} + Completeness).
+        \item If $B$ is adic over $A$ (e.g. $A$ is Tate, analytic or 3.1(E) holds), then we have the following bijection,
         \begin{equation*}
-        \Hom_{\mathrm{nat} A-\mathrm{alg}}(A\langle X_1,\cdots,X_n\rangle,B)\ni\varphi\stackrel{\simeq}{\mapsto}(\varphi(X_i))_{i=1}^n\in(B^\circ)^n.
+        \Hom_{\mathrm{nat-} A\mathrm{-alg}}(A\langle X_1,\cdots,X_n\rangle,B)\ni\varphi\stackrel{\simeq}{\mapsto}(\varphi(X_i))_{i=1}^n\in(B^\circ)^n.
         \end{equation*}
-        (All such $\varphi$ are adic Fact 3.2.21. use Fact 3.3.6 for powerboundedness).
-        \item If $\langle f_1,\cdots,f_n\rangle_A$ is open and $I=A\langle X_1,\cdots,X_n\rangle$ is an arbitrary closed ideal containing all $f_0X_i-f_i$ and $B=A\langle X_1,\cdots,X_n\rangle/I$. We have $B\stackrel{f_i}{\to}B$ is open. (Proposition \ref{fact_20_2} applied with $I = \overline{\langle f_0X_i-f_i\rangle}_{A\langle X_1,\cdots,X_n\rangle}$ Then any larger $I$ can be derived from this (Proposition \ref{fact_20_2})).
-        \item if $M$ is an adic $A$-module with a countable neighborhood base of $0$ (e.g. $M=A$ if $A$ is $\id$-adic). Then $M\langle X_1,\cdots,X_n\rangle$ is an adic $A$-module (Proposition \ref{fact_20_2}).
+        %(All such $\varphi$ are adic Fact 3.2.21. use Fact 3.3.6 for powerboundedness).
+        \item If $\langle f_1,\cdots,f_n\rangle_A$ is open and $I=A\langle X_1,\cdots,X_n\rangle$ is an arbitrary closed ideal containing all $f_0X_i-f_i$. Set $B=A\langle X_1,\cdots,X_n\rangle/I$. We have $B\stackrel{f_0}{\to}B$ is open. %(Proposition \ref{fact_20_2} applied with $I = \overline{\langle f_0X_i-f_i\rangle}_{A\langle X_1,\cdots,X_n\rangle}$ Then any larger $I$ can be derived from this (Proposition \ref{fact_20_2})).
+        \item If $M$ is an adic $A$-module with a countable neighborhood base of $0$ (e.g. $M=A$ if $A$ is $\id$-adic). Then $M\langle X_1,\cdots,X_n\rangle$ is an adic $A$-module.% (Proposition \ref{fact_20_2}).
     \end{enumerate}
 \end{proposition}
+\begin{proof}
+    \textbf{a.} By definition a subset $S\subseteq A\langle X_1,\cdots,X_n\rangle$ is powerbounded if for any neighborhood $U$ of $0$ there is another neighborhood $V$ of $0$ such that $VS\subseteq U$. The topology base of $A\langle X_1,\cdots,X_n\rangle$ is given by
+    \begin{equation*}
+    \{U\langle X_1,\cdots,X_n\rangle\sep U\subseteq A\text{ an open additive subgroup}\}.
+    \end{equation*}
+    Note that $X_i U\langle X_1,\cdots,X_n\rangle\subseteq U\langle X_1,\cdots,X_n\rangle$, therefore $\{X^\alpha\sep \alpha\in\N^n\}$ is powerbounded.
+    \par\textbf{b.} The openness follows from that for any open subgroup $U\subseteq C$, 
+    \begin{equation*}
+        U\comppol{n}\subseteq C\comppol{n}.
+    \end{equation*}
+    The denseness follows from the definition.
+    \par\textbf{c.} Lemma \ref{lemma_19_1} and Proposition \ref{fact_17_10}. 
+    \par\textbf{d.} Since $B$ is complete and morphisms of topological rings are continuous, we have,
+    \begin{equation*}
+        \Hom_{\mathrm{nat-}A\mathrm{-alg}}(A\comppol{n},B)\stackrel{\text{\makebox[0pt][c]{Continuity}}}{\cong} \Hom_{\mathrm{nat-}A\mathrm{-alg}}(A[X_1,\cdots,X_n],B)\stackrel{\text{\makebox[0pt][c]{Lemma \ref{lemma_19_1}.f}}}{\cong}(B^\circ)^n.
+    \end{equation*}
+    \par\textbf{e.} By Proposition \ref{fact_16_21}, all such $\varphi$-s are adic and use that $X_1,\cdots,X_n$ are powerbounded from Lemma \ref{lemma_19_1}.a.
+    \par\textbf{f.} Use Lemma \ref{lemma_19_1} and Proposition \ref{fact_20_2}.
+    \par\textbf{g.} Follows from Proposition \ref{fact_20_2}.
+\end{proof}
 \begin{theorem}
     \label{theorem_20_3}
     Let $A=(A^\triangleleft,A^+)$, $X=\Spa(A^\triangleleft,A^+),\Omega = \cR_X(f_0|f_1,\cdots,f_m)$ a rational open subset. %, $\langle f_0,\cdots,f_n\rangle_A$ being open in $A$. 
-    Let $\mathcal{P}$ be the category of complete Huber pair $(B^\triangleleft,B^+)$.
+    Let $\mathcal{P}$ be the category of complete Huber pair $(B^\triangleleft,B^+)$.%current Current
     \begin{enumerate}[a.]
         \item The functor $F_\Omega$ such that 
         \begin{equation}

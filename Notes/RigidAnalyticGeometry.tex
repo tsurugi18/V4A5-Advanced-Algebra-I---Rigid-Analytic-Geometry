@@ -24,6 +24,10 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 
 \newtheorem{theorem}{Theorem} [subsection] 
 \newtheorem{proposition}{Proposition}[subsection] 
+\newtheorem*{theorem*}{Theorem} 
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
 \newtheorem{definition}{Definition}[subsection] 
 \newtheorem{lemma}{Lemma}[subsection] 
 \newtheorem{notation}{Notation}[subsection] 
@@ -139,6 +143,7 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
 \newcommand{\cB}[0]{\mathcal{B}}
 \newcommand{\cA}[0]{\mathcal{A}}
 \newcommand{\cC}[0]{\mathcal{C}}
+\newcommand{\cO}[0]{\mathcal{O}}
 \newcommand{\cT}[0]{\mathcal{T}}
 \newcommand{\cF}[0]{\mathcal{F}}
 \newcommand{\cG}[0]{\mathcal{G}}
@@ -504,6 +509,8 @@ mysymbol/.style={start anchor=center,end anchor=center,draw=none}
     A Noetherian space $X$ (i.e. $\QC(X)=\Ouv_X$) is spectral if and only if it is sober.
 \end{remark}
 \begin{proposition}
+    \label{fact_1_2_7}
+    \label{proposition_1_2_7}
     Every non-empty closed subset of a spectral space $X$ contains a closed point.
 \end{proposition}
 
@@ -3324,7 +3331,7 @@ Open subgroups are closed and using that $B$ is an open neighborhood of $0$ in $
         \setcounter{enumi}{2}
         \item The ideal $\langle a_1,\cdots,a_m\rangle_{A^\triangleleft}$ is open if and only if $\max_{1\leq i\leq m}\ab{a_i}_x>0$ for all $x\in X_a$ %(the analytic points of $X$). 
         This is the case if and only if $A^{\triangleleft m}\stackrel{\vec{a}}{\to}A$ is an open map.
-        \item $A^{\triangleleft}=\langle a_1,\cdots,a_m\rangle_{A^\triangleleft}$ if and only if $\max_{1\leq i\leq m}\ab{x_i}_x>0$ for all $x\in X$.
+        \item $A^{\triangleleft}=\langle a_1,\cdots,a_m\rangle_{A^\triangleleft}$ if and only if $\max_{1\leq i\leq m}\ab{a_i}_x>0$ for all $x\in X$.
     \end{enumerate}
     A morphism of Huber pairs $\varphi:(A^\triangleleft,A^+)\to (B^\triangleleft, B^+)$ defines a continuous map $Y=\Spa (B^\triangleleft,B^+)\to \Spa (A^\triangleleft, A^+)=X$ which is the case of an adic morphisms is a spectral map.
 \end{theorem}
@@ -3710,260 +3717,496 @@ If $A\stackrel{\tau}{\to}T$ is a morphism of topological rings and $\tau(f)\in T
     \par\textbf{f.} Use Lemma \ref{lemma_19_1} and Proposition \ref{fact_20_2}.
     \par\textbf{g.} Follows from Proposition \ref{fact_20_2}.
 \end{proof}
+\begin{definition}
+    Let $\sC$ be a category. A functor $F:\sC\to(\mathrm{Sets})$ is said to be represented by $B\in\Ob(\sC)$ if there is a natural isomorphism,
+    \begin{equation*}
+        F\cong \mathrm{Mor}_\sC(B,\cdot).
+    \end{equation*}
+    Equivalently, $B$ represents $F$ if for any $C\in\Ob(\sC)$, there is $b\in F(B)$ such that evaluation at $b$ gives a bijection 
+    \begin{equation*}
+        \mathrm{Mor}_\sC(B,C)\ni\varphi\stackrel{\mathrm{ev}_b\circ F}{\mapsto}F(\varphi)(b)\in(\mathrm{Sets}).
+    \end{equation*} 
+\end{definition}
+
+\begin{remark}
+    If $F:\sC\to (\mathrm{Sets})$ is represented by $B\in\Ob(\sC)$, then such $B$ is unique up to isomorphisms.
+\end{remark}
+
+\begin{notation}
+    $\mathcal{P}$ denotes the category of complete Huber pairs.
+\end{notation}
+\begin{definition}
+    Let $A=(A^\triangleleft,A^+)$ and $X=\Spa(A^\triangleleft,A^+)$. For a rational open subset $\Omega = \cR_X(f_0|f_1,\cdots,f_m)$, we define a functor $\cF_\Omega:\mathcal{P}^{\mathrm{op}}\to(\mathrm{Sets})$ to be
+    \begin{equation*}
+        \mathcal{P}\ni C\stackrel{\cF_\Omega}{\mapsto}\cF_\Omega(C) \defeq\{\varphi\in\Hom_{\mathrm{Huber}}(A,C)\sep \Spa(\varphi)(\Spa(C))\subseteq\Omega\}.
+    \end{equation*}
+    If $\cF_\Omega$ is representable, we will denote the representing object to be $(\cO_X(\Omega),\cO_X^+(\Omega))$.
+\end{definition}
+
 \begin{theorem}
-    \label{theorem_20_3}
-    Let $A=(A^\triangleleft,A^+)$, $X=\Spa(A^\triangleleft,A^+),\Omega = \cR_X(f_0|f_1,\cdots,f_m)$ a rational open subset. %, $\langle f_0,\cdots,f_n\rangle_A$ being open in $A$. 
-    Let $\mathcal{P}$ be the category of complete Huber pair $(B^\triangleleft,B^+)$.%current Current
-    \begin{enumerate}[a.]
-        \item The functor $F_\Omega$ such that 
-        \begin{equation*}
-            C\mapsto F_\Omega(C) = \{\varphi\in\Hom(A,C)\sep (\Spa(\varphi)(\Spa(C)))\subseteq\Omega\}
-        \end{equation*}
-        is represented by an object $B=(B^\triangleleft,B^+) = (\Ouv_X(\Omega),\Ouv_X^+(\Omega))$. We denote the universal element of $F_\Omega(B)$ by $b\in \Hom(A,B)\subseteq \Hom(A^\triangleleft,\Ouv_X(\Omega))$ and $y = \Spa B$ and $Y\stackrel{\beta}{\to}X$ where $\beta = \Spa(b)$. 
-        \item If $\langle f_0,\cdots,f_m\rangle_A=A$ (which is automatic if $A$ is analytic or Tate), then one can take
-        \begin{equation*}
-            \Ouv_X(\Omega)=B^\triangleleft = A\langle X_1,\cdots,X_m\rangle/I
-        \end{equation*}
-        when $I\subseteq A\langle X_1,\cdots,X_n\rangle$ is the closure of the ideal generated by $f_0X_i-f_i$ for $1\leq i\leq m$. For $\Ouv_X^+(\Omega)$, one must then take the integral closure of the image of $A^+\langle X_1,\cdots,X_m\rangle$.
-        \item In general, one can take,
-        \begin{equation}
-            \Ouv_X(\Omega) = (A\langle X_1,\cdots,X_m\rangle/J)_{f_0}\label{equation_omega}
-        \end{equation}
-        where $J\subseteq A\langle X_1,\cdots,X_n\rangle $ is the closure of $\bigcup_{l=0}^\infty I\cdot f_0^l$. For $\Ouv_X^+(\Omega)$, one can take the integral closure of the image of $A^+\langle X_1,\cdots,X_n\rangle$ in Equation \eqref{equation_omega}.
-        \item The image of $f_0$ in $\Ouv_X(\Omega)$ is a unit and the image of the ? morphism $A_{f_0}^\triangleleft\to\Ouv_X(\Omega)$ is a dense subring of $\Ouv_X(\Omega)$.
-        \item The subring $\Ouv_X^+(\Omega)$ is integral over the closure in $\Ouv_X(\Omega)$ of the subring generated by $b(A)$ and the ${\frac {b(f_i)} {b(f_0)}}$.
-        \item The map $Y\stackrel{\beta}{\to}\Omega$ is a homeomorphism sends following $\Rat_Y$ with $(\Rat_Y)_\Omega \defeq\{\Theta\in\Rat_X\sep \Theta\subseteq\Omega\}$.
-        \item Let $\Theta\in\Rat_Y$ and $C = (\Ouv_Y(\Theta),\Ouv_Y^+(\Theta)),\Theta_X=\beta(\Theta)$ and $c\in\mathcal{F}_\Theta(C)$ the universal element. The composition $A\stackrel{b}{\to}B\stackrel{c}{\to}C$ is an element of $F_{\Theta_X}$ and has the universal property for that functor. The morphism,
-        \begin{equation*}
-            (\Ouv_X(\Theta_X),\Ouv_{X^-}^+(\Theta_X))\to(\Ouv_Y(\Theta),\Ouv_Y^+(\Theta))=C
-        \end{equation*}
-        is an isomorphism.
-    \end{enumerate}
+    \label{theorem_20_3_3}
+    \label{theorem_20_3_c}
+    Let $A=(A^\triangleleft,A^+)$, $X=\Spa(A^\triangleleft,A^+)$, and $\Omega = \cR_X(f_0|f_1,\cdots,f_m)$ be rational open. Then,
+    \begin{equation*}
+        \cO_X(\Omega) = (A^\triangleleft\comppol{m}/J)_{f_0}
+    \end{equation*}
+    for some ideal $J$ and $\cO^+_X(\Omega)$ to be the integral closure of $A^+\comppol{m}+J$ in the localization. More concretely, let 
+    \begin{equation*}
+        I \defeq \overline{\langle f_i-f_0X_i\rangle_{i=1,\cdots,m}}.
+    \end{equation*}
+    Then we can take
+    \begin{equation*}
+        J =\overline{\bigcup_{l=0}^\infty(I:f_0^l)}.
+    \end{equation*}
 \end{theorem}
-The proof of the theorem occupies the ret? of this situation Applying c) in the situation of b), $(f_0\tmod\:I)\in (A\langle X_1,\cdots,X_n\rangle/I)^\times$. Since $f_0X_i = f_i$< 
-\begin{equation*}
-    f_0A\langle X_1,\cdots,X_m\rangle /I = \langle f_0,\cdots,f_m\rangle_{A\langle X_1,\cdots,X_m\rangle/I}=A\langle X_1,\cdots,X_m\rangle/I.
-\end{equation*}
-Then b) follows from c). Also d) follows from c) and the remainder results in Proposition 1 - 3. c) $\Rightarrow$ a is clear. c) $\Rightarrow$ e) Follows from the density of $A[X_1,\cdots,X_m]$ in $A\langle X_1,\cdots,X_m\rangle$ (Proposition \ref{proposition_20_3}). c) $\Rightarrow $ f) follows from the density of $A^+[X_1,\cdots,X_m]$ in $A^+\langle X_1,\cdots,X_m\rangle$ again by Proposition \ref{proposition_20_3}.
-\par We first show c) (which takes a while). When this is done g) and h) ($\Omega\simeq\Spa B$) remains. Let 
-\begin{equation*}
-    B^\triangleleft = (A\langle X_1,\cdots,X_m\rangle/J)[f_0^{-1}], 
-\end{equation*}
-and $B^+$ be the integral closure of the image of $A^+\langle X_1,\cdots,X_m\rangle$ in $B^\triangleleft$ as in Equation \ref{equation_omega}. It follows from the results ? Proposition \ref{proposition_20_3} that $B^\triangleleft$ is complete Huber, and that the following morphisms are open,
-\begin{equation}
-    A^\triangleleft\langle X_1,\cdots,X_m\rangle\to A^\triangleleft\langle X_1,\cdots,X_m\rangle/J\to (A^\triangleleft\langle X_1,\cdots,X_m\rangle/J)_{f_0}=B^\triangleleft.\label{equation_20_3_a}
-\end{equation}
-Since $A^+\langle X_1,\cdots,X_m\rangle$ is open in $A^\triangleleft\langle X_1,\cdots,X_m\rangle$, its follows that $B^+$ is an open subring of $B$. Since $A^+\subseteq {A^{\triangleleft}}^\circ$, it can be easily shown that 
-\begin{equation*}
-    A^+\langle X_1,\cdots,X_n\rangle\subseteq A^\triangleleft\langle X_1,\cdots,X_m\rangle^\circ.
-\end{equation*}
-By Proposition \ref{fact_15_16}, the images of elements of $A^+\langle X_1,\cdots,X_m\rangle$ is ? ? in Equation \ref{equation_20_3_a} is an open embedding. It easily follows from the definition of "bounded that the image of $A^+\langle X_1,\cdots,X_m\rangle$ in $B^\triangleleft$ is contained in $B^{\triangleleft\circ}$. By Proposition \ref{fact_16_5}, this also holds for the integral closures of ? image. It follows that $B=(B^\triangleleft,B^+)$ is a Huber pair and the composition of morphisms in Equation \ref{equation_20_3_a} with $A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_m\rangle$ defines a morphis $A\stackrel{b}{\to}B$.
-We now claim that $b\in\mathcal{F}_\Omega(B)$. Indeed, the image $q_i$ of $X_i\in A^\triangleleft\langle X_1,\cdots,X_m\rangle$ in $B$ is in $B^+$ by the definition.
-Thus $\ab{q_i}_Y\leq 1$ for all $y\in Y\defeq\Spa B$. Since $b(f_i)= q_ib(f_0)$ (as $f_0X_i-f_i\in I\subseteq J$), we have 
-\begin{equation*}
-    \ab{b(f_i)}_y\leq \ab{b(f_0)}_y.
-\end{equation*}
-Set $\beta = \Spa(b)$ then for $x=\beta(y)$,
-\begin{equation*}
-    \ab{f_i}_x=\ab{b(f_i)}_y\leq \ab{b(f_0)}_y=\ab{f_0}_x.
-\end{equation*}
-Also 
-\begin{equation*}
-    \ab{f_0}_x=\ab{b(f_0)}_y\not=0
-\end{equation*}
-as $b(f_0)\in B^{\triangleleft\times}$. Then $x\in\Omega$ and $b\in \mathcal{F}_\Omega(B)$ as claimed.
-\par We want to check that $b$ has the universal property having turning $B$ a representing object for $\mathcal{F}_\Omega$
-\begin{equation*}
-    \Hom_{\mathrm{op}}(B,C)\stackrel{\varphi\mapsto\varphi b}{\to}\mathcal{F}_\Omega(C)
-\end{equation*}
-is bijective. For this, let $C$ be a complete Huber pair and $A\stackrel{c}{\to}C$ a morphism of Huber pairs such that $\gamma(\Spa C)\subseteq\Omega$ ? $\Spa(c)$ (i.e. $c\in \mathcal{F}_\Omega(C)$). Let $Z=\Spa C$. For $z\in Z,\vert c(f_0)\vert_Z=\vert f_0\vert_{\gamma(z)}\not=0$ as $\gamma(z)\in \Omega$. Thus, $c(f_0)\in C^{\triangleleft\times}$ by Theorem \ref{theorem_17_2}. Then $q_i = {\frac {c(f_i)} {c(f_0)}}$ exists in $C^\triangle$. For $z\in Z$, $\ab{q_i}_z\leq 1$ as 
-\begin{equation*}
-    \ab{c(f_i)}_z=\ab{f_i}_{\gamma(z)}\leq \ab{f_0}_{\gamma(z)}=\ab{c(f_0)}_z
-\end{equation*}
-as $\gamma(z)\in\Omega$. By Theorem \ref{theorem_17_2}, $q_i\in C^+\subseteq C^{\triangleleft\circ}$. By Proposition \ref{proposition_20_3}, there is a unique morphism $A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{c_1}{\to}C^\triangleleft$ of nat-rings where composition with $A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_n\rangle$ conincides with $c$ and such that $c_1(X_i) = q_i$.
-Since $c(f_i)=q_ic(f_0)$ in $C^\triangleleft$, $c_1$ annhilates $f_0X_i-f_i$. By its continuity, $c_1(I)=0$. As $c_1(f_0) = c(f_0)\in C^{\triangle\times}$, $c_1$ annhilates $I:f_0 ?$ By continuity $c_1(J)=0$. Thus $c_1$ factors over $A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_m\rangle/J$ and the first morphism in Equation \eqref{equation_20_3_a}. By the universal property of $(A\langle X_1,\cdots,X_m\rangle/J)_{f_0}$ from Proposition \ref{fact_20_2}, $c_1$ factors uniquely as the second morphism in Equation \eqref{equation_20_3_a} followed by $B^\triangleleft=(A\langle X_1,\cdots,X_m\rangle/J)_{f_0}\to C$.
-\begin{equation*}
-    c_1(A^+) = c(A^+)\subseteq C^+
-\end{equation*}
-as $c$ is a morphism of Huber pairs and $q_i\in C^+$ (see the above construction). As $A^+[X_1,\cdots,X_n]$ is dense in $A^+\langle X_1,\cdots,X_m\rangle$, and $C^+$ open, $c_1(A^+\langle X_1,\cdots,X_m\rangle)\subseteq C^+$. 
-Thus $c_3(\text{image of $A^+\langle X_1,\cdots,X_m\rangle$ in $B^\triangleleft$})\subseteq C^+$. Since $B^+$ is integral over that image and $C^+$ integrally closed in $C^\triangleleft$, $c_3(B^+)\subseteq C^+$ and we have a morphism $B\stackrel{c_3}{\to}C$ of Huber pairs.
-\par By construction $c= c_3b$. That $c$ is uniquely determined by this property follows from,
-\begin{equation*}
-    c_3\left({\frac {b(a)}{b(f_0)^l}}\right) = {\frac {c(a)} {c(f_0^l)}}
-\end{equation*}
-for $a\in A^\triangleleft$ and $l\in\N$, together with the density of the image of $A^\triangleleft_f$ in $B^\triangleleft$ observed before. We have these checked the derivd uderived universal property for $A\stackrel{b}{\to}B$.
-\par It remains to prove the last two assertions of Theorem \ref{theorem_20_3}. Bijectivity of $Y\stackrel{\beta}{\to}\Omega$, plus identification of topologies of $\Rat$ and $(\Ouv(\cdots),\Ouv^+(\cdots))$. That $\beta(Y)\subseteq\Omega$ follows from $b\in\mathcal{F}_\Omega(B)$ which was checkd before. For the bijectivity of $\beta$, we need the following proposition.
+\begin{proof}
+    Using $J$ in the statement, set 
+    \begin{equation*}
+        B^\triangleleft \defeq \left(A^\triangleleft\comppol{m}/J\right)[f_0^{-1}],
+    \end{equation*}
+    and $B^+$ to be the integral closure of $A^+\comppol{m}+J$ in the localization. 
+    \par $A^\triangleleft\comppol{m}$ is complete by definition and Huber by Proposition \ref{proposition_20_3}.c. By Corollary \ref{corollary_18_1}, $A^\triangleleft\comppol{m}/J$ is again complete and Huber. Using Proposition \ref{proposition_18_2}, $B^\triangleleft$ is complete and Huber. Using Proposition \ref{proposition_20_3}.b and Proposition \ref{proposition_18_2}, we see that $A^+\comppol{m}+J$ is open. Since $A^+\comppol{m}+J\subseteq B^+$ (i.e. it contains an open subring), $B^+$ is also open. 
+    Furthermore, 
+    \begin{equation}
+        \label{equation_open_embedding}
+        A^\triangleleft\comppol{m}\to A^\triangleleft\comppol{m}/J\to (A^\triangleleft\comppol{m})_{f_0}=B^\triangleleft
+    \end{equation}
+    is a composition of open maps, hence open. By Proposition \ref{proposition_20_3}.a, each indeterminant is powerbounded and by definition $A^+\subseteq(A^\triangleleft)^\circ$, hence 
+    \begin{equation*}
+        A^+\comppol{m}\subseteq (A^\triangleleft\comppol{m})^\circ.
+    \end{equation*}
+    By Proposition \ref{fact_15_16} and using the openness of the morphism in Equation \eqref{equation_open_embedding}, the image of $A^+\comppol{m}$ is open. By Proposition \ref{fact_16_5}, $B^+\subseteq (B^\triangleleft)^\circ$.
+    Precomposing the canonical inclusion $A^\triangleleft\to A^\triangleleft\comppol{m}$ to the morphism in Equation \eqref{equation_open_embedding}, we obtain a morphism of complete Huber pairs $b:(A^\triangleleft,A^+)\to(B^\triangleleft,B^+)$.
+    We now show that $b\in\cF_\Omega(B)$, that is $\Spa(b)(\Spa(B))\subseteq\Omega$. Let $q_i \defeq b(X_i)$ for each $X_i\in A^\triangleleft\comppol{m}$. Then by Theorem \ref{theorem_17_2}.a and the construction of $I$,
+    \begin{equation*}
+        \forall y\in \Spa(B), y(b(f_i)) = y(b(f_0X_i)) = y(q_i)y(b(f_i))\leq y(b(f_i)).
+    \end{equation*}
+    As $f_0$ is a unit in $B^\triangleleft$ by construction, we have $y(b(f_0))\not=0$. Hence $\Spa(b)(\Spa(B))\subseteq\Omega$ showing $b\in\cF_\Omega(B)$.
+    \par It remains to show that evaluation at $b$ gives a desired bijection. Let $C\in\mathcal{P}$ and $\varphi\in\cF_\Omega(C)$. By definition and Theorem \ref{theorem_17_2}, $\varphi(f_0)\in (C^\triangleleft)^\times$. Set $q_i = {\frac {\varphi(f_i)}{\varphi(f_0)}}$, then for any $z\in\Spa(C)$, $z(q_i)\leq 1$. Hence by Theorem \ref{theorem_17_2}.a, $q_i\in C^+$ for each $i=0,\cdots,m$.
+    Hence by Proposition \ref{proposition_20_3}.d, there is a unique morphism of nat-rings $\varphi_1:A\comppol{m}\to C$ sending $X_i$ to $q_i$ and the composition with $A^\triangleleft\to A^\triangleleft\comppol{m}$ gives $\varphi$. By construction and the continuity of $\varphi_1$, we obtain $\varphi_1(I)=0$.
+    Recalling that $\varphi(f_0)$ is invertible, we see $\varphi_1$ annhilates $(I:f_0^l)$ for any $l\geq0$. Again by the continuity $\varphi_1(J)=0$. Using Corollary \ref{corollary_19_2}, $\varphi_1$ factors through $B^\triangleleft$. We denote the lifted morphism $\varphi_2:B^\triangleleft\to C^\triangleleft$. It remains to show that $\varphi_2$ is a morphism of Huber pairs. At the moment, we have the following diagram,
+    \begin{center}
+\begin{tikzcd}
+                                                              & A^\triangleleft \arrow[rdd, "b"] \arrow[ldd] \arrow[d, "\varphi"] &                                         \\
+                                                              & C^\triangleleft                                                   &                                         \\
+A^\triangleleft\comppol{m} \arrow[rr] \arrow[ru, "\varphi_1"] &                                                                   & B^\triangleleft \arrow[lu, "\varphi_2"]
+\end{tikzcd}
+    \end{center}
+    Using that $\varphi(A^+)\subseteq C^+$ and $q_i\in C^+$ for each $i=0,\cdots,m$, we obtain 
+    \begin{equation*}
+        \varphi_1(A^+[X_0,\cdots,X_m])\subseteq C^+.
+    \end{equation*}
+    Using the density of $A^+[X_0,\cdots,X_m]$ in $A^+\comppol{m}$ by Proposition \ref{proposition_20_3}.b, the continuity of $\varphi_1$, and $C^+$ is an open subgroup hence also closed, we get 
+    \begin{equation*}
+        \varphi_1(A^+\comppol{m})\subseteq C^+.
+    \end{equation*}
+    Using the commutative diagram,
+    \begin{equation*}
+        \varphi_2(A^+\comppol{m})\subseteq C^+.
+    \end{equation*}
+    Finally $\varphi_2(B^+)$ is integral over $\varphi_2(A^+\comppol{m})$ by construction and $C^+$ is integrally closed by definition, we obtain,
+    \begin{equation*}
+        \varphi_2(B^+)\subseteq C^+.
+    \end{equation*}
+    We have shown the surjectivity. Furthermore, the construction of morphisms has been all unique thus the injectivity also follows.
+\end{proof}
+\begin{corollary}
+    \label{corollary_20_3_b}
+    In the situation of Theorem \ref{theorem_20_3_c}, if $\langle f_0,\cdots,f_m\rangle_A = A$ holds (e.g. $A$ is Tate or analytic), then we can take,
+    \begin{equation*}
+        B^\triangleleft \defeq A^\triangleleft\comppol{m}/I.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    By the assumption, we have,
+    \begin{align*}
+        A^\triangleleft\comppol{m}/I & = (f_0,\cdots,f_m)(A^\triangleleft\comppol{m}/I),\\
+        & = (f_0,f_0X_1\cdots,f_0X_m)(A^\triangleleft\comppol{m}/I),\\
+        & = f_0(A^\triangleleft\comppol{m}/I).
+    \end{align*}
+    Hence $f_0$ is already a unit in $(A^\triangleleft\comppol{m}/I)$. In particular,  
+    \begin{equation*}
+        (I:f_0^l) = I \tand (A^\triangleleft\comppol{m}/I)_{f_0} = A^\triangleleft\comppol{m}/I.
+    \end{equation*}
+\end{proof}
+\begin{corollary}
+    \label{corollary_20_3}
+    Let $A=(A^\triangleleft,A^+)$, $X=\Spa(A^\triangleleft,A^+),\Omega = \cR_X(f_0|f_1,\cdots,f_m)$ a rational open subset. %, $\langle f_0,\cdots,f_n\rangle_A$ being open in $A$. 
+    We denote $\mathcal{P}$ to be the category of complete Huber pairs $(B^\triangleleft,B^+)$.
+    \begin{enumerate}[a.]
+        \item $\cF_\Omega$ is representable.
+        % \item The functor $\cF_\Omega$ such that 
+        % \begin{equation*}
+        %     C\mapsto \cF_\Omega(C) = \{\varphi\in\Hom(A,C)\sep (\Spa(\varphi)(\Spa(C)))\subseteq\Omega\}
+        % \end{equation*}
+        % is represented by an object $B=(B^\triangleleft,B^+) = (\cO_X(\Omega),\Ouv_X^+(\Omega))$. We denote the universal element of $F_\Omega(B)$ by $b\in \Hom(A,B)\subseteq \Hom(A^\triangleleft,\cO_X(\Omega))$ and $y = \Spa B$ and $Y\stackrel{\beta}{\to}X$ where $\beta = \Spa(b)$. 
+        % \item If $\langle f_0,\cdots,f_m\rangle_A=A$ (which is automatic if $A$ is analytic or Tate), then one can take
+        % \begin{equation*}
+        %     \cO_X(\Omega)=B^\triangleleft = A\langle X_1,\cdots,X_m\rangle/I
+        % \end{equation*}
+        % when $I\subseteq A\langle X_1,\cdots,X_n\rangle$ is the closure of the ideal generated by $f_0X_i-f_i$ for $1\leq i\leq m$. For $\Ouv_X^+(\Omega)$, one must then take the integral closure of the image of $A^+\langle X_1,\cdots,X_m\rangle$.
+        % \item In general, one can take,
+        % \begin{equation}
+        %     \cO_X(\Omega) = (A\langle X_1,\cdots,X_m\rangle/J)_{f_0}\label{equation_omega}
+        % \end{equation}
+        % where $J\subseteq A\langle X_1,\cdots,X_n\rangle $ is the closure of $\bigcup_{l=0}^\infty I\cdot f_0^l$. For $\Ouv_X^+(\Omega)$, one can take the integral closure of the image of $A^+\langle X_1,\cdots,X_n\rangle$ in Equation \eqref{equation_omega}.
+        \item The image of $f_0$ in $\cO_X(\Omega)$ is a unit and the image of the resulting morphism $A_{f_0}^\triangleleft\to\cO_X(\Omega)$ is a dense subring of $\cO_X(\Omega)$.
+        \item The morphism $A^\triangleleft\to\cO_X(\Omega)$ is adic. Furthermore, if $A^\triangleleft$ is Tate or analytic then so is $\cO_X(\Omega)$.
+        \item The subring $\cO_X^+(\Omega)$ is integral over the closure in $\cO_X(\Omega)$ of the subring generated by $b(A^+)$ and the ${\frac {b(f_i)} {b(f_0)}}$.
+        % \item The map $Y\stackrel{\beta}{\to}\Omega$ is a homeomorphism sends following $\Rat_Y$ with $(\Rat_Y)_\Omega \defeq\{\Theta\in\Rat_X\sep \Theta\subseteq\Omega\}$.
+        % \item Let $\Theta\in\Rat_Y$ and $C = (\Ouv_Y(\Theta),\Ouv_Y^+(\Theta)),\Theta_X=\beta(\Theta)$ and $c\in\mathcal{F}_\Theta(C)$ the universal element. The composition $A\stackrel{b}{\to}B\stackrel{c}{\to}C$ is an element of $F_{\Theta_X}$ and has the universal property for that functor. The morphism,
+        % \begin{equation*}
+        %     (\Ouv_X(\Theta_X),\Ouv_{X^-}^+(\Theta_X))\to(\Ouv_Y(\Theta),\Ouv_Y^+(\Theta))=C
+        % \end{equation*}
+        % is an isomorphism.
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    \textbf{a} follows immediately from Theorem \ref{theorem_20_3_c}. For the sake of simplicity, we denote $(B^\triangleleft,B^+)=(\cO_X(\Omega),\cO^+_X(\Omega))$.
+    \par\textbf{d} and \textbf{e} are already shown in the proof of Theorem \ref{theorem_20_3_c}. For \textbf{b.} we have seen that by Proposition \ref{proposition_18_2}.b and Proposition \ref{proposition_20_3}.b that 
+    \begin{equation*}
+        \overline{A^\triangleleft[X_0,\cdots,X_m]}\subseteq A^\triangleleft\comppol{m}\subseteq A_{f_0}\comppol{m}.
+    \end{equation*}
+    By construction,
+    \begin{equation*}
+        B^\triangleleft = \bigcup_{j\geq0}f^{-j}(A^\triangleleft\comppol{m}/J).
+    \end{equation*}
+    However, $f^{-j}(A[X_0,\cdots,X_m]+J)$ is dense in $f^{-j}(A^\triangleleft\comppol{m}/J)$ and $X_i = {\frac {f_i} {f_0}}$ in $B^\triangleleft$, the image of $A_{f_0}^\triangleleft \to B^\triangleleft$ does contain every elements of $f^{-j}(A[X_0,\cdots,X_m]+J)$, hence it is dense.
+    \par\textbf{c.} Use Proposition \ref{proposition_20_3}.c, Corollary \ref{corollary_18_1}.c, and Corollary \ref{corollary_19_2} for the latter statement. For the first part, note that $A$ is Huber hence $\id$-adic by definition. Using \ref{proposition_20_3}.g, $A^\triangleleft\comppol{m}$ is adic. Hence for any open ideal $I\subseteq A$, there are finitey many $\{a_1,\cdots,a_r\}\subseteq I$ such that 
+    \begin{equation*}
+        (A^\triangleleft\comppol{m})^r\ni(\alpha_i)_{i=1,\cdots,r}\stackrel{\vec{a}}{\mapsto} \sum_{i=1}^r a_i\alpha_i\in A^\triangleleft\comppol{m}
+    \end{equation*}
+    is open. Consider the following diagram,
+    \begin{center}
+        \begin{tikzcd}
+(A^\triangleleft\comppol{m})^r \arrow[d] \arrow[r, "\vec{a}"] & A^\triangleleft\comppol{m} \arrow[d] \\
+(B)^r \arrow[r, "\vec{a}"']                                   & B                                   
+\end{tikzcd}
+    \end{center}
+    Since $\vec{a}$ on the top and the canonical morphism $A^\triangleleft\comppol{m}\to B$ is open, using Lemma \ref{lemma_16_17_1}, we see $\vec{a}$ on the bottom is also open. Hence $B$ is an adic $A$-module.
+\end{proof}
+% The proof of the theorem occupies the rest of this subsection. Applying c) in the situation of b), $(f_0\tmod\:I)\in (A\langle X_1,\cdots,X_n\rangle/I)^\times$. Since $f_0X_i = f_i$,
+% \begin{equation*}
+%     f_0A\langle X_1,\cdots,X_m\rangle /I = \langle f_0,\cdots,f_m\rangle_{A\langle X_1,\cdots,X_m\rangle/I}=A\langle X_1,\cdots,X_m\rangle/I.
+% \end{equation*}
+% Then b) follows from c). Also d) follows from c) and the remainder results in Proposition 1 - 3. c) $\Rightarrow$ a is clear. c) $\Rightarrow$ e) Follows from the density of $A[X_1,\cdots,X_m]$ in $A\langle X_1,\cdots,X_m\rangle$ (Proposition \ref{proposition_20_3}). c) $\Rightarrow $ f) follows from the density of $A^+[X_1,\cdots,X_m]$ in $A^+\langle X_1,\cdots,X_m\rangle$ again by Proposition \ref{proposition_20_3}.
+% \par We first show c) (which takes a while). When this is done g) and h) ($\Omega\simeq\Spa B$) remains. Let 
+% \begin{equation*}
+%     B^\triangleleft = (A\langle X_1,\cdots,X_m\rangle/J)[f_0^{-1}], 
+% \end{equation*}
+% and $B^+$ be the integral closure of the image of $A^+\langle X_1,\cdots,X_m\rangle$ in $B^\triangleleft$ as in Equation \ref{equation_omega}. It follows from the results ? Proposition \ref{proposition_20_3} that $B^\triangleleft$ is complete Huber, and that the following morphisms are open,
+% \begin{equation}
+%     A^\triangleleft\langle X_1,\cdots,X_m\rangle\to A^\triangleleft\langle X_1,\cdots,X_m\rangle/J\to (A^\triangleleft\langle X_1,\cdots,X_m\rangle/J)_{f_0}=B^\triangleleft.\label{equation_20_3_a}
+% \end{equation}
+% Since $A^+\langle X_1,\cdots,X_m\rangle$ is open in $A^\triangleleft\langle X_1,\cdots,X_m\rangle$, its follows that $B^+$ is an open subring of $B$. Since $A^+\subseteq {A^{\triangleleft}}^\circ$, it can be easily shown that 
+% \begin{equation*}
+%     A^+\langle X_1,\cdots,X_n\rangle\subseteq A^\triangleleft\langle X_1,\cdots,X_m\rangle^\circ.
+% \end{equation*}
+% By Proposition \ref{fact_15_16}, the images of elements of $A^+\langle X_1,\cdots,X_m\rangle$ is ? ? in Equation \ref{equation_20_3_a} is an open embedding. It easily follows from the definition of "bounded that the image of $A^+\langle X_1,\cdots,X_m\rangle$ in $B^\triangleleft$ is contained in $B^{\triangleleft\circ}$. By Proposition \ref{fact_16_5}, this also holds for the integral closures of ? image. It follows that $B=(B^\triangleleft,B^+)$ is a Huber pair and the composition of morphisms in Equation \ref{equation_20_3_a} with $A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_m\rangle$ defines a morphis $A\stackrel{b}{\to}B$.
+% We now claim that $b\in\mathcal{F}_\Omega(B)$. Indeed, the image $q_i$ of $X_i\in A^\triangleleft\langle X_1,\cdots,X_m\rangle$ in $B$ is in $B^+$ by the definition.
+% Thus $\ab{q_i}_Y\leq 1$ for all $y\in Y\defeq\Spa B$. Since $b(f_i)= q_ib(f_0)$ (as $f_0X_i-f_i\in I\subseteq J$), we have 
+% \begin{equation*}
+%     \ab{b(f_i)}_y\leq \ab{b(f_0)}_y.
+% \end{equation*}
+% Set $\beta = \Spa(b)$ then for $x=\beta(y)$,
+% \begin{equation*}
+%     \ab{f_i}_x=\ab{b(f_i)}_y\leq \ab{b(f_0)}_y=\ab{f_0}_x.
+% \end{equation*}
+% Also 
+% \begin{equation*}
+%     \ab{f_0}_x=\ab{b(f_0)}_y\not=0
+% \end{equation*}
+% as $b(f_0)\in B^{\triangleleft\times}$. Then $x\in\Omega$ and $b\in \mathcal{F}_\Omega(B)$ as claimed.
+% \par We want to check that $b$ has the universal property having turning $B$ a representing object for $\mathcal{F}_\Omega$
+% \begin{equation*}
+%     \Hom_{\mathrm{op}}(B,C)\stackrel{\varphi\mapsto\varphi b}{\to}\mathcal{F}_\Omega(C)
+% \end{equation*}
+% is bijective. For this, let $C$ be a complete Huber pair and $A\stackrel{c}{\to}C$ a morphism of Huber pairs such that $\gamma(\Spa C)\subseteq\Omega$ ? $\Spa(c)$ (i.e. $c\in \mathcal{F}_\Omega(C)$). Let $Z=\Spa C$. For $z\in Z,\vert c(f_0)\vert_Z=\vert f_0\vert_{\gamma(z)}\not=0$ as $\gamma(z)\in \Omega$. Thus, $c(f_0)\in C^{\triangleleft\times}$ by Theorem \ref{theorem_17_2}. Then $q_i = {\frac {c(f_i)} {c(f_0)}}$ exists in $C^\triangle$. For $z\in Z$, $\ab{q_i}_z\leq 1$ as 
+% \begin{equation*}
+%     \ab{c(f_i)}_z=\ab{f_i}_{\gamma(z)}\leq \ab{f_0}_{\gamma(z)}=\ab{c(f_0)}_z
+% \end{equation*}
+% as $\gamma(z)\in\Omega$. By Theorem \ref{theorem_17_2}, $q_i\in C^+\subseteq C^{\triangleleft\circ}$. By Proposition \ref{proposition_20_3}, there is a unique morphism $A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{c_1}{\to}C^\triangleleft$ of nat-rings where composition with $A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_n\rangle$ conincides with $c$ and such that $c_1(X_i) = q_i$.
+% Since $c(f_i)=q_ic(f_0)$ in $C^\triangleleft$, $c_1$ annhilates $f_0X_i-f_i$. By its continuity, $c_1(I)=0$. As $c_1(f_0) = c(f_0)\in C^{\triangle\times}$, $c_1$ annhilates $I:f_0 ?$ By continuity $c_1(J)=0$. Thus $c_1$ factors over $A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_m\rangle/J$ and the first morphism in Equation \eqref{equation_20_3_a}. By the universal property of $(A\langle X_1,\cdots,X_m\rangle/J)_{f_0}$ from Proposition \ref{fact_20_2}, $c_1$ factors uniquely as the second morphism in Equation \eqref{equation_20_3_a} followed by $B^\triangleleft=(A\langle X_1,\cdots,X_m\rangle/J)_{f_0}\to C$.
+% \begin{equation*}
+%     c_1(A^+) = c(A^+)\subseteq C^+
+% \end{equation*}
+% as $c$ is a morphism of Huber pairs and $q_i\in C^+$ (see the above construction). As $A^+[X_1,\cdots,X_n]$ is dense in $A^+\langle X_1,\cdots,X_m\rangle$, and $C^+$ open, $c_1(A^+\langle X_1,\cdots,X_m\rangle)\subseteq C^+$. 
+% Thus $c_3(\text{image of $A^+\langle X_1,\cdots,X_m\rangle$ in $B^\triangleleft$})\subseteq C^+$. Since $B^+$ is integral over that image and $C^+$ integrally closed in $C^\triangleleft$, $c_3(B^+)\subseteq C^+$ and we have a morphism $B\stackrel{c_3}{\to}C$ of Huber pairs.
+% \par By construction $c= c_3b$. That $c$ is uniquely determined by this property follows from,
+% \begin{equation*}
+%     c_3\left({\frac {b(a)}{b(f_0)^l}}\right) = {\frac {c(a)} {c(f_0^l)}}
+% \end{equation*}
+% for $a\in A^\triangleleft$ and $l\in\N$, together with the density of the image of $A^\triangleleft_f$ in $B^\triangleleft$ observed before. We have these checked the derivd uderived universal property for $A\stackrel{b}{\to}B$.
+\par It remains to prove the last two assertions of Corollary \ref{corollary_20_3}. Bijectivity of $Y\stackrel{\beta}{\to}\Omega$, plus identification of topologies of $\Rat$ and $(\Ouv(\cdots),\Ouv^+(\cdots))$. That $\beta(Y)\subseteq\Omega$ follows from $b\in\mathcal{F}_\Omega(B)$ which was checkd before. For the bijectivity of $\beta$, we need the following proposition.
 \begin{proposition}
     \label{proposition_21_4}
     Let $A$ be the (completion or) sequential completion of a topological ring $\mathcal{A}$. Then $\Cont(A)\to \Cont(\mathcal{A})$ is bijective.
 \end{proposition}
 \begin{proof}
-    Let $u$ and $v$ be ontinuous aluations on $A$. Let $u_0,v_0$ their compositions with $\mathcal{A}\to A$. Then $\Gamma_{u} = \Gamma_{u_0}$. Indeed, the image of $\mathcal{A}$ is dense in $A$. If $\gamma=u(a)\not=0$, $W=K_{v<r}$ is open in $A$. Hence there is $\alpha\in\mathcal{A}$ whose image in $A$ is in $a+W$. It follows that $v_0(\alpha)=v(a) = \gamma\in\Gamma_{u_0}$. Since these $\gamma$ generates $\Gamma_{u}$, $\Gamma_u\subseteq\Gamma_{u_0}$. The other inclusion is obvious. Thus $\Gamma_u = \Gamma_{u_0}$ and $\Gamma_v = \Gamma_{v_0}$. 
-    For injectivity, we assume that $u_0,v_0$ are equivalent. Then without loss of generality, 
+    We will first show that for a valuation $v\in\Cont(\hat{A})$ and the restriction $v_0$ of $v$ by precomposing $A\to\hat{A}$, we have $\Gamma_v = \Gamma_{v_0}$. First the inclusion $\Gamma_{v_0}\subseteq\Gamma_v$ is immediate. For any $\alpha\in \hat{A}$ and $\gamma=v(a)\not=0$, $W=K_{v<\gamma}$ is open by assumption. As $A$ is dense in $\hat{A}$, there is $a\in A$ such that
+    $a\in \alpha+W$. By definition, $v(\alpha+W) = \{\gamma\}$. Hence $v_0(a) = \gamma$, therefore $\Gamma_{v}\subseteq\Gamma_{v_0}$.
+    \par Let $u,v\in\Cont(A)$ such that $u_0\sim v_0$. Hence $\Gamma_{u_0}\cong \Gamma_{v_0}$. By the previous claim, we have 
     \begin{equation*}
-        \Gamma_u = \Gamma_{u_0} = \Gamma_{v_0}=\Gamma_{v}
+        \Gamma_u =\Gamma_{u_0} \cong \Gamma_{v_0} =\Gamma_v.
     \end{equation*}
-    and hence $u_0=v_0$ and have to show $u=v$. But this is clear by the continuity of $u$ and $v$.Indeed, if $a\in A$ then by the density of $\mathcal{A}$ in $A$, there is a sequence $(\alpha_i)_{i=1}^\infty$ such that 
+    Thus we may assume $u_0=v_0$. Then $u,v$ coincide on $A$ which is dense in $\hat{A}$. By the continuity and the topology of the codomain is Hausdorff, $u=v$.
+    \par For the surjectivity, let $v\in\Cont(A)$ and we need to show that this lifts to $\hat{v}\in\Cont(\hat{A})$. Let $(a_n)_{n\in\N}$ be a Cauchy sequence in $A$. If $a_n\stackrel{n\to\infty}{\to}0$, then we put $\hat{v}((a_n)_{n\in\N}) = 0$. 
+    Otherwise, there is $\delta>0$ such that $n\gg 0\Rightarrow a_n\not\in [0,\delta)\subseteq\Gamma\cup\{0\}$. As $(a_n)_{n\in\N}$ is Cauchy, there is $N\in\N$ such that 
     \begin{equation*}
-        \lim_{i\to\infty}a_i = a
+        i,j\geq N\Rightarrow v(a_j-a_i)<\delta.
     \end{equation*}
-    where $a_i$ is the image of $\alpha_i\in\mathcal{A}$ in $A$. Since $u$ and $v$ are continuous,
+    Suppose $N\gg0$ so that $i\geq N\Rightarrow v(a_i)\geq\delta$. By definition,
     \begin{equation*}
-        u(a) = \lim_{i\to\infty}u(a_i) = \lim_{i\to\infty}u_0(\alpha_i) = \lim_{i\to\infty}v_0(\alpha_i) = \lim_{i\to\infty}v(a_i) = v(a).
+        v(a_j) = v(a_i+(a_j-a_i)) = v(a_i).
     \end{equation*}
-    Limits in $\Gamma\cup\{0\}$ exist as it is Hausdorff. 
-    \par Thus $\Cont(A)\to\Cont(\mathcal{A})$ is injective. For the surjectiity, let $\mathcal{A}\stackrel{u_0}{\to}\Gamma = \Gamma_{u_0}$ be a continuos valuation which we must extend to $A$. Elements of $A$ are equivalence classes of Cauchy sequences $(\alpha_i)_{i=1}^\infty$. Let $\gamma_i = v_0(\alpha_i)$. If $\lim_{i\to\infty}\gamma_i=0$, then we put $v(a) = 0$. If $(\widetilde{\alpha}_i)$ is equivalent to the given one and $\delta\in\Gamma$, then $K = K_{v_0<\delta}$ is open in $\mathcal{A}$, hence there is $i$ such that $\alpha_i-\widetilde{\alpha}_i\in K$. Then $v_0(\widetilde{\alpha}_i)<\delta$ provided that $v_0(\alpha_i)<\delta$ which happens for sufficiently large $i$. 
-    Thus this case is independent of the choise of representatives of teh equivalence class of Cauchy sequences.
-    \par if $\lim_{i\to\infty}\gamma_i=0$ does not hold, there is $\delta\in\Gamma$ such that $\gamma_i\geq\delta$ for sufficiently large $i$. Since $K=K_{v_0<\delta}$ is open and $(\alpha_i)$ is a Cauchy sequence, there is $i'$ such that $\alpha_j-\alpha_k\in K$ when $(j,k)\geq i'$. By what was said before, there is $i>i'$ such that $\gamma_i\geq \delta$. If $j\geq i$, then $\alpha_i-\alpha_j\in K$ hence $\gamma_j=u_0(\alpha_j)=u_0(\alpha_i) = \gamma-i$ as $\alpha_i-\alpha_j\in K$. Thus $(\gamma_i)$ stabilizes to some fixed $\gamma\in \Gamma$ as $j\to\infty$, and we put $v(a) = \gamma$. If $\widetilde{\alpha}\sim\alpha$ then $\widetilde{\alpha}_j - \alpha_j\in K$ for $j>i''$ hence $u_0(\widetilde{\alpha}_j)=\gamma$ when $j>\max\{i,i''\}$. hence this case too is independent of choice of $\alpha$. One easily checks the rest.
+    Hence $(v(a_n))_{n\in\N}$ stabilizes eventually to some $\gamma$. Hence we put $\hat{v}((a_n)_{n\in\N})= \gamma$. Since we have defined the value for the Cauchy sequence converging to $0$, this gives us the independency of the choice of Cauchy sequence.
+    Furthermore, all axioms of valuations are closed conditions, hence by the continuity such $\hat{v}$ is indeed a valuation.
+    % Hence $u\sim v$. Let $u$ and $v$ be continuous valuations on $A$. Let $u_0,v_0$ their compositions with $\mathcal{A}\to A$. We will show that $\Gamma_{u} = \Gamma_{u_0}$. 
+    % For an arbitrary $a\in A$, let $\gamma = u(a)\not=0$. Then $W = K_{u<\gamma}$ is open in $A$.
+    % Indeed, the image of $\mathcal{A}$ is dense in $A$. If $\gamma=u(a)\not=0$, $W=K_{v<r}$ is open in $A$. Hence there is $\alpha\in\mathcal{A}$ whose image in $A$ is in $a+W$. It follows that $v_0(\alpha)=v(a) = \gamma\in\Gamma_{u_0}$. Since these $\gamma$ generates $\Gamma_{u}$, $\Gamma_u\subseteq\Gamma_{u_0}$. The other inclusion is obvious. Thus $\Gamma_u = \Gamma_{u_0}$ and $\Gamma_v = \Gamma_{v_0}$. 
+    % For injectivity, we assume that $u_0,v_0$ are equivalent. Then without loss of generality, 
+    % \begin{equation*}
+    %     \Gamma_u = \Gamma_{u_0} \cong \Gamma_{v_0}=\Gamma_{v}
+    % \end{equation*}
+    % and hence $u_0=v_0$ and have to show $u=v$. But this is clear by the continuity of $u$ and $v$.Indeed, if $a\in A$ then by the density of $\mathcal{A}$ in $A$, there is a sequence $(\alpha_i)_{i=1}^\infty$ such that 
+    % \begin{equation*}
+    %     \lim_{i\to\infty}a_i = a
+    % \end{equation*}
+    % where $a_i$ is the image of $\alpha_i\in\mathcal{A}$ in $A$. Since $u$ and $v$ are continuous,
+    % \begin{equation*}
+    %     u(a) = \lim_{i\to\infty}u(a_i) = \lim_{i\to\infty}u_0(\alpha_i) = \lim_{i\to\infty}v_0(\alpha_i) = \lim_{i\to\infty}v(a_i) = v(a).
+    % \end{equation*}
+    % Limits in $\Gamma\cup\{0\}$ exist as it is Hausdorff. 
+    % \par Thus $\Cont(A)\to\Cont(\mathcal{A})$ is injective. For the surjectiity, let $\mathcal{A}\stackrel{u_0}{\to}\Gamma = \Gamma_{u_0}$ be a continuos valuation which we must extend to $A$. Elements of $A$ are equivalence classes of Cauchy sequences $(\alpha_i)_{i=1}^\infty$. Let $\gamma_i = v_0(\alpha_i)$. If $\lim_{i\to\infty}\gamma_i=0$, then we put $v(a) = 0$. If $(\widetilde{\alpha}_i)$ is equivalent to the given one and $\delta\in\Gamma$, then $K = K_{v_0<\delta}$ is open in $\mathcal{A}$, hence there is $i$ such that $\alpha_i-\widetilde{\alpha}_i\in K$. Then $v_0(\widetilde{\alpha}_i)<\delta$ provided that $v_0(\alpha_i)<\delta$ which happens for sufficiently large $i$. 
+    % Thus this case is independent of the choise of representatives of teh equivalence class of Cauchy sequences.
+    % \par if $\lim_{i\to\infty}\gamma_i=0$ does not hold, there is $\delta\in\Gamma$ such that $\gamma_i\geq\delta$ for sufficiently large $i$. Since $K=K_{v_0<\delta}$ is open and $(\alpha_i)$ is a Cauchy sequence, there is $i'$ such that $\alpha_j-\alpha_k\in K$ when $(j,k)\geq i'$. By what was said before, there is $i>i'$ such that $\gamma_i\geq \delta$. If $j\geq i$, then $\alpha_i-\alpha_j\in K$ hence $\gamma_j=u_0(\alpha_j)=u_0(\alpha_i) = \gamma-i$ as $\alpha_i-\alpha_j\in K$. Thus $(\gamma_i)$ stabilizes to some fixed $\gamma\in \Gamma$ as $j\to\infty$, and we put $v(a) = \gamma$. If $\widetilde{\alpha}\sim\alpha$ then $\widetilde{\alpha}_j - \alpha_j\in K$ for $j>i''$ hence $u_0(\widetilde{\alpha}_j)=\gamma$ when $j>\max\{i,i''\}$. hence this case too is independent of choice of $\alpha$. One easily checks the rest.
 \end{proof}
 % 7/10
-We now prove the bijectivity of $Y\stackrel{\beta}{\to}\Omega$. First this makes sense as $\beta(Y)\subseteq\Omega$ which follows from $b\in\mathcal{F}_\Omega(B)$. For the surjectivity, let $r\in\Omega$ be the equivalence class of the valuation $u$ of $A\langle X_1,\cdots,X_n\rangle\stackrel{v}{\to}\Gamma\cup\{\infty\}$ where we assume $\Gamma = \Gamma_u$. We have to extend $u$ to $B^\triangleleft$ which is done in several steps.
-We first show the existence and the uniquness of a continuous map,
+\begin{theorem}
+    \label{theorem_21_1}
+    In the situation of Corollary \ref{corollary_20_3}, the map $Y\defeq\Spa(B)\stackrel{\Spa(b)}{\to}\Omega$ where $b$ is the universal element is a homeomorphism sends following $\Rat_Y$ with $(\Rat_Y)_\Omega \defeq\{\Theta\in\Rat_X\sep \Theta\subseteq\Omega\}$.
+\end{theorem}
+\begin{proof}
+We denote $\beta = \Spa(b)$. By the assumption $\beta(Y)\subseteq \Omega$ hence the question is well-defined.
+Let $v\in\Spa(A^\triangleleft,A^+)$ be a valuation since $v\in\Omega$, under the homeomorphism in Remark \ref{fact_6_3}, we lift $v_{f_0}\in\Cont(A_{f_0})$. 
+Then by precomposing the evaluation map,
 \begin{equation*}
-    A\langle X_1,\cdots,X_n\rangle \stackrel{v}{\to}\Gamma\cup\{0\}
+    A^\triangleleft[X_1,\cdots,X_m]\ni P\stackrel{\ev}{\mapsto}P\left({\frac {f_1} {f_0}},\cdots{\frac {f_m} {f_0}}\right)\in A^\triangleleft_{f_0},
 \end{equation*}
-such that $v(I)=0$ and the composition,
-\begin{equation*}
-    A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{v}{\to}\Gamma\cup\{0\}
-\end{equation*}
-equals $u$. The uniqueness still holds for $v:\langle X_1,\cdots,X_m\rangle\stackrel{v}{\to}\Gamma'\cup\{0\}$ are allowed where $\Gamma'$ is an ordered group containing $\Gamma$ as an ordered subgroup.
-Since $x\in\Omega,\ab{f_0}_x = v(x)\not=0$, hence $x$ extends in a unique way to the valuation below. 
-\begin{equation*}
-    A^\triangleleft_{f_0}\stackrel{u_1}{\to}\Gamma\cup\{0\}.
-\end{equation*}
-The uniuqness holds in the same general sense as before, (i.e. values $\Gamma'\supseteq\Gamma$ are also true).
-\par We define,
-\begin{equation*}
-    A[X_1,\cdots,X_n]\stackrel{v_0}{\to}\Gamma\cup\{0\}
-\end{equation*}
-by 
-\begin{equation*}
-    (P) = u_1\left(P\left({\frac {f_1} {f_0}},\cdots,{\frac {f_m} {f_0}}\right)\right)
-\end{equation*}
-where 
-\begin{equation*}
-    P\mapsto P\left({\frac {f_1} {f_0}},\cdots,{\frac {f_m} {f_0}}\right)
-\end{equation*}
-is the $A^\triangleleft$-algebra morphism $A^\triangleleft[X_1,\cdots,X_m]\to A^\triangleleft_{f_0}$. For 
-\begin{equation*}
-    P = \sum_{\alpha\in\N^m}p_\alpha X^\alpha\in A[X_1,\cdots,X_m]
-\end{equation*}
-we have, 
+we obtain a lift $v_1\in\Spa(A^\triangleleft[X_1,\cdots,X_m],A^+[X_1,\cdots,X_m])$.
 \begin{align*}
-    v_0(P) &= u_11\left(\sum_{\alpha\in\N^m}p_\alpha\prod_{i=1}^m\left({\frac {f_i}{f_0}}\right)^{\alpha_i}\right),\\
-    &\leq \max_{\alpha\in\N^m}u_1\left(p_\alpha\prod_{i=1}^m\left({\frac {f_i} {f_0}}\right)^{\alpha_i}\right),\\
-    & \leq \max_{\alpha\in\N^m}u(p_\alpha)\prod_{i=1}^m\left({\frac {v(f_i)} {v(f_0)}}\right)^{\alpha_i},\\
+    v_1(P) &= v_{f_0}\left(\sum_{\alpha\in\N^m}p_\alpha\prod_{i=1}^m\left({\frac {f_i}{f_0}}\right)^{\alpha_i}\right),\\
+    &\leq \max_{\alpha\in\N^m}v_0\left(p_\alpha\prod_{i=1}^m\left({\frac {f_i} {f_0}}\right)^{\alpha_i}\right),\\
+    & \leq \max_{\alpha\in\N^m}v(p_\alpha)\prod_{i=1}^m\left({\frac {v(f_i)} {v(f_0)}}\right)^{\alpha_i},\\
     &\leq \max_{\alpha\in\N^m}v(p_\alpha) \tag{b}
 \end{align*}
-It follows that $v_0$ is continuous for the topology on $A^\triangleleft[X_1,\cdots,X_n]$ considered in Lemma \ref{lemma_19_1} (as $v_(K_{v< r})[X_1,\cdots,X_m]\subseteq [0,r)_{\Gamma_\cup\{0\}}$ by (b) 
-and $K_{v<r}[X_1,\cdots,X_m]$ is open in $A^\triangleleft[X_1,\cdots,X_m]$).
+Hence for any $[0,\gamma)\subseteq\Gamma\cup\{0\}$ open, $K_{v\leq \gamma}[X_1,\cdots,X_n]$ is open and the image under $v_1$ is contained in $[0,\gamma)$, hence $v_1\in\Spa(A^\triangleleft[X_1,\cdots,X_n],A^+[X_1,\cdots,X_n])$.
 \par By Proposition \ref{proposition_21_4}, there is a unique continuous extension,
 \begin{equation*}
-    A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{r}{\to}\Gamma,
+    \widehat{v_1}:A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{r}{\to}\Gamma\cup\{0\}.
 \end{equation*}
-satisfying our conditions.
-We have 
+By construction $\widehat{v_1}$ annhilates $I$ since $\widehat{v_1}(f_0X_i-f_i) = 0$ and $\widehat{v_1}$ is continuous. %current Current
+Furthermore, as $\widehat{v_1} = v(f_0) \not = 0$, hence this also kills $J$. Again using the identification in Remark \ref{fact_6_3}, we obtain $w:B^\triangleleft = (A^\triangleleft\langle X_1,\cdots,X_m\rangle/J)_{f_0}\to\Gamma\cup\{0\}$.
+As $v_1\in\Spa(A^\triangleleft[X_1,\cdots,X_m],A^+[X_1,\cdots,X_m])$, using the continuity, 
 \begin{equation*}
-    v(f_0X_i-f_i)=v_0(f_0X_i-f_i) = v_0 = v_1\left(f_0{\frac {f_i} {f_0}}-f_i\right) =1.
+    A^+\langle X_1,\cdots,X_m\rangle\subseteq K_{w\leq 1}.
 \end{equation*}
-Hence $r$ is annhilates the ideal generated by the $f_0X_i-f_i$. 
-By the continuity, it also annhilates its closure $I$. Conversely, let $A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{v'}{\to}\Gamma'$ with $\Gamma\subseteq\Gamma'$ (ordered preserving inclusion of a subgroup) such that 
+By Proposition \ref{fact_6_5}, $K_{w\leq 1}$ is integrally closed. Since $B^+$ is the integral closure of $A^+\langle X_1,\cdots,X_m\rangle$, $B^+\subseteq K_{w\leq 1}$. Hence $\beta(w) = v$.
+\par Suppose we obtained another valuation $\widehat{v}_1'$ of $A^\triangleleft\langle X_1,\cdots,X_m\rangle$ from $v_1$.
+Let $P\in A^\triangleleft[X_1,\cdots,X_m]$ be of degree $d$, then set 
 \begin{equation*}
-    A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{v'}{\to}\Gamma'\cup\{0\}
+    Q(X_0,\cdots,X_m) \defeq X_0^dP\left({\frac {X_1} {X_0}},\cdots,{\frac {X_m} {X_0}}\right).
 \end{equation*}
-equals to $v$. Let $P\in A\polring{m}\backslash\{0\}$ be of degree at most $d$, 
+Set $q\defeq (f_0,\cdots,f_m)$, then $f_0^dP - q\in I$ since $Q \equiv q \mod{I}$. Since $\widehat{v}_1'$ kills $I$, hence 
 \begin{equation*}
-    Q(X_0,\cdots,X_m)=X_0^dP\left({\frac {X_1} {X_0}},\cdots{\frac {X_m} {X_0}}\right)
+    \widehat{v}_1'(f_0)^d\widehat{v}_1'(P) = \widehat{v}_1'(q).
 \end{equation*}
-be the homogeneousation of $P$, and let $q = Q(f_0,\cdots,f_m)\in A$. One easily checks that 
-\begin{equation}
-    f_0^dP-q\in\langle f_0X_1-X_1,\cdots, f_0X_m-f_m\rangle_{A^\triangleleft[X_1,\cdots,X_m]}\tag{c}
-\end{equation}
-Since $v$ annhilates $I$, $v'(f_0X_i-f_i)=0$ and it follows that 
+However, $\widehat{v}_1'(f_0) = v_{f_0}(f_0)\not=0$ and $\widehat{v}_1'(q) = v_{f_0}(q)$. Hence, $\widehat{v}_1'(P)$ depends solely on $v_{f_0}$ therefore it must coincide with $\widehat{v}_1$ on a dense subset. Using the continuity, we have shown the uniqueness of the extension.
+All the other extensions were obtained from homeomorphisms, hence showing the injectivity.
+\par It remains to show that $\beta$ is a homeomorphism. To do so, it is enough to show that $\beta$ is an open map. Consider a rational open $\Theta=\cR_Y(g_0|g_1,\cdots,g_k)$ where $\langle g_0,\cdots,g_k\rangle_B$ generates an open ideal.
+Using Proposition \ref{proposition_18_3} together with the density of $A_{f_0}^\triangleleft$ in $B^\triangleleft$ by Corollary \ref{corollary_20_3}.b, there is an open subset $U\subseteq B^\triangleleft$ such that $g_i-b(r_i)\in U$ for each $i=0,\cdots,k$ and 
 \begin{equation*}
-    u(f_0)^dv'(P) = v'(f_0^dP) = v'(q) = u(q).
+\langle g_0,\cdots,g_k\rangle = \langle b(r_0),\cdots,b(r_k)\rangle,
 \end{equation*}
-hence,
+hence open. Furthermore, as $f_0$ is a unit in $B^\triangleleft$, we may assume that $g_i = b(\alpha_i)$ for some $\alpha_i = f_0^dr_i\in A^\triangleleft$ for each $i=0,\cdots,k$ and fixed $d\geq0$. As $f^d_0U$ is an open subset, $V=b^{-1}(f_0^dU)$ is also open. Since $A^\triangleleft$ is Huber, by Proposition \ref{fact_17_10}, there is an finitely generated open ideal whose generators are topologically nilpotent elements $\{s_1,\cdots,s_l\}$. 
+We may choose these elements small enough so that,
 \begin{equation*}
-    v'(P) = {\frac {u(q)} {v(f_0^d)}} = u_1\left({\frac {q} {f_0^d}}\right) = u_1\left(P\left({\frac {f_1} {f_0}},\cdots,{\frac {f_m} {f_0}}\right)\right) = v(P).
+    \langle s_1,\cdots,s_l\rangle_{A^\triangleleft}\subseteq V.
 \end{equation*}
-By the uniquness part of Proposition \ref{proposition_21_4}, $v'=v$. 
-\par Since $v(f_0) = u(f_0) \not=0$, $J$ is also annhilates by $v$. This is then a unique continuous valuation
+We extend $\alpha_i$ by those in order to obtain an open ideal $\langle \alpha_0,\cdots,\alpha_r\rangle_{A^\triangleleft}$.
+\par Let $y\in Y$ and $x=\beta(y)$, then 
 \begin{equation*}
-    A^\triangleleft\compring{m}/J\stackrel{v_1}{\to}\Gamma\cup\{0\}
+    y(b(\alpha_i)) = x(\alpha_i).
 \end{equation*}
-when compsosed with $A^\triangle\compring{m}\to A^\triangleleft\compring{m}/J$ equals $v$. As $v_1(f_0) = v(f_0)\not=0$, this is a unique continuous,
+As we can take the extending elements small enough, we conclude,
 \begin{equation*}
-    B^\triangleleft\stackrel{w}{\to}\Gamma\cup\{0\}
+    y\in\Theta\iff x\in\cR_X(\alpha_0|\alpha_1,\cdots,\alpha_r).
 \end{equation*}
-where composition with $A\compring{m}/J\to B^\triangleleft$ the second morphism in $(a)$ equals $v_1$. Since this morphism is an open inclusion and $v_1$ is continuous, one easily check the continuity of $w$. 
-\par We claim that the equivalence class of $w$ is an element of $Y=\Spa(B)$. By (b), 
+Hence,
 \begin{equation*}
-    v(f)= v_0(f)\leq 1,
+    \beta(\Theta) = \Omega\cap \cR_X(\alpha_0|\alpha_1,\cdots,\alpha_r)
 \end{equation*}
-when $f\in A^+\polring{m}$. Since this ring is dense in $A\compring{m}$, by the continuity of $v$,
+which is open. Hence we have shown $\beta$ is a continuous open bijection hence a homeomorphism.
+\end{proof}
+% We now prove the bijectivity of $Y\stackrel{\beta}{\to}\Omega$. First this makes sense as $\beta(Y)\subseteq\Omega$ which follows from $b\in\mathcal{F}_\Omega(B)$. For the surjectivity, let $r\in\Omega$ be the equivalence class of the valuation $u$ of $A\langle X_1,\cdots,X_n\rangle\stackrel{v}{\to}\Gamma\cup\{\infty\}$ where we assume $\Gamma = \Gamma_u$. We have to extend $u$ to $B^\triangleleft$ which is done in several steps.
+% We first show the existence and the uniquness of a continuous map,
+% \begin{equation*}
+%     A\langle X_1,\cdots,X_n\rangle \stackrel{v}{\to}\Gamma\cup\{0\}
+% \end{equation*}
+% such that $v(I)=0$ and the composition,
+% \begin{equation*}
+%     A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{v}{\to}\Gamma\cup\{0\}
+% \end{equation*}
+% equals $u$. The uniqueness still holds for $v:\langle X_1,\cdots,X_m\rangle\stackrel{v}{\to}\Gamma'\cup\{0\}$ are allowed where $\Gamma'$ is an ordered group containing $\Gamma$ as an ordered subgroup.
+% Since $x\in\Omega,\ab{f_0}_x = v(x)\not=0$, hence $x$ extends in a unique way to the valuation below. 
+% \begin{equation*}
+%     A^\triangleleft_{f_0}\stackrel{u_1}{\to}\Gamma\cup\{0\}.
+% \end{equation*}
+% The uniuqness holds in the same general sense as before, (i.e. values $\Gamma'\supseteq\Gamma$ are also true).
+% \par We define,
+% \begin{equation*}
+%     A[X_1,\cdots,X_n]\stackrel{v_0}{\to}\Gamma\cup\{0\}
+% \end{equation*}
+% by 
+% \begin{equation*}
+%     (P) = u_1\left(P\left({\frac {f_1} {f_0}},\cdots,{\frac {f_m} {f_0}}\right)\right)
+% \end{equation*}
+% where 
+% \begin{equation*}
+%     P\mapsto P\left({\frac {f_1} {f_0}},\cdots,{\frac {f_m} {f_0}}\right)
+% \end{equation*}
+% is the $A^\triangleleft$-algebra morphism $A^\triangleleft[X_1,\cdots,X_m]\to A^\triangleleft_{f_0}$. For 
+% \begin{equation*}
+%     P = \sum_{\alpha\in\N^m}p_\alpha X^\alpha\in A[X_1,\cdots,X_m]
+% \end{equation*}
+% we have, 
+% \begin{align*}
+%     v_0(P) &= u_11\left(\sum_{\alpha\in\N^m}p_\alpha\prod_{i=1}^m\left({\frac {f_i}{f_0}}\right)^{\alpha_i}\right),\\
+%     &\leq \max_{\alpha\in\N^m}u_1\left(p_\alpha\prod_{i=1}^m\left({\frac {f_i} {f_0}}\right)^{\alpha_i}\right),\\
+%     & \leq \max_{\alpha\in\N^m}u(p_\alpha)\prod_{i=1}^m\left({\frac {v(f_i)} {v(f_0)}}\right)^{\alpha_i},\\
+%     &\leq \max_{\alpha\in\N^m}v(p_\alpha) \tag{b}
+% \end{align*}
+% It follows that $v_0$ is continuous for the topology on $A^\triangleleft[X_1,\cdots,X_n]$ considered in Lemma \ref{lemma_19_1} (as $v_(K_{v< r})[X_1,\cdots,X_m]\subseteq [0,r)_{\Gamma_\cup\{0\}}$ by (b) 
+% and $K_{v<r}[X_1,\cdots,X_m]$ is open in $A^\triangleleft[X_1,\cdots,X_m]$).
+% \par By Proposition \ref{proposition_21_4}, there is a unique continuous extension,
+% \begin{equation*}
+%     A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{r}{\to}\Gamma,
+% \end{equation*}
+% satisfying our conditions.
+% We have 
+% \begin{equation*}
+%     v(f_0X_i-f_i)=v_0(f_0X_i-f_i) = v_0 = v_1\left(f_0{\frac {f_i} {f_0}}-f_i\right) =1.
+% \end{equation*}
+% Hence $r$ is annhilates the ideal generated by the $f_0X_i-f_i$. 
+% By the continuity, it also annhilates its closure $I$. Conversely, let $A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{v'}{\to}\Gamma'$ with $\Gamma\subseteq\Gamma'$ (ordered preserving inclusion of a subgroup) such that 
+% \begin{equation*}
+%     A^\triangleleft\to A^\triangleleft\langle X_1,\cdots,X_m\rangle\stackrel{v'}{\to}\Gamma'\cup\{0\}
+% \end{equation*}
+% equals to $v$. Let $P\in A\polring{m}\backslash\{0\}$ be of degree at most $d$, 
+% \begin{equation*}
+%     Q(X_0,\cdots,X_m)=X_0^dP\left({\frac {X_1} {X_0}},\cdots{\frac {X_m} {X_0}}\right)
+% \end{equation*}
+% be the homogeneousation of $P$, and let $q = Q(f_0,\cdots,f_m)\in A$. One easily checks that 
+% \begin{equation}
+%     f_0^dP-q\in\langle f_0X_1-X_1,\cdots, f_0X_m-f_m\rangle_{A^\triangleleft[X_1,\cdots,X_m]}\tag{c}
+% \end{equation}
+% Since $v$ annhilates $I$, $v'(f_0X_i-f_i)=0$ and it follows that 
+% \begin{equation*}
+%     u(f_0)^dv'(P) = v'(f_0^dP) = v'(q) = u(q).
+% \end{equation*}
+% hence,
+% \begin{equation*}
+%     v'(P) = {\frac {u(q)} {v(f_0^d)}} = u_1\left({\frac {q} {f_0^d}}\right) = u_1\left(P\left({\frac {f_1} {f_0}},\cdots,{\frac {f_m} {f_0}}\right)\right) = v(P).
+% \end{equation*}
+% By the uniquness part of Proposition \ref{proposition_21_4}, $v'=v$. 
+% \par Since $v(f_0) = u(f_0) \not=0$, $J$ is also annhilates by $v$. This is then a unique continuous valuation
+% \begin{equation*}
+%     A^\triangleleft\compring{m}/J\stackrel{v_1}{\to}\Gamma\cup\{0\}
+% \end{equation*}
+% when compsosed with $A^\triangle\compring{m}\to A^\triangleleft\compring{m}/J$ equals $v$. As $v_1(f_0) = v(f_0)\not=0$, this is a unique continuous,
+% \begin{equation*}
+%     B^\triangleleft\stackrel{w}{\to}\Gamma\cup\{0\}
+% \end{equation*}
+% where composition with $A\compring{m}/J\to B^\triangleleft$ the second morphism in $(a)$ equals $v_1$. Since this morphism is an open inclusion and $v_1$ is continuous, one easily check the continuity of $w$. 
+% \par We claim that the equivalence class of $w$ is an element of $Y=\Spa(B)$. By (b), 
+% \begin{equation*}
+%     v(f)= v_0(f)\leq 1,
+% \end{equation*}
+% when $f\in A^+\polring{m}$. Since this ring is dense in $A\compring{m}$, by the continuity of $v$,
+% \begin{equation*}
+%     v(f)\leq 1
+% \end{equation*}
+% when $f$  belongs to the latter ring.
+% \par Thus, the image in $B^\triangleleft$ of $A^+\compring{m}$ is contained in $V_{w\leq 1}$. Since $K_{w\leq 1}$ is the integrally closed subring of $B^\triangleleft$ of the image of $A^+\compring{m}$. We obtain,
+% \begin{equation*}
+%     w(B^+)\subseteq [0,1]_{\Gamma\cup\{0\}}
+% \end{equation*}
+% as claimed.
+% \par Thus, the equivalence class $y$ of $w$ is an element of $Y$ such that 
+% \begin{equation*}
+%     \beta(y). =x.
+% \end{equation*}
+% If $y'$ has the same property, then as $A^\triangleleft\to B^{\triangleleft,\ab{\cdot}_{y'}}\to \Gamma' = \Gamma_{y'}$ equivalent to $v$ and $\Gamma_x = \Gamma_u = \Gamma$, we may assume without loss of generality that $\Gamma\subseteq\Gamma'$ (with order preserving inclusion of a subgroup) and that the composition,
+% \begin{equation*}
+%     A^\triangleleft\to B^\triangleleft\stackrel{\ab{\cdot}_{y'}}{\to} \Gamma'
+% \end{equation*}
+% actually equals to $v$. By the uniqueness assertion about $v$, the composition $A^\triangleleft\compring{m}\to B^\triangleleft\stackrel{\ab{\cdot}_{y'}}\to \Gamma'$ equals to $v$. 
+% Since $A^\triangleleft\compring{m}\to A^\triangleleft\compring{m}/J$ is injective, the composition $A^\triangleleft\compring{m}/J\to B^\triangleleft\to\stackrel{\ab{\cdot}_{y'}}\Gamma'$ and $A^\triangleleft\compring{m}/J\stackrel{v_1}{\to}\Gamma\subseteq\Gamma'$ also coincide.
+% Finally $w=\ab{\cdot}_{y'}$ as it is uniquely determined by $v_1$. Thus $y=y'$ and the bijectivity of $\beta$ is shown.
+% \par For the comparison of topological and of rational open subsets,it suffices to consider, 
+% \begin{equation*}
+%     \Theta = \cR_Y(g_0|g_1,\cdots,g_j),
+% \end{equation*}
+% where $g_i\in B^\triangleleft$ and $\langle g_1,\cdots,g_j\rangle_{B^\triangleleft}$ is open in $B^\triangleleft$, 
+% and  show that $\beta(w)\in\Rat_X$. This will identify the topology base as claimed when ($\Theta_X = \Rat_X(f_0|f_1,\cdots,f_m)$), one can take $g_i = (\text{image of $f_i$})$ in $B^\triangleleft$ which generate open ideal in $B^\triangleleft$ as $A^\triangleleft\to B^\triangleleft$ is adic.
+% \par By Proposition 3.3.3, this is an open subgroup $U\subseteq B^\triangleleft$ such that 
+% \begin{equation*}
+%     \cR_Y(g_0|g_1,\cdots,g_j) = \cR_Y(r_0|r_1,\cdots,r_j,\cdots,r_m)
+% \end{equation*}
+% and 
+% \begin{equation*}
+%     \langle g_0,\cdots,g_j\rangle_{B^\triangleleft} = \langle r_0,\cdots,r_m\rangle_{B^\triangleleft}
+% \end{equation*}
+% when $g_i-r_i\in U$ for $0\leq i\leq j$ and $r_iin U$ when $j<i\leq m$.
+% As $A^\triangleleft_{f_0}$ has a dense image in $B^\triangleleft$, we can take $r_i,0\leq i\leq j$, for this subring,
+% \begin{equation*}
+%     r_i = \left(\text{image in $B^\triangleleft$ of ${\frac {\varphi_i} {f_0^{a_i}}}\in A_{f_0}$}\right)
+% \end{equation*}
+% Since $f_0$ is a unit in $B^\triangleleft$, we can multiply all $r_i$ and $g_i$ by $f_0^a$ with out changin $\Theta$ or $\langle g_0,\cdots,g_j\rangle$ or $\langle r_0,\cdots,r_j\rangle$. 
+% THus it can be assumed that $r_i$ ins the image of $\varphi_i\in A^\triangleleft$ in $B^\triangleleft$. Then $\beta$ maps $\Theta$ onto $\Omega\cap\cR_X(\varphi_0,\cdots,\varphi_j)$ but $\langle \varphi_0,\cdots,\varphi_j\rangle_{A^\triangleleft}$. Let $V\subseteq A^\triangleleft$ be the preimage under $A^\triangleleft\to B^\triangleleft$ of the open subgropu $f_0^aU$. Then we still have $\beta(\Theta) = \Omega\cap\cR_X(\varphi_0,\cdots,\varphi_0)$ if $\varphi_i\in V$ for $j<i\leq m$. As $A$ is Huber it has (oifin) and (tn:0) and there a finite subset $S\subset A^{\triangleleft\dcirc}$ generating an open ideal.
+% By Fact 3.1.5, $S$ is tn. Assume $S^d\subseteq V$, when $V$ is sufficinetly large. As $A^\triangleleft$ has (0;fq), $S^d$ still generates an open ideal. Selecting $\varphi_0,\cdots,\varphi_m$ such that they form a ? of $S^d$, we may assume that 
+% \begin{equation*}
+%     \langle \varphi_0,\cdots,\varphi_m\rangle
+% \end{equation*}
+% is open in $A^\triangleleft$. Then $\cR_X(\varphi_0|\varphi_1,\cdots,\varphi_m)\in\Rat_X$.
+\begin{theorem}
+    In the setting of Corollary \ref{corollary_20_3}, let $\Theta\in\Rat_Y,C = (\Ouv_Y(\Theta),\Ouv_Y^+(\Theta))$. Set $\Theta_X\defeq \beta(\Theta)$ and take $c\in\mathcal{F}_\Theta(C)$ the universal element. The composition $A\stackrel{b}{\to}B\stackrel{c}{\to}C$ is an element of $\cF_{\Theta_X}$ which is a universal element induces an isomorphism, %has the universal property for that functor. The morphism,
+        \begin{equation*}
+            (\Ouv_X(\Theta_X),\Ouv_{X}^+(\Theta_X))\to(\Ouv_Y(\Theta),\Ouv_Y^+(\Theta))=C.
+        \end{equation*}
+        \label{theorem_21_2}
+\end{theorem}
+\begin{proof}
+By Theorem \ref{theorem_21_1}, we have
 \begin{equation*}
-    v(f)\leq 1
-\end{equation*}
-when $f$  belongs to the latter ring.
-\par Thus, the image in $B^\triangleleft$ of $A^+\compring{m}$ is contained in $V_{w\leq 1}$. Since $K_{w\leq 1}$ is the integrally closed subring of $B^\triangleleft$ of the image of $A^+\compring{m}$. We obtain,
-\begin{equation*}
-    w(B^+)\subseteq [0,1]_{\Gamma\cup\{0\}}
-\end{equation*}
-as claimed.
-\par Thus, the equivalence class $y$ of $w$ is an element of $Y$ such that 
-\begin{equation*}
-    \beta(y). =x.
-\end{equation*}
-If $y'$ has the same property, then as $A^\triangleleft\to B^{\triangleleft,\ab{\cdot}_{y'}}\to \Gamma' = \Gamma_{y'}$ equivalent to $v$ and $\Gamma_x = \Gamma_u = \Gamma$, we may assume without loss of generality that $\Gamma\subseteq\Gamma'$ (with order preserving inclusion of a subgroup) and that the composition,
-\begin{equation*}
-    A^\triangleleft\to B^\triangleleft\stackrel{\ab{\cdot}_{y'}}{\to} \Gamma'
-\end{equation*}
-actually equals to $v$. By the uniqueness assertion about $v$, the composition $A^\triangleleft\compring{m}\to B^\triangleleft\stackrel{\ab{\cdot}_{y'}}\to \Gamma'$ equals to $v$. 
-Since $A^\triangleleft\compring{m}\to A^\triangleleft\compring{m}/J$ is injective, the composition $A^\triangleleft\compring{m}/J\to B^\triangleleft\to\stackrel{\ab{\cdot}_{y'}}\Gamma'$ and $A^\triangleleft\compring{m}/J\stackrel{v_1}{\to}\Gamma\subseteq\Gamma'$ also coincide.
-Finally $w=\ab{\cdot}_{y'}$ as it is uniquely determined by $v_1$. Thus $y=y'$ and the bijectivity of $\beta$ is shown.
-\par For the comparison of topological and of rational open subsets,it suffices to consider, 
-\begin{equation*}
-    \Theta = \cR_Y(g_0|g_1,\cdots,g_j),
-\end{equation*}
-where $g_i\in B^\triangleleft$ and $\langle g_1,\cdots,g_j\rangle_{B^\triangleleft}$ is open in $B^\triangleleft$, 
-and  show that $\beta(w)\in\Rat_X$. This will identify the topology base as claimed when ($\Theta_X = \Rat_X(f_0|f_1,\cdots,f_m)$), one can take $g_i = (\text{image of $f_i$})$ in $B^\triangleleft$ which generate open ideal in $B^\triangleleft$ as $A^\triangleleft\to B^\triangleleft$ is adic.
-\par By Proposition 3.3.3, this is an open subgroup $U\subseteq B^\triangleleft$ such that 
-\begin{equation*}
-    \cR_Y(g_0|g_1,\cdots,g_j) = \cR_Y(r_0|r_1,\cdots,r_j,\cdots,r_m)
-\end{equation*}
-and 
-\begin{equation*}
-    \langle g_0,\cdots,g_j\rangle_{B^\triangleleft} = \langle r_0,\cdots,r_m\rangle_{B^\triangleleft}
-\end{equation*}
-when $g_i-r_i\in U$ for $0\leq i\leq j$ and $r_iin U$ when $j<i\leq m$.
-As $A^\triangleleft_{f_0}$ has a dense image in $B^\triangleleft$, we can take $r_i,0\leq i\leq j$, for this subring,
-\begin{equation*}
-    r_i = \left(\text{image in $B^\triangleleft$ of ${\frac {\varphi_i} {f_0^{a_i}}}\in A_{f_0}$}\right)
-\end{equation*}
-Since $f_0$ is a unit in $B^\triangleleft$, we can multiply all $r_i$ and $g_i$ by $f_0^a$ with out changin $\Theta$ or $\langle g_0,\cdots,g_j\rangle$ or $\langle r_0,\cdots,r_j\rangle$. 
-THus it can be assumed that $r_i$ ins the image of $\varphi_i\in A^\triangleleft$ in $B^\triangleleft$. Then $\beta$ maps $\Theta$ onto $\Omega\cap\cR_X(\varphi_0,\cdots,\varphi_j)$ but $\langle \varphi_0,\cdots,\varphi_j\rangle_{A^\triangleleft}$. Let $V\subseteq A^\triangleleft$ be the preimage under $A^\triangleleft\to B^\triangleleft$ of the open subgropu $f_0^aU$. Then we still have $\beta(\Theta) = \Omega\cap\cR_X(\varphi_0,\cdots,\varphi_0)$ if $\varphi_i\in V$ for $j<i\leq m$. As $A$ is Huber it has (oifin) and (tn:0) and there a finite subset $S\subset A^{\triangleleft\dcirc}$ generating an open ideal.
-By Fact 3.1.5, $S$ is tn. Assume $S^d\subseteq V$, when $V$ is sufficinetly large. As $A^\triangleleft$ has (0;fq), $S^d$ still generates an open ideal. Selecting $\varphi_0,\cdots,\varphi_m$ such that they form a ? of $S^d$, we may assume that 
-\begin{equation*}
-    \langle \varphi_0,\cdots,\varphi_m\rangle
-\end{equation*}
-is open in $A^\triangleleft$. Then $\cR_X(\varphi_0|\varphi_1,\cdots,\varphi_m)\in\Rat_X$.
-\par Finally,
-\begin{equation*}
-    \beta(\Theta) = \Omega\cap\cR_X(\varphi_0|\varphi_1,\cdots,\varphi_m) = \cR_X(f_0\varphi_0|\text{ all other }f_i\varphi_j)
+    \Theta_X = \beta(\Theta) = \Omega\cap\cR_X(\varphi_0|\varphi_1,\cdots,\varphi_m) = \cR_X(f_0\varphi_0|\text{ all other }f_i\varphi_j)
 \end{equation*}
 The topological claim then follows. If $\Theta_X = \beta(\Theta)$, one checks that 
 \begin{align*}
-    \mathcal{F}_\Theta(C)&\rightarrow \mathcal{F}_{\Theta_X}(C),\\
-    B\stackrel{v}{\to}C\Rightarrow A\stackrel{\beta}{\to}B\stackrel{r}{\to}C
+    \mathcal{F}_\Theta(C)\ni(B\stackrel{c}{\to}C)&\rightarrow (A\stackrel{b}{\to}B\stackrel{c}{\to}C)\in\mathcal{F}_{\Theta_X}(C),
+    %B\stackrel{v}{\to}C&\Rightarrow A\stackrel{\beta}{\to}B\stackrel{r}{\to}C
 \end{align*}
 is bijective usig the definition and the bijectivity of $\beta$. Thus the composition of structure presheaves also holds.
+\end{proof}
 \begin{corollary}
     \label{corollary_22_1}
     \begin{equation*}
         \Spa(A)\cong \Spa(\widehat{A})
     \end{equation*}
 \end{corollary}
+\begin{proof}
+    Note that $\Spa(A) = \cR_{\Spa(A)}(1|)$. Hence the corresponding ring $B$ is just the completion of $A$.
+\end{proof}
 % \par Recall $I\subseteq A^\triangleleft\langle X_1,\cdots,X_m\rangle$ is an ideal generated by the closure of 
 % \begin{equation*}
 %     \{f_0X_i-f_i\}_{i=1}^n.
@@ -3977,8 +4220,8 @@ is bijective usig the definition and the bijectivity of $\beta$. Thus the compos
 
 \section{Acyclicity proofs}
 
-The Acyclicity proofs usually consider a special ? of Čech cohomology to show that $\Ouv_X$ extends from $\Rat_X$ to $\Ouv_X$. Acyclicity will typically follow using ? the follows.
-\begin{proposition}[Grothendieck Tohoku Paper Lemma 3.3.1]
+The Acyclicity proofs usually consider a special kinds of Čech cohomology to show that $\cO_X$ extends from $\Rat_X$ to $\Ouv_X$. Acyclicity will typically follow using the following statements.
+\begin{proposition*}[Grothendieck's acyclicity lemma]
     Let $\mathscr{A}\stackrel{F}{\to}\mathscr{B}$ be a left exact functor between abelian categories where $\mathscr{A},\mathscr{B}$ contain sufficineltly many injective objects. Let $\mathscr{X}$ be a class of objects of $\mathscr{A}$
     such that 
     \begin{enumerate}[a.]
@@ -3993,18 +4236,21 @@ The Acyclicity proofs usually consider a special ? of Čech cohomology to show t
             0\to FX'\to FX\to FX''\to 0.
         \end{equation*}
     \end{enumerate}
-\end{proposition}
+\end{proposition*}
+\begin{proof}
+    See Grothendieck Tohoku Paper Lemma 3.3.1.
+\end{proof}
 
-\begin{corollary}
+\begin{corollary*}
     All injective objects of $\sA$ belongs to $\sX$ and furthermore $X\in\sX$ and $p>0$, we have $R^pFX = 0$.
-\end{corollary}
+\end{corollary*}
 
 \subsection{Acyclicity Criteria for General Sheaves on $\Spa A$}
 
 In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
 
 \begin{proposition}
-    \label{propositin_23_1}
+    \label{proposition_23_1}
     Let $x\in X$ be such that $\cGamma_x = \Gamma_x$ and $U$ be an open subset of $X$ such that $x\in U$. Then there is $m\in\N$ and $(f_i)_{i=0}^m\in(A^\triangleleft)^{m+1}$ such that 
     \begin{equation*}
         \langle f_0,\cdots,f_m\rangle_{A^\triangleleft} = A^\triangleleft
@@ -4013,7 +4259,7 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
     \begin{equation*}
         x\in\cR_X(f_0|f_1,\cdots,f_m)\subseteq U.
     \end{equation*}
-    In particular, Fact 3.2.11, this holds when $x$ is closed.
+    In particular, Proposition \ref{fact_15_11}, this holds when $x$ is closed.
 \end{proposition}
 
 \begin{proof}
@@ -4023,9 +4269,9 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
     \end{equation*}
     If $a\in A$ is such that $\ab{a}_x\not=0$, then this implies
     \begin{equation*}
-        x\in\cR(a\varphi_0|\varphi_1,\cdots,\varphi_m)\subseteq\cR(\varphi_0|\varphi_1,\cdots,\varphi_m)\subseteq U.
+        x\in\cR(a\varphi_0|a\varphi_1,\cdots,a\varphi_m)\subseteq\cR(\varphi_0|\varphi_1,\cdots,\varphi_m)\subseteq U.
     \end{equation*} 
-    As $\ab{\varphi_0}_x\in\Gamma_x = \cGamma_x$, such $a$ can be chosen such that 
+    As $\ab{\varphi_0}_x\in\Gamma_x = \cGamma_x$, such $a$ can be chosen so that
     \begin{equation*}
         \ab{\varphi_0a}_x\geq 1.
     \end{equation*}
@@ -4033,7 +4279,7 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
     \begin{equation*}
         x\in\cR(a\varphi_0|a\varphi_1,\cdots,a\varphi_m,1)\subseteq\cR(a\varphi_0|a\varphi_1,\cdots,a\varphi_m)\subseteq U.
     \end{equation*}
-    Note that 
+    Obvisouly,
     \begin{equation*}
         \langle a\varphi_0,\cdots,a\varphi_m,1\rangle_{A^\triangleleft} = A^\triangleleft.
     \end{equation*}
@@ -4041,7 +4287,7 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
 
 \begin{remark}$\:$
     \begin{enumerate}
-        \item It also holds in the Tate case and the analytic case for arbitrary $x$.
+        \item $A$ being Tate or analytic is also sufficient to the above assertion for arbitrary $x$.
         \item Thus $\mathcal{O}_X(\cR(f_0|f_1,\cdots,f_m))$ can be bounded by the ? Then 3b) (where ? $f_0$ is not necessary).
     \end{enumerate}
 \end{remark}
@@ -4054,9 +4300,10 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
         \end{equation*}
         \item The rational sieve defined by such $(f_i)_{i=1}^m$ is 
         \begin{equation*}
-            \{U\in\Ouv_X\sep U\subseteq\cR(f_i|f_1,\cdots,f_m)\text{ for some $i\in\{1,\cdots,m\}$}\}.
+            [\mathcal{R}(f_i|f_1,\cdots,f_m)\sep i=1,\cdots,m].
+            %\{U\in\Ouv_X\sep U\subseteq\cR(f_i|f_1,\cdots,f_m)\text{ for some $i\in\{1,\cdots,m\}$}\}.
         \end{equation*}
-        i.e. the sieve generated by this covering.
+        %i.e. the sieve generated by this covering.
     \end{enumerate}
 \end{definition}
 
@@ -4065,48 +4312,48 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
     $\:$
     \begin{enumerate}
         \item Every open covering $\U$ of $X$ has a refinement which is a rational covering.
-        \item Eery coering sieve (i.e. $X=\bigcup_{U\in\sS}U$) of $X$ contains a rational sieve.
+        \item Every coering sieve (i.e. $X=\bigcup_{U\in\sS}U$) of $X$ contains a rational sieve.
     \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-    Let $\sS$ be a covering sieve of $X$. For $x\in X$, we have $U_x\in\S$ such that $x\in U_x$ and $(f_{x,i})_{i=1,\cdots,m_x}$ with 
+    Let $\sS$ be a covering sieve of $X$. By Proposition \ref{proposition_23_1}, for $x\in X$, we have $U_x\in\sS$ such that $x\in U_x$ and $(f_{x,i})_{i=0,\cdots,m_x}$ with 
     \begin{equation*}
-        \langle f_{x,1},\cdots,f_{x,m_x}\rangle_{A^\triangleleft} = A^\triangleleft
+        \langle f_{x,0},\cdots,f_{x,m_x}\rangle_{A^\triangleleft} = A^\triangleleft
     \end{equation*}
     such that $x\in\cR(f_{x,0}|f_{x,1},\cdots,f_{x,m_x})\subseteq U_x$. Then 
     \begin{equation*}
-        X = \bigcup_{x\in X_{\mathrm{cl}}}\cR_X(f_{x,0}|f_{x,1},\cdots,f_{x,m_x}).
+        V = \bigcup_{x\in X_{\mathrm{cl}}}\cR_X(f_{x,0}|f_{x,1},\cdots,f_{x,m_x}).
     \end{equation*} 
-    Indeed, the right hand side $V$ contains all closed points. If $V\subsetneqq X$, then $X\backslash V$ would be a non-empty closed subset without closed points, a contradiction by Fact 1.2.7.
+    Looking at the right hand side $V$ contains all closed points. If $V\subsetneqq X$, then $X\backslash V$ would be a non-empty closed subset without closed points, a contradiction by Proposition \ref{proposition_1_2_7}.
     \par As $X$ is spectral, it is quasi-compact, hence there are finitely many closed points $(x_i)_{i=1}^n$ such that 
     \begin{equation*}
-        X = \bigcup_{j=1}^n\cR(f_{x_j,0}|f_{x_j,1},\cdots,f_{x_j,m_j}).
+        X = \bigcup_{i=1}^n\cR(f_{x_i,0}|f_{x_i,1},\cdots,f_{x_i,m_i}).
     \end{equation*}
-    Let $f_{j_i} = f_{x_j,i},n_j = m_{x_j},U_j = \cR(f_{j,0}|f_{j,1},\cdots,f_{j,m_j})$. Let $J$ be the set of fnctions $\iota$ defined on $\{1,\cdots,n\}$ such that 
+    We denote $f_{i_j} = f_{x_i,j},n_i = m_{x_i},U_i = \cR(f_{i,0}|f_{i,1},\cdots,f_{i,m_i})$. Let $J$ be the set of functions defined on $\{1,\cdots,n\}$ such that 
     \begin{equation*}
-        0\leq \iota(j)\leq m_j,
+       \forall \iota\in J, 0\leq \iota(j)\leq m_j,
     \end{equation*}
-    and let $J_0\subseteq J$ be the set of all $\iota\in J$ such that there is $j\in\{1,\cdots,n\}$ such that $\iota(j)=0$. For all $\iota\in J$, let 
+    and let $J_0\subseteq J$ be the subset set of all $\iota\in J$ such that there is $j\in\{1,\cdots,n\}$ with $\iota(j)=0$. For all $\iota\in J$, let 
     \begin{equation*}
-        f_\iota = \prod_{j=1}^nf_{j,\iota(1)}
+        f_\iota = \prod_{j=1}^nf_{j,\iota(j)}.
     \end{equation*}
-    then 
+    Clearly, 
     \begin{equation*}
         \langle f_\iota\sep \iota\in J\rangle_{A^\triangleleft} = \prod_{j=1}^n\langle f_{j,0},\cdots,f_{j,m}\rangle_{A^\triangleleft}=A^\triangleleft
     \end{equation*} 
     by the assumption. Note that 
-    \begin{enumerate}[a.]
-        \item $X = \bigcup_{i=1}6n\cR(f_{j,0}|f_{j,1},\cdots,f_{j,m_j}) = \bigcup_{j=1}^m U_j \in\sS$.
+    \begin{enumerate}[i.]
+        %\item $X = \bigcup_{i=1}^n\cR_X(f_{j,0}|f_{j,1},\cdots,f_{j,m_j}) = \bigcup_{j=1}^m U_j \in\sS$.
         \item $\langle f_{j,0},\cdots,f_{j,m_j}\rangle_{A^\triangleleft}=A^\triangleleft$.
-        \item $\max_{\iota\in J}\ab{f_\iota}_x = \max_{\iota\in J_0}\ab{f_\iota(x)}$ when $x\in X$. Note that when $x\in U_k$ and $\iota(j) = \begin{cases}
-            \iota(j),j\not=k,\\
-            0,j=k.
-        \end{cases}$ then $\iota'\in J_0$ and $\ab{f_\iota}_x\leq \ab{f_{\iota'}}_x$.
-        \item $\langle f_\iota\sep \iota\in J_0\rangle_{A^\triangleleft}=A^\triangleleft$. (Follows from b), c) and Theorem \ref{theorem_17_2}).
+        % \item $\max_{\iota\in J}\ab{f_\iota}_x = \max_{\iota\in J_0}\ab{f_\iota(x)}$ when $x\in X$. Note that when $x\in U_k$ and $\iota(j) = \begin{cases}
+        %     \iota(j),j\not=k,\\
+        %     0,j=k.
+        % \end{cases}$ then $\iota'\in J_0$ and $\ab{f_\iota}_x\leq \ab{f_{\iota'}}_x$.
+        \item Since for eveyr $x\in X$, there is $j$ such that $x\in U_j$, we can improve any $f_{j,\iota(j)}$ by replacing it to $f_{j,0}$ hence $\max_{\iota\in J}\ab{f_\iota}_x = \max_{\iota\in J_0}\ab{f_\iota}_x$.
+        \item Using Theorem \ref{theorem_17_2} twice, to $\langle f_\iota\sep \iota\in J\rangle$ and $\langle f_\iota\sep \iota\in J_0\rangle_{A^\triangleleft}$. We see that the latter also generates $A^\triangleleft$.% (Follows from b), c) and Theorem \ref{theorem_17_2}).
     \end{enumerate}
-    Then the $(f_\iota)_{\iota\in J_0}$ defines a rational sieve/covering. We claim that this rational sieve is contained in $\sS$. This will finish the proof. 
-    \par To prove this claim, it suffices to consider,
+    Then the $(f_\iota)_{\iota\in J_0}$ defines a rational covering. We will show that the rational sieve generated by this is contained in $\sS$. To prove this claim, it suffices to consider,
     \begin{equation*}
         \Omega_\lambda = \cR(f_\lambda|\text{ all $f_\iota$ with $\iota\in J_0$}).
     \end{equation*}
@@ -4114,15 +4361,16 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
     \begin{equation*}
         \Omega_\lambda\subseteq U_j.
     \end{equation*}
-    We claim that this holds when $\lambda(j) = 0$ (by Definition such $j$ exists for $\lambda\in J_0$). Indeed, let $x\in\Omega_\lambda$ then 
+    We claim that this holds when $\lambda(j) = 0$. %(by Definition such $j$ exists for $\lambda\in J_0$).
+    Indeed, let $x\in\Omega_\lambda$ then 
     \begin{equation*}
         \ab{f_\lambda}_x = \prod_{k=1}^n\ab{f_{k,\lambda(k)}}\not=0.
     \end{equation*}
-    Hence 
-    \begin{equation*}
-        0\not=\ab{f_{j,\lambda(j)}}_x = \ab{f_{j,0}}_x.
-    \end{equation*}
-    If $x\in U_j$, there would be $i\in \{1,\cdots,m_j\}$ such that 
+    Hence $0\not=\ab{f_{j,\lambda(j)}}_x = \ab{f_{j,0}}_x$.
+    % \begin{equation*}
+    %     0\not=\ab{f_{j,\lambda(j)}}_x = \ab{f_{j,0}}_x.
+    % \end{equation*}
+    If $x\not\in U_j$, there would be $i\in \{1,\cdots,m_j\}$ such that 
     \begin{equation*}
         \ab{f_{j,i}}_x>\ab{f_{j,0}}.
     \end{equation*}
@@ -4137,8 +4385,12 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
     \begin{equation*}
         \ab{f_{\lambda'}(x)} = \ab{f_{j,i}(x)}\prod_{k\not=j}\ab{f_{k,\lambda(k)}}_x>\ab{f_{j,0}}_x\prod_{k\not=j}\ab{f_{k,\lambda(k)}}_x = \ab{f_\lambda(x)}
     \end{equation*}
-    For the inequality in the middle use that this is not $0$ as they are factors of $\ab{f_\lambda}_x\not=0$.
-    By c), there is $\theta\in J_0$ such that $\ab{f_\theta(x)}\geq \ab{f_{\lambda'}}_x>\ab{f_\lambda(x)}$, contradicting $x\in\cR(f_\lambda|\text{ all $f_\iota$ for $\iota\in J_0$})\subseteq\cR(f_\lambda|f_\theta)$.
+    %For the inequality in the middle use that this is not $0$ as they are factors of $\ab{f_\lambda}_x\not=0$.
+    Hence there is $\theta\in J_0$ such that 
+    \begin{equation*}
+    \ab{f_\theta(x)}\geq \ab{f_{\lambda'}}_x>\ab{f_\lambda(x)},
+    \end{equation*}
+    contradicting $x\in\cR(f_\lambda|\text{ all $f_\iota$ for $\iota\in J_0$})\subseteq\cR(f_\lambda|f_\theta)$.
 \end{proof}
 
 %7/17
@@ -4146,130 +4398,158 @@ In this subsection, we denote $X=\Spa A$ where $A$ is a Huber pair.
 \begin{proposition}
     \label{proposition_24_3}
     Let $A$ be a Huber pair and $X=\Spa A$ and $\mathcal{G}$ be a presheaf of abelian groups on $\Rat_X$ such that for every $\Omega\in\Rat_X$ and every rational covering $\mathcal{U}$ of $\Omega$, the map,
-    \begin{equation}
-        \mathcal{G}(\Omega)\to \widehat{H}^0(\mathcal{U},\mathcal{G})
-    \end{equation}
+    \begin{equation*}
+        \mathcal{G}(\Omega)\to \check{H}^0(\mathcal{U},\mathcal{G})
+    \end{equation*}
     is bijective. Then 
-    \begin{equation}
+    \begin{equation*}
         \mathcal{G}\to(\underline{\Sheaf}(\mathcal{G}))_{\Rat_X}
-    \end{equation}
-    is an isomorphism in the category of presheaves on $\Omega$.
+    \end{equation*}
+    is an isomorphism in the category of presheaves on $\Rat_X$.
 \end{proposition}
 
 \begin{proposition}
-    Let $X=\Spa A$ where $A$ is a Huber pair. The class $\mathscr{X}$ of sheaves $\mathcal{F}$ of abelian groups on $X$ such that 
-    \begin{equation}
-        \widehat{H}^p(\mathcal{U},\mathcal{F}) = 0
-    \end{equation}
-    where $p>0$ and $\mathcal{U}$ is a rational covering of $\Omega\in\Rat_X$, together with the functor
-    \begin{equation}
+    Let $X=\Spa A$ where $A$ is a Huber pair. Set $\mathscr{X}$ to be a class of sheaves of abelian groups such that 
+    \begin{equation*}
+    \mathscr{X} = \left\{\cF\in\mathrm{Sh}_{\mathrm{Ab}}(X)\:\bigg{\vert}\:\substack{\forall p>0, \forall \Omega\in\Rat_X, \\\text{ and $\mathcal{U}$ rational covering of $\Omega$} \check{H}^p(\mathcal{U},\mathcal{F}) = 0}\right\},
+    \end{equation*} %$\mathcal{F}$ of abelian groups on $X$ such that 
+    % \begin{equation}
+    %     \check{H}^p(\mathcal{U},\mathcal{F}) = 0
+    % \end{equation}
+    % where $p>0$ and $\mathcal{U}$ is a rational covering of $\Omega\in\Rat_X$, together with the functor
+    together with a left exact functor
+    \begin{equation*}
         \mathcal{F}\mapsto\mathcal{F}(\Omega)
-    \end{equation}
-    where $\Omega\in\Rat_X$ satisfy the assumption of Proposition 2.4.3. Then all injective sheaves are in $\mathscr{X}$ and $H^p(\Omega,\mathcal{F})=0$ when $\Omega\in\Rat_X,\mathcal{F}\in\mathscr{X}$ and $p>0$.
+    \end{equation*}
+    where $\Omega\in\Rat_X$ satisfies the assumption of Grothendieck's acyclicity lemma. Hence due to corollary of it, all injective sheaves are in $\mathscr{X}$. In particular, $\Omega\in\Rat_X,\mathcal{F}\in\mathscr{X}$ and $p>0$ then $H^p(\Omega,\mathcal{F})=0$.
 \end{proposition}
 
-We have somewhat more convenient acyclicity criterion in the Tate case.
+%We have somewhat more convenient acyclicity criterion in the Tate case.
+
+Under the assumption of $A$ being Tate, we have more convenient acyclicity criterion.
 
 \begin{definition}
     \label{definition_24_2}
-    Let $X=\Spa A$ where $(A^\triangleleft,A^+)$ is a Huber pair. We inductively define the property of a sieve $\sS$ in $\Omega\in\Rat_X$ to have a Laurent series $\leq o$ as follows.
+    Let $X=\Spa A$ where $(A^\triangleleft,A^+)$ is a Huber pair. We inductively define the property of a sieve $\sS$ in $\Omega\in\Rat_X$ to have a Laurent order at most $o$ as follows.
     \begin{enumerate}
         \item A sieve has Laurent order $0$ if it is the all sieve.
-        \item If $o>0$ and Laurent order $\leq o-1$ has already been defined then $\sS$ has Laurent order $\leq o$ if there is $g\in \Ouv_X(\Omega)$ such that $\sS|_{\cR_\Omega(g|1)}$ and $\sS|_{\cR_\Omega(1|g)}$ both have Laurent order $\leq o-1$. 
+        \item If $o>0$ and Laurent order $\leq o-1$ has already been defined then $\sS$ has Laurent order $\leq o$ if there is $g\in \cO_X(\Omega)$ such that $\sS|_{\cR_\Omega(g|1)}$ and $\sS|_{\cR_\Omega(1|g)}$ both have Laurent order $\leq o-1$. 
     \end{enumerate}
-    The Laurent order of $\sS$ is the smallest $o\in N$ such that $\sS$ has Laurent order $\leq. o$ or $\infty$ if no such $o$ exists. We denote $o_L(\sS)$ to be the Laurent order of $\sS$.
+    The Laurent order of $\sS$ is the smallest $o\in N$ such that $\sS$ has Laurent order $\leq o$ if no such $o$ exists then its Laurent order is $\infty$. We denote $o_L(\sS)$ to be the Laurent order of $\sS$.
 \end{definition}
 
 \begin{proposition}
-    \label{fact_24_1}$\:$
+    \label{fact_24_1}Let $\sS$ be a sieve on $\Omega$. Then the following statements hold.
     \begin{enumerate}[a.]
         \item $\sS\subseteq\mathcal{T}\Rightarrow o_L(\mathcal{T})\leq o_L(\sS)$. 
-        \item $\Theta\subseteq\Omega\Rightarrow o_{L,\Theta}(\sS|_\Theta)\leq o_{L,\Omega}(\sS)$ 
+        \item $\Theta\subseteq\Omega\Rightarrow o_{L,\Theta}(\sS|_\Theta)\leq o_{L,\Omega}(\sS)$.
         \item $o_L(\sS)<\infty\Rightarrow \sS$ is a covering sieve.
     \end{enumerate}
 \end{proposition}
 
-The following lemma does not yet need the Tate assumption.
+%The following lemma does not yet need the Tate assumption.
 
 \begin{lemma}
     \label{lemma_24_1}
-    Let $G=\{g_i\sep 1\leq i\leq n\}$ be a non-empty finite subset of $A^{\triangleleft\times}$. Then the rational sieve defined by $G$ has finite Laurent order.
+    Let $G=\{g_i\sep 1\leq i\leq n\}$ be a non-empty finite subset of $\cO_X(\Omega)^\times$. %$(A^{\triangleleft})\times$. 
+    Then the rational sieve defined by $G$ has finite Laurent order.
 \end{lemma}
 \begin{proof}
     We write $g_i\preceq g_j$ if $\Omega=\cR(g_j|g_i)$. Obviously, this is a partial order with allowed equivalence. We call $(i,j)$ in order if at least one of $g_i\preceq g_j$ or $g_j\preceq g_i$ holds. 
     We prove the claim by induction on the number of pairs not in order. 
-    If all pairs are in order then without loss of generality by renumbering $G$, we can assume $g_1\preceq \cdots\preceq g_m$. Thus, all $g_i\leq g_m$. and the rational sieve contains $\Omega=\cR_\Omega(g_m|g_0,\cdots,g_{m-1})$ hence is the all sieve thus has Laurent order $0$.
-    \par Let $(i,j)$ be not in order and the assertion shown for a smaller number of pairs not in order. Let $q ={\frac {g_i} {g_j}}$ and $\Theta_1 = \cR_\Omega(q|1)$ and $\Theta_2=\cR_\Omega(1|q)$. Then the pairs in order stay in order after restricting to $\Theta_i$ and $g_j|_{\Theta_1}\preceq g_i|_{\Theta_1}$ and $g_i|_{\Theta_2}\preceq g_j|_{\Theta2}$.
-    Thus $(i,j)$ becomes in order for $G_k = \{g_i|_{\Theta_k}\sep 1\leq i\leq n\}$ where $k=1,2$.By the induction assumption and Definition \ref{definition_24_2}, the rational sieve defined by $G$ has finite Laurent order.
+    \par If all pairs are in order then without loss of generality by renumbering $G$, we can assume $g_1\preceq \cdots\preceq g_m$. Thus, all $g_i\preceq g_m$. In this case, observe that 
+    \begin{equation*}
+    \Omega = \cR_\Omega(g_m|g_0,\cdots,g_{m-1}).
+    \end{equation*}
+    Hence the rational sieve generated by the rational cover of $G$ contains $\Omega$ hence is the all sieve. Therefore by definition, it has Laurent order $0$.
+    \par Suppose $(i,j)$ is not in order and the assertion shown for a smaller number of pairs not in order. Let $q ={\frac {g_i} {g_j}}$ and $\Theta_1 = \cR_\Omega(q|1)$ and $\Theta_2=\cR_\Omega(1|q)$. Then the pairs in order stay in order after restricting to $\Theta_i$ as they are subsets of $\Omega$. Furthermore, $g_j|_{\Theta_1}\preceq g_i|_{\Theta_1}$ and $g_i|_{\Theta_2}\preceq g_j|_{\Theta2}$.
+    Thus $(i,j)$ becomes in order for $G_k = \{g_i|_{\Theta_k}\sep 1\leq i\leq n\}$ where $k=1,2$. By the induction assumption and Definition \ref{definition_24_2}, the rational sieve defined by $G$ has finite Laurent order.
 \end{proof}
 
 \begin{lemma}
     \label{lemma_24_2}
-    Let $A$ be a Huber pair such that $A^\triangleleft$ is Tate and there is $(f_i)_{i=0}^m\in A^{m+1}$ such that $\langle f_0,\cdots,f_m\rangle_{A^\triangleleft}=A^\triangleleft$. Then there is $\varepsilon\in A^{\triangleleft\times}\cap A^{\triangle\dcirc}$ such that 
-    \begin{equation}
-        \ab{\varepsilon}_x \leq\max_{0\leq i\leq n}\ab{f_i}_x.\label{eq:lemma_24_2_3}
-    \end{equation}
+    Let $A=(A^\triangleleft,A^+)$ be a Huber pair such that $A^\triangleleft$ is Tate and there is $(f_i)_{i=0}^m\in A^{m+1}$ with $\langle f_0,\cdots,f_m\rangle_{A^\triangleleft}=A^\triangleleft$. Then we can take $\varepsilon\in (A^{\triangleleft})^\times\cap (A^{\triangleleft})^\dcirc$ satisfying
+    \begin{equation*}
+        \forall x\in X,\ab{\varepsilon}_x \leq\max_{0\leq i\leq n}\ab{f_i}_x.\label{eq:lemma_24_2_3}
+    \end{equation*}
 \end{lemma}
 
 \begin{proof}
-    Let $s\in A^{\triangleleft\dcirc}\cap A^{\triangleleft\times}$. By assumptino, there are $(\lambda_i)_{i=0,\cdots,m}\in (A^\triangleleft)^{m+1}$ such that 
+    Let $s\in (A^{\triangleleft})^\dcirc\cap (A^{\triangleleft})^\times$. By assumption, there are $(\lambda_i)_{i=0,\cdots,m}\in (A^\triangleleft)^{m+1}$ giving
     \begin{equation*}
         \sum_{i=0}^m \lambda_i f_i = 1.
     \end{equation*}
-    Since $A^+$ is an open subring and $\lim_{j\to\infty} s^j\lambda_i = 0$, there is $1\leq j\leq m-1$ such that all $\lambda_is^j\in A^+$. Then one can define $\varepsilon = s^j$. 
+    Since $A^+$ is an open subring and $\lim_{j\to\infty} s^j\lambda_i = 0$, there is $j\in\N$ such that for each $i=0,\cdots,m$, $\lambda_is^j\in A^+$. Then one can set $\varepsilon = s^j$. Indeed,
     \begin{equation*}
         \ab{\varepsilon}_x =\left\vert\sum_{i=0}^m (s^j\lambda_i)f_i\right\vert_x\leq\max_{0\leq i\leq m}\ab{\lambda_is^j}_x\ab{f_i}_x\leq \max_{0\leq i\leq m}\ab{f_i}_x.
     \end{equation*}
-    since $\ab{\lambda_is^j}\leq 1$ since $x\in\Spa A$ and $\lambda_i s^j\in A^+$.
+    % since $\ab{\lambda_is^j}\leq 1$ since $x\in\Spa A$ and $\lambda_i s^j\in A^+$.
 \end{proof}
 
 \begin{proposition}
     \label{proposition_24_5}
-    In the situation of Definition \ref{definition_24_2}, assume $A$ (i.e $A^\triangleleft$) to be Tate. Then a sieve $\sS$ in $\Omega\in\Rat_X$ covers $\Omega$ if and only if $\omega_L(\sS)<\infty$. 
+    In the situation of Definition \ref{definition_24_2}, assume $A$ (i.e $A^\triangleleft$) to be Tate. Then a sieve $\sS$ on $\Omega\in\Rat_X$ covers $\Omega$ if and only if $o_L(\sS)<\infty$. 
 \end{proposition}
 \begin{proof}
     The proof will work by showing that every rational sieve has finite $o_L$ which proves the claim by Proposition \ref{proposition_23_2} and \ref{fact_24_1} a.
-    \par As was said before it is sufficent to show that every rational sieve has finite Laurent order. Let $\sS$ be the rational sieve defined by the finite subset of $G$ of $\Ouv_X(\Omega)$. We use induction on the number of elements of $G$ which are not in $\mathcal{O}_X^\times(\Omega)$.
-    If this number is $0$, Lemma \ref{lemma_24_1} can be applied. Let $g_1\not\in\mathcal{O}_X^\times(\Omega)$ and the assertion shown for a smaller number of non-elements.
-    Since $A$ is Tate, there is $\delta\in\mathcal{O}_X^\times(\Omega)$ such that $\ab{\delta}_\omega<\max_{1\leq i\leq m}\ab{g_i}_\omega$ holds for all $\omega\in\Omega$. Consider 
+    \par It is sufficent to show that every rational sieve has finite Laurent order. Let $\sS$ be the rational sieve defined by the finite subset $G$ of $\cO_X(\Omega)$. We use induction on the number of elements of $G$ which are not in $\mathcal{O}_X^\times(\Omega)$.
+    If this number is $0$, Lemma \ref{lemma_24_1} can be applied. Suppose $g_1\not\in\mathcal{O}_X^\times(\Omega)$ and the assertion shown for a smaller number of non-elements.
+    Since $A$ is Tate, there is $\delta\in\mathcal{O}_X^\times(\Omega)$ such that $\ab{\delta}_\omega <\max_{1\leq i\leq m}\ab{g_i}_\omega$ holds for all $\omega\in\Omega$. Indeed, from the proof of Lemma \ref{lemma_24_2} shows the strict inequality can be attained. Consider 
     \begin{equation*}
         \Theta_1 = \cR_\Omega(g_1|\delta)=\cR\left({\frac {g_1} \delta}\bigg{\vert}1\right),\Theta_2 = \cR_\Omega(\delta|g_1) = \cR\left(1\bigg{\vert}{\frac {g_1} \delta}\right).
     \end{equation*}
-    On $\Theta_1,g_1$ becomes a unit as $\ab{g_1}_\theta\geq\ab{\delta}_\theta\not=0$ when $\theta\in\Theta_1$ hence the induction assumption applies to $G|_{\Theta_1}$. But the induction assumption also applies to $G|_\Theta$ since
+    On $\Theta_1,g_1$ becomes a unit as $\ab{g_1}_\theta\geq\ab{\delta}_\theta\not=0$ when $\theta\in\Theta_1$ hence the induction assumption applies to $G|_{\Theta_1}$. 
+    On the other hand for $\theta_2\in\Theta_2$, 
     \begin{equation*}
-        \cR_{\Theta_2}(g_1|g_2,\cdots,g_m)=\emptyset 
+        \ab{g_1}_{\theta_2}\leq \ab{\delta}_{\theta_2}<\max_{1\leq i\leq m}\ab{g_i}_{\theta_2}.
     \end{equation*}
-    as for $\vartheta\in\Theta_2$, $\ab{g_1}_\vartheta\leq\ab{\delta}_\vartheta<\max_{1\leq i\leq m}\ab{g_i}_\vartheta$. And,
+    Hence, we obtain,
     \begin{equation*}
-        \cR_{\Theta_2}(g_i|g_1,g_2,\cdots,g_m) = \cR(g_i|g_2,\cdots,g_m)
+        \cR_{\Theta_2}(g_1|g_2,\cdots,g_m) = \emptyset.
     \end{equation*}
-    as for $\vartheta\in\Theta_2$, 
-    \begin{equation}
-        \ab{g_1}_\vartheta\leq\ab{\delta}_\vartheta<\max_{2\leq i\leq m}\ab{g_i}_\vartheta.\label{eq:proposition_24_5_star}
-    \end{equation}
-    \par Hence $g_1|_{\Theta_2}$ can simply be removed from $G_{\Theta_2}$ without affection the rational sieve by \eqref{eq:proposition_24_5_star} it follows that $g_2|_{\Theta_2},\cdots,g_m|_{\Theta_2}$ have no common zero in $\Theta_2$, hence define a rational sieve.
+    Furthermore, the inequality shows,
+    \begin{equation*}
+        \forall 2\leq i\leq m, \cR_{\Theta_2}(g_i|g_1,\cdots,g_m) = \cR_{\Theta_2}(g_i|g_2,\cdots,g_m).
+    \end{equation*}
+    Applying Theorem \ref{theorem_17_2}.d, and that $g_2|_{\Theta_2},\cdots g_m|_{\Theta_2}$ have no common zero on $\Theta_2$, these also define a rational covering, hence the induction hypothesis can be applied.
+    % But the induction assumption also applies to $G|_\Theta$ since
+    % \begin{equation*}
+    %     \cR_{\Theta_2}(g_1|g_2,\cdots,g_m)=\emptyset 
+    % \end{equation*}
+    % as for $\vartheta\in\Theta_2$, $\ab{g_1}_\vartheta\leq\ab{\delta}_\vartheta<\max_{1\leq i\leq m}\ab{g_i}_\vartheta$. And,
+    % \begin{equation*}
+    %     \cR_{\Theta_2}(g_i|g_1,g_2,\cdots,g_m) = \cR(g_i|g_2,\cdots,g_m)
+    % \end{equation*}
+    % as for $\vartheta\in\Theta_2$, 
+    % \begin{equation}
+    %     \ab{g_1}_\vartheta\leq\ab{\delta}_\vartheta<\max_{2\leq i\leq m}\ab{g_i}_\vartheta.\label{eq:proposition_24_5_star}
+    % \end{equation}
+    % \par Hence $g_1|_{\Theta_2}$ can simply be removed from $G_{\Theta_2}$ without affection the rational sieve by \eqref{eq:proposition_24_5_star} it follows that $g_2|_{\Theta_2},\cdots,g_m|_{\Theta_2}$ have no common zero in $\Theta_2$, hence define a rational sieve.
 \end{proof}
 
 \begin{proposition}
     \label{proposition_24_6}
-    Let $X=\Spa A$ where $A$ is Tate, $\mathcal{G}$ be a presheaf on $\Rat_X$ (of abelian groups) such that for all $\Omega\in\Rat_X$ and all $g\in\mathcal{O}_X(\Omega)$, the sequence,
-    \begin{equation}
-        \begin{tikzcd}
-0 \arrow[r] & \mathcal{G}(\Omega) \arrow[r, "{r\mapsto(r|_{\Omega_1},r|_{\Omega_2})}"] & \mathcal{G}(\Omega_1)\oplus\mathcal{G}(\Omega_2) \arrow[r, "{(r_1,r_2)\mapsto(r_1|_{\Omega_{12}}-r_2|_{\Omega_{12}})}"] & \mathcal{G}(\Omega_{12}) \arrow[r] & 0
-\end{tikzcd}
-    \end{equation}
-    is exact where $\Omega_1 = \cR_\Omega(g|1),\Omega_2 = \cR_\Omega(1|g)$ and $\Omega_{12} = \Omega_1\cap \Omega_2$. Then $\mathcal{G}\to(\underline{\Sheaf}(\mathcal{G}))|_{\Rat_X}$ is an isomorphism in the category of pressheaves of abelian groups on $X$.
+    Let $X=\Spa A$ where $A$ is Tate, $\mathcal{G}$ be a presheaf of abelian groups on $\Rat_X$ such that for all $\Omega\in\Rat_X$ and all $g\in\mathcal{O}_X(\Omega)$, the sequence,
+%     \begin{equation}
+%         \begin{tikzcd}
+% 0 \arrow[r] & \mathcal{G}(\Omega) \arrow[r, "{r\mapsto(r|_{\Omega_1},r|_{\Omega_2})}"] & \mathcal{G}(\Omega_1)\oplus\mathcal{G}(\Omega_2) \arrow[r, "{(r_1,r_2)\mapsto(r_1|_{\Omega_{12}}-r_2|_{\Omega_{12}})}"] & \mathcal{G}(\Omega_{12}) \arrow[r] & 0
+% \end{tikzcd}
+%     \end{equation}
+    \begin{equation*}
+        0\to\mathcal{G}(\Omega)\stackrel{\substack{\mathmakebox[0pt][c]{r\mapsto(r|_{\Omega_1},r|_{\Omega_2})}\\\:}}{\longrightarrow}\mathcal{G}(\Omega_1)\oplus\mathcal{G}(\Omega_2)\stackrel{\substack{\mathmakebox[0pt][c]{(r_1,r_2)\mapsto(r_1|_{\Omega_{12}}-r_2|_{\Omega_{12}})}\\\:}}{\longrightarrow}\mathcal{G}(\Omega_{12})\to0.
+    \end{equation*}
+    is exact where $\Omega_1 = \cR_\Omega(g|1),\Omega_2 = \cR_\Omega(1|g)$ and $\Omega_{12} = \Omega_1\cap \Omega_2$. 
+    \par Then $\mathcal{G}\to(\underline{\Sheaf}(\mathcal{G}))|_{\Rat_X}$ is an isomorphism in the category of pressheaves of abelian groups on $X$.
 \end{proposition}
 
 \begin{proposition}
     \label{proposition_24_7}
-    Let $X=\Spa A$ where the Huber pair $A$ is Tate. Then the assumption in Proposition 2.4.3 hold for $\mathscr{A}=(\text{sheaves of abeliangroups on $X$})$ and of the functor $\mathcal{F}\to \mathcal{F}(\Omega)$ and $\mathscr{X}$ the class of sheaves $\mathcal{F}$ on $X$ such that 
-    \begin{equation}
-        \begin{tikzcd}
-0 \arrow[r] & \mathcal{F}(\Omega) \arrow[r, "{f\mapsto(f|_{\Omega_1},f|_{\Omega_2})}"] & \mathcal{F}(\Omega_1)\oplus\mathcal{F}(\Omega_2) \arrow[r, "{(f_1,f_2)\mapsto(f_1|_{\Omega_12}-f_2|_{\Omega_{12}})}"] & \mathcal{F}(\Omega_{12}) \arrow[r] & 0
-\end{tikzcd}
-    \end{equation}
-    is exact for all $\Omega\in\Rat_X$ and all $g\in\mathcal{O}_X(\Omega)$ where $\Omega_1,\Omega_2$ and $\Omega_{12}$ are as in Proposition \ref{proposition_24_6}.
+    Let $X=\Spa A$ where the Huber pair $A$ is Tate. %Then the assumption in Grothendieck's acyclicity lemma holds for % and of the functor $\mathcal{F}\to \mathcal{F}(\Omega)$ and $\mathscr{X}$ the class of sheaves $\mathcal{F}$ on $X$ such that 
+    Let $\mathscr{X}$ be a subclass of $\mathrm{Sh}_{\mathrm{Ab}}(X)$ containing any $\cF\in\mathrm{Sh}_{\mathrm{Ab}}(X)$ such that
+    \begin{equation*}
+        o\to\mathcal{F}(\Omega)\stackrel{\substack{\mathmakebox[0pt][c]{f\mapsto(f|_{\Omega_1},f|_{\Omega_2})}\\\:}}{\longrightarrow}\mathcal{F}(\Omega_1)\oplus\mathcal{F}(\Omega_2)\stackrel{\substack{\mathmakebox[0pt][c]{(f_1,f_2)\mapsto(f_1|_{\Omega_12}-f_2|_{\Omega_{12}})}\\\:}}{\longrightarrow}\mathcal{F}(\Omega_{12})\to 0
+    \end{equation*}
+    is exact for all $\Omega\in\Rat_X$ and all $g\in\mathcal{O}_X(\Omega)$ where $\Omega_1,\Omega_2$ and $\Omega_{12}$ are as in Proposition \ref{proposition_24_6}. Then the assumption in Grothendieck's acyclicity lemma holds for $\mathscr{X}$ and $\mathscr{A}=\mathrm{Sh}_{\mathrm{Ab}}(X)$ with the functor $\cF\mapsto \cF(\Omega)$ for any $\Omega\in\Rat_X$.
 \end{proposition}
 
 \begin{thebibliography}{9}

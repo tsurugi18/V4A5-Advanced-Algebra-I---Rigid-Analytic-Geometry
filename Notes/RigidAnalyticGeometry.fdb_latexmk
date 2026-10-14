@@ -1,11 +1,11 @@
 # Fdb version 4
-["dvipdf"] 1791724841.12485 "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry.pdf" "RigidAnalyticGeometry" 1791724841.64329 0
-  "RigidAnalyticGeometry.dvi" 1791724841.09263 385128 c23fab4bfb27783090aaa73a4cbf6384 "latex"
+["dvipdf"] 1791769921.94331 "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry.pdf" "RigidAnalyticGeometry" 1791769922.4975 0
+  "RigidAnalyticGeometry.dvi" 1791769921.91393 385112 deff346f9dd1ff90085c41eb2099d04b "latex"
   (generated)
   "RigidAnalyticGeometry.pdf"
   (rewritten before read)
-["latex"] 1791724840.24679 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry" 1791724841.642 0
-  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" 1791724839.54946 278814 1d25a019eb4e478c593b303553f4712f ""
+["latex"] 1791769921.10185 "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" "RigidAnalyticGeometry.dvi" "RigidAnalyticGeometry" 1791769922.496 0
+  "/Users/tsurugi/Desktop/Universities/UniBonn/Semester4/V4A5 - Rigid Analytic Geometry/Notes/RigidAnalyticGeometry.tex" 1791769919.62732 278816 415b4f739653abded57d4ff29e17ccf8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcti0800.tfm" 1136768653 2048 34c41bea24cdfcd7151cd817799f6952 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -164,8 +164,8 @@
   "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/latex.fmt" 1760893821 3345650 f2179b917b551c7214098855962de784 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "RigidAnalyticGeometry.aux" 1791724841.08963 14984 1ef982ae9ec9cfb156264318b0fa501a "latex"
-  "RigidAnalyticGeometry.tex" 1791724839.54946 278814 1d25a019eb4e478c593b303553f4712f ""
+  "RigidAnalyticGeometry.aux" 1791769921.91283 14984 664ea800a5906d79dea43a3e026e0696 "latex"
+  "RigidAnalyticGeometry.tex" 1791769919.62732 278816 415b4f739653abded57d4ff29e17ccf8 ""
   (generated)
   "RigidAnalyticGeometry.aux"
   "RigidAnalyticGeometry.dvi"
